@@ -17,3 +17,9 @@
 **Não fazer:** prospecção de casas ou afiliados agora; scraping da Sympla sem autorização; reutilizar cartazes presumindo licença; divulgar heatmap como fluxo real de pessoas; criar CNPJ, domínio pago, anúncios ou aplicativo sem nova decisão.
 
 **Formato de entrega:** TL;DR, mudanças concretas, validações, riscos/pendências, próximo passo. Evitar longos relatórios de progresso.
+
+## H-ROUTE-002 — Desktop Commander e economia de cota (2026-11-02)
+
+Herança operacional: [HARNESS global](https://github.com/archersland/ai-workspace/blob/master/HARNESS.md) (§ H-ROUTE-002) e [harness específico do projeto](https://github.com/archersland/ai-workspace/blob/master/Projects/PartiuFloripa/HARNESS.md). O repositório deste produto mantém suas próprias decisões e código; a origem antiga `wagarcdev/ai-workspace` foi transferida para `archersland/ai-workspace`.
+
+**Conector autorizado do destino e CI/automação existente primeiro. Desktop Commander apenas para recurso local indispensável e sem alternativa; justificar a exceção, minimizar chamadas e não disputar foco.** Não usá-lo para simples operações GitHub/Drive, inventários ou testes executáveis em CI. O Cliente relatou 13% de sua cota mensal consumida já em 02/11/2026: evitar desperdício. Usar H-LEAN-001 para manter o trabalho proporcional, sem criar PRs/validações sem necessidade. Não executar a automação suspensa das instruções dos Projetos ChatGPT.
