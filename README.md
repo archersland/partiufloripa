@@ -4,7 +4,7 @@ Portal web, mobile-first, para descobrir eventos e entretenimento em Florianópo
 
 **Produto em Discovery/MVP (atualizado em 02/11/2026).** O catálogo continua experimental: datas, horários, permissões e links exigem auditoria. Interface implementada não equivale a QA, publicação implantada ou beta aprovado.
 
-- URL histórica do GitHub Pages (continuidade após transferência ainda precisa verificação): https://wagarcdev.github.io/partiufloripa/
+- Produção técnica (HTTP 200 verificado em 02/11/2026): https://archersland.github.io/partiufloripa/
 - Código: https://github.com/archersland/partiufloripa
 - Stack: HTML/CSS/JS estático, `events.json`, Leaflet + leaflet.heat, GeoJSON local e GitHub Pages.
 - Sem backend, login, bilheteria ou processamento de pagamentos.
@@ -25,7 +25,7 @@ Portal web, mobile-first, para descobrir eventos e entretenimento em Florianópo
 - Mapa Leaflet/Esri com calendário nativo, calor dos eventos noturnos cadastrados e marcadores de precisão aproximada; **não** representa densidade de pessoas. Retry após falha do carregamento.
 - 14 imagens locais históricas e registros separados de licenças de fotografias ilustrativas; artes de eventos sem direitos documentados não são automaticamente utilizadas.
 - Compartilhamento pelo navegador, link copiável e exportação .ics quando houver data e hora válidas, com aviso de conferência. Metadados de fonte e situação editorial no detalhe. Deploy automático ao atualizar `main`, condicionado aos checks.
-- Não há métricas de audiência, AdSense ativo, programa de afiliados, aprovação comercial ou direitos de imagem documentados.
+- Não há métricas de audiência, AdSense ativo, programa de afiliados ou aprovação comercial. Há licenças registradas de fotos ilustrativas/de arquivo, mas os cartazes de eventos históricos seguem sem autorização comprovada.
 
 ## Desenvolvimento
 Abrir `index.html` via servidor HTTP local (não via `file://`, porque há `fetch` de arquivos JSON). Exemplo: `python -m http.server 8000`. Verificação básica: `node scripts/check-site.cjs`, `node scripts/validate-events.cjs`, `node scripts/test-event-ux.cjs` e testes de módulos; gate editorial futuro: `node scripts/validate-events.cjs --beta` (não passa sem auditoria individual). Alterações entram por commit e deploy do GitHub Actions.
