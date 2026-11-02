@@ -24,11 +24,11 @@ Portal estático mobile-first para eventos de Florianópolis. Tecnologias existe
 | OPT-05 | P1 | Mapa não se recupera facilmente de falha de CDN | Reinicialização possível com botão de nova tentativa | Implementado; QA de falha real pendente |
 | OPT-06 | P1 | Precisão cartográfica não distinguida visualmente | Marcador regional pontilhado/âmbar; casa identificada em verde | Implementado; QA visual pendente |
 | OPT-07 | P1 | `Object.groupBy` pode falhar em Android antigo | Agrupamento nativo via `Map` | Implementado; QA Android físico pendente |
-| OPT-08 | P1 | URLs e navegação após transferência do GitHub | Link do repositório atualizado; investigar URL pública histórica/canonical | Parcial — origem Pages ainda precisa verificação de domínio |
+| OPT-08 | P1 | URLs e navegação após transferência do GitHub | Link do repositório e canonical na origem correta | Corrigido: host antigo 404, novo 200; QA pós-deploy pendente |
 | OPT-09 | P1 | Compartilhamento limitado a copiar URL manual | Compartilhar via Web Share API ou copiar link | Implementado; QA mobile pendente |
 | OPT-10 | P1 | Impossibilidade de exportar à agenda pessoal | Baixar `.ics` apenas quando data/hora têm formato válido, com aviso de conferência | Implementado; interoperabilidade de calendário pendente |
 | OPT-11 | P1 | Proveniência pouco visível | Fonte/domínio, registro de última checagem e aviso distinto de verificação editorial | Implementado parcialmente — faltam conferências de dados |
-| OPT-12 | P1 | QA visual pontual sem rotina suficiente | Validar viewport mobile/desktop, console, mapa, cliques, estados vazios, tema | Testes Node existentes ampliados; navegador/físico pendentes |
+| OPT-12 | P1 | QA visual pontual sem rotina suficiente | Validar viewport mobile/desktop, console, mapa, cliques, estados vazios, tema | Node real e smoke headless passaram; QA visual/físico pendente |
 | OPT-13 | P2 | JS/CSS/HTML concentrados em arquivos extensos | Extrair módulos por responsabilidade sem migração de stack | Iniciado pelo módulo de UX; refatoração geral adiada |
 | OPT-14 | P2 | Atualização editorial manual | Descoberta automatizada apenas de fontes permitidas, exceções para revisão | Incluído no planejamento do MVP conforme ADR-014; execução bloqueada até fontes/regras autorizadas |
 
@@ -46,3 +46,11 @@ A versão pública permanece experimental até auditoria editorial, direitos, pr
 
 ## Decisões / dependências
 A inclusão de melhorias leves no web MVP foi autorizada pelo Cliente. Não iniciar coleta automatizada de terceiros sem fonte e permissão verificadas; preservar ADR-014/016/017/021/023/024/025/026. Não implementar recomendações de eventos relacionados (ADR-020). Estratégia vigente: corrigir a stack estática, sem reescrita de framework, CI existente e controles proporcionais ao risco.
+
+## Evidência de execução — 2026-11-02
+- **GitHub:** arquivos alterados persistidos na `main` e relidos após gravação. Código e documentação versionados; sem PR.
+- **Teste real Node em cópia temporária no Windows autorizado:** `check-site.cjs`, `validate-events.cjs`, `test-event-ux.cjs`, `test-venue-location.cjs`, `test-image-rights.cjs`, `test-licensed-photos.cjs`, `test-media-selection.cjs` e `test-map-popup.cjs` finalizaram com saída de sucesso. Modo experimental: 56 registros, 5 quarentena, 51 visíveis, 7 sem horário, **0 erros** e 37 avisos. Modo `--beta` foi simulado separadamente com 58 erros deliberados, barrando conteúdo não revisado; não houve lançamento.
+- **Smoke headless (Chromium desktop com viewport mobile 390×844 e desktop 1280×800; servidor HTTP temporário):** agenda inicial mostrou 33 cards futuros em novembro; botões Hoje e Fim de semana responderam; detalhe abriu e exibiu fonte; arquivo `evt-401f1a110051.ics` foi efetivamente baixado; mapa carregou a noite selecionada com um ponto e calor; agenda permaneceu visível ao bloquear propositalmente `data/image-rights.json`; sem `pageerror` inesperado. Capturas geradas em diretório temporário de QA, mas não analisadas visualmente pelo Cliente.
+- **Compartilhamento:** botão renderizado e acionado no navegador; confirmação do clipboard/share precisa de teste específico em dispositivo compatível. **Retry do mapa:** caminho implementado, ainda falta teste de falha da CDN + recuperação.
+- **Publicação:** `main` no commit `3ed4c2d22e3434b1f3d2e3467ffc47b533eb9284` teve GitHub Actions `completed/success` (run 41440531176), evidência parcial de CI/deploy; alterações documentais posteriores exigem verificação final. Origem antiga `wagarcdev.github.io/partiufloripa/` retornou HTTP 404; origem atual `archersland.github.io/partiufloripa/` retornou HTTP 200. O gerador foi atualizado para canonical no host atual.
+- **Não executado:** auditoria individual de todos os eventos/imagens; teste Android físico, auditoria de contraste/acessibilidade WCAG, inspeção visual detalhada das capturas; verificação de importação .ics em apps externos. Nenhum lançamento beta nem aprovação editorial inferidos.
