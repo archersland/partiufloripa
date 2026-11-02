@@ -113,7 +113,7 @@ function filtered(){
   .sort((a,b)=>(a.date+(a.time||"")).localeCompare(b.date+(b.time||"")));
 }
 function renderMonthButtons(){
- const months=PartiuEventUX.months(events),fmt=new Intl.DateTimeFormat("pt-BR",{month:"long",year:"numeric",timeZone:"UTC"});
+ const months=PartiuEventUX.months(events.filter(e=>e.date>=today)),fmt=new Intl.DateTimeFormat("pt-BR",{month:"long",year:"numeric",timeZone:"UTC"});
  $("month-switcher").innerHTML=months.map(m=>'<button type="button" data-month="'+esc(m)+'" aria-pressed="'+String(m===month)+'" class="'+(m===month?'active':'')+'">'+
   esc(fmt.format(new Date(m+"-01T12:00:00Z"))).replace(/^./,c=>c.toLocaleUpperCase("pt-BR"))+"</button>").join("");
 }
@@ -129,7 +129,7 @@ function render(){
  $("featured-title").textContent=dateFilter?"Eventos da data selecionada":fallback?"Próximos eventos":"Hoje em Floripa";
  $("featured-subtitle").textContent=dateFilter?"Eventos correspondentes aos filtros":fallback?"Confira a programação disponível a seguir":"Eventos cadastrados para hoje";
  $("featured").innerHTML=featured.length?featured.map(e=>card(e,"featured")).join(""):'<div class="empty">Nenhum evento futuro encontrado.</div>';
- const list=dateFilter?a:a.filter(e=>e.date.startsWith(month));
+ const list=dateFilter?a:a.filter(e=>e.date>=today&&e.date.startsWith(month));
  $("count").textContent=list.length+" eventos encontrados";
  const groups=new Map();
  for(const e of list){if(!groups.has(e.date))groups.set(e.date,[]);groups.get(e.date).push(e)}
@@ -214,7 +214,7 @@ Promise.all([fetchJson("./events.json"),Promise.allSettled(["./data/venues.json"
  if(failed)$("data-status").textContent="Alguns dados complementares não carregaram; a agenda continua disponível com informações e imagens de reserva.";
  venueDirectory=venues;imageRights=rights;categoryPhotos=photos;venueMedia=venuePics;eventPhotos=artistPics;
  events=d.events.filter(e=>PartiuEventUX.validDate(e.date)&&/^https:\/\//.test(e.source)&&e.sourceReview!=="quarantined");
- month=PartiuEventUX.initialMonth(events,today);renderMonthButtons();
+ month=PartiuEventUX.initialMonth(events.filter(e=>e.date>=today),today);renderMonthButtons();
  for(const [id,key] of [["category","category"],["region","region"]]){
   for(const v of [...new Set(events.map(e=>key==="region"?displayRegion(e):e[key]))].filter(Boolean).sort((a,b)=>a.localeCompare(b,"pt-BR"))){
    const o=document.createElement("option");o.value=v;o.textContent=id==="category"?(categoryIcons[v]||"📅")+" "+v:v;$(id).append(o)
