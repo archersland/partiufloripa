@@ -2,7 +2,7 @@
  "use strict";
  const escape=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
  const validPhoto=file=>typeof file==="string"&&/^\.\/(?:assets\/(?:photos|covers|event-artists)\/[a-z0-9-]+\.(?:webp|svg)|images\/[\w.-]+\.webp)$/.test(file);
- function render(pos,items,selectMedia){
+ function render(pos,items,selectMedia,capacityRegistry){
   if(!items?.length)return "";
   const venue=pos.venue||pos.region||"Localização aproximada";
   const precision=pos.precision==="region_centroid"?"Ponto aproximado do bairro":"Local aproximado da casa";
@@ -17,11 +17,13 @@
    const show=/^([01]\d|2[0-3]):[0-5]\d$/.test(e.showTime||"")?'<span class="pf-map-show">Show '+escape(e.showTime)+'</span>':"";
    const href=typeof e.slug==="string"&&/^[a-z0-9-]+$/.test(e.slug)?"./evento/"+encodeURIComponent(e.slug)+"/":"./index.html";
    const place=escape(e.venue||venue);
+   const audience=typeof PartiuAudience!=='undefined'&&capacityRegistry?PartiuAudience.resolve(e,capacityRegistry):null;
+   const audienceHtml=audience?'<p>'+escape(PartiuAudience.describe(e,capacityRegistry))+'</p>'+(audience.sourceUrl?'<a target="_blank" rel="noopener noreferrer" href="'+escape(audience.sourceUrl)+'">Fonte da referência · '+escape(audience.reviewedAt)+'</a>':''):'';
    const metadata='<div class="pf-map-meta">'+escape(date)+' · '+escape(time)+(show?' · '+show:"")+'</div>';
    return '<article class="pf-map-event"><div class="pf-map-photo-wrap"><img class="pf-map-photo" src="'+escape(src)+'" alt="'+escape(alt)+'" loading="eager">'+
     (hint?'<span class="pf-map-image-hint">'+escape(hint)+'</span>':"")+'</div>'+
     '<div class="pf-map-event-body"><div class="pf-map-venue" title="'+escape(precision)+'" aria-label="'+place+'. '+escape(precision)+'">'+place+'</div><span class="pf-map-category">'+escape(e.category||"Evento")+'</span>'+
-    '<div class="pf-map-event-title">'+escape(e.title||"Evento")+'</div>'+metadata+
+    '<div class="pf-map-event-title">'+escape(e.title||"Evento")+'</div>'+metadata+audienceHtml+
     '<a class="pf-map-event-link" href="'+escape(href)+'" aria-label="Ver detalhes de '+escape(e.title||"evento")+'">Ver evento <span aria-hidden="true">↗</span></a></div></article>';
   }).join("");
   return '<section class="pf-map-card '+(multiple?'pf-map-card--multi':'pf-map-card--single')+'" data-popup-id="'+escape(pos.id||'')+'" aria-label="'+items.length+' evento(s) em '+escape(venue)+'; '+escape(precision)+'">'+
@@ -31,3 +33,4 @@
  if(typeof module!=="undefined"&&module.exports)module.exports=api;
  if(root)root.PartiuMapPopup=api;
 })(typeof window!=="undefined"?window:null);
+

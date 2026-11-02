@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-11-02",
+  "policy": "Referências de capacidade, não ocupação medida ou alvará; candidatos em disputa não geram calor.",
+  "venues": [
+    {
+      "status": "pending",
+      "reviewedAt": "2026-11-02",
+      "name": "Bar do Espartano"
+    },
+    {
+      "status": "pending",
+      "reviewedAt": "2026-11-02",
+      "name": "Floripa Comedy Club",
+      "aliases": [
+        "Comedy Club Floripa"
+      ]
+    },
+    {
+      "status": "disputed",
+      "reviewedAt": "2026-11-02",
+      "name": "Stage Music Park",
+      "candidates": [
+        {
+          "people": 10000,
+          "sourceUrl": "https://espacos.grupoall.com.br/"
+        },
+        {
+          "people": 13000,
+          "sourceUrl": "https://musicpark.com.br/sobre/"
+        }
+      ],
+      "note": "Divergência entre páginas do operador; confirmar configuração."
+    },
+    {
+      "status": "disputed",
+      "reviewedAt": "2026-11-02",
+      "name": "Terraza Music Park",
+      "candidates": [
+        {
+          "people": 1000,
+          "sourceUrl": "https://musicpark.com.br/sobre/"
+        },
+        {
+          "people": 1800,
+          "sourceUrl": "https://espacos.grupoall.com.br/"
+        }
+      ],
+      "note": "Divergência entre páginas do operador; não usar capacidade de Terraza BC."
+    },
+    {
+      "status": "reference",
+      "reviewedAt": "2026-11-02",
+      "name": "Teatro Ademir Rosa",
+      "capacity": {
+        "people": 906,
+        "sourceUrl": "https://www.mostradecinemainfantil.com.br/feriadao-do-dia-das-criancas-mostra-ira-exibir-filmes-premiados-e-historias-para-toda-a-familia/",
+        "reviewedAt": "2026-11-02",
+        "confidence": "organizer_reference"
+      }
+    },
+    {
+      "status": "reference",
+      "reviewedAt": "2026-11-02",
+      "name": "Cinema Gilberto Gerlach",
+      "capacity": {
+        "people": 138,
+        "sourceUrl": "https://www.mostradecinemainfantil.com.br/feriadao-do-dia-das-criancas-mostra-ira-exibir-filmes-premiados-e-historias-para-toda-a-familia/",
+        "reviewedAt": "2026-11-02",
+        "confidence": "organizer_reference"
+      },
+      "note": "Há referências de 137; adotada referência recente do organizador da Mostra, como capacidade aproximada."
+    },
+    {
+      "status": "pending",
+      "reviewedAt": "2026-11-02",
+      "name": "MIS/SC",
+      "note": "Identificar sala do evento; não equivale à sala de cinema ou ao museu inteiro."
+    },
+    {
+      "status": "reference",
+      "reviewedAt": "2026-11-02",
+      "name": "Teatro Pedro Ivo",
+      "capacity": {
+        "people": 520,
+        "sourceUrl": "https://www.correiosc.com.br/?p=64920",
+        "reviewedAt": "2026-11-02",
+        "confidence": "reported_reference"
+      },
+      "note": "Referência de reabertura em 2025; não corresponde à configuração histórica de 690 lugares."
+    },
+    {
+      "status": "pending",
+      "reviewedAt": "2026-11-02",
+      "name": "Teatro Álvaro de Carvalho",
+      "note": "470 em referências históricas; confirmar capacidade vigente após reformas."
+    },
+    {
+      "status": "pending",
+      "reviewedAt": "2026-11-02",
+      "name": "Passarela Nego Quirido",
+      "note": "Capacidade depende da montagem do evento; não importar público de Carnaval/Folianópolis como capacidade fixa."
+    },
+    {
+      "status": "pending",
+      "reviewedAt": "2026-11-02",
+      "name": "Delfino 146"
+    },
+    {
+      "status": "pending",
+      "reviewedAt": "2026-11-02",
+      "name": "Balbúrdia Florianópolis"
+    },
+    {
+      "status": "pending",
+      "reviewedAt": "2026-11-02",
+      "name": "P12 Jurerê",
+      "note": "Fontes secundárias divergem; capacidade-base pendente."
+    },
+    {
+      "status": "pending",
+      "reviewedAt": "2026-11-02",
+      "name": "UNDR Florianópolis"
+    }
+  ]
+}

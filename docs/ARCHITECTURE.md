@@ -6,7 +6,7 @@
 Portal web de descoberta de eventos de Florianópolis. Público hipotético: moradores e visitantes; necessidades específicas ainda não validadas. Operador/editor controla registros e revisão; organizadores e bilheterias externas são fontes, não serviços operados pelo portal. Visitante encontra evento, consulta detalhe e sai para origem. Fora das fronteiras: conta/login, compra de ingressos, processamento financeiro, recursos sociais, aplicativo nativo e scraping não autorizado.
 
 ## 2. Objetivos, qualidade e restrições
-Mobile-first, acessibilidade, leitura rápida, disponibilidade da agenda sem mapa/CDN, baixo custo fixo, proveniência e correção factual. Segurança: não vazar segredos, não executar conteúdos obtidos de fontes externas, escapar strings em HTML, validar links/arquivos. Privacidade: não declarar analytics ativo sem evidência. Mapa com calor de **ocorrências cadastradas**, nunca densidade medida de pessoas; pontos regionais aproximados não são entradas exatas.
+Mobile-first, acessibilidade, leitura rápida, disponibilidade da agenda sem mapa/CDN, baixo custo fixo, proveniência e correção factual. Segurança: não vazar segredos, não executar conteúdos obtidos de fontes externas, escapar strings em HTML, validar links/arquivos. Privacidade: não declarar analytics ativo sem evidência. Mapa com calor de **potencial de público dos eventos cadastrados** (previsão documentada ou capacidade de referência), nunca densidade medida de pessoas; pontos regionais aproximados não são entradas exatas.
 
 ## 3. Componentes e fluxos reais
 - **Interface pública:** `index.html` contém estilos e roteiro principal da agenda, busca/filtros, meses dinâmicos, atalhos Hoje/Amanhã/Fim de semana, cards, carrossel, mapa e fallback de carregamento. `evento.html` é template de detalhe, com aviso editorial, compartilhamento Web Share API/cópia de link e exportação .ics quando há data/hora bem formadas. `creditos.html` registra atribuição de imagens.
@@ -26,3 +26,7 @@ ADR-001/002/003: portal web estático e sem pagamentos. ADR-010/011/025: calor m
 - **Disponibilidade:** CDN do mapa e tiles Esri externos; retry não elimina dependência de rede. A agenda fica disponível na falha de arquivos opcionais, mas não de `events.json`.
 - **Qualidade:** `node scripts/check-site.cjs`, `node scripts/validate-events.cjs`, `node scripts/test-event-ux.cjs` e testes existentes; para beta, rodar `node scripts/validate-events.cjs --beta` e exigir revisão editorial. Testes JS não substituem QA visual, rede, licenças, implantação e aceite humano.
 - **Futuro condicionado:** coleta/atualização assistida a partir de fontes aprovadas e revisão de exceções; especificações de ingestão e regras de permissão pendentes. Backend inexistente; não inferir banco, autenticação ou métricas.
+
+
+## Atualização ADR-029 — potencial de público
+`scripts/audience-heat.js` resolve proveniência, capacidade/previsão e composição de sessões; `data/venue-capacities.json` mantém referências e lacunas. Contrato e algoritmos em `docs/HEATMAP-BUSINESS-RULES.md`. Prévia privada Editorial Noturno é um HTML empacotado separado da UI legada do main; aplicar somente patch estrito `scripts/patch-private-heatmap.cjs`, preservando layout e backup. A UI privada incorpora cópia dos mesmos módulo/registro, sem depender de fetch externo para estes dados.
