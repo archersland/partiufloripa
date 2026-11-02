@@ -1,1 +1,9 @@
-{"schema_version":1,"authority":"https://github.com/wagarcdev/ai-workspace","branch":"master","global_harness":"HARNESS.md","project_harness":"Projects/PartiuFloripa/HARNESS.md","policy":"Read canonical GitHub files; local copies and Drive are mirrors. Do not overwrite divergent project-specific instructions."}
+{
+  "schema_version": 1,
+  "authority": "https://github.com/archersland/ai-workspace",
+  "branch": "master",
+  "global_harness": "HARNESS.md",
+  "project_harness": "Projects/PartiuFloripa/HARNESS.md",
+  "policy": "Read canonical GitHub files; local copies and Drive are mirrors. Do not overwrite divergent project-specific instructions.",
+  "previous_authority": "https://github.com/wagarcdev/ai-workspace"
+}
