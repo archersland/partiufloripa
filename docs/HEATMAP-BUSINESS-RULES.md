@@ -25,3 +25,6 @@ Registro reúne os 14 locais nomeados no catálogo, com pendências explícitas;
 
 ## Implementação e validação
 Módulo puro `scripts/audience-heat.js`, testes de precedência, evidência, zero/ausência, deduplicação e sobreposição. Reutilizar Leaflet e leaflet.heat, sem serviço pago ou backend. Prévia privada empacotada recebe patch estrito e reversível por `scripts/patch-private-heatmap.cjs`; não substitui o layout pelo `index.html` antigo. Validar mobile/desktop, data vazia, referência ausente, popup/fonte e navegação integrada. Publicação e QA devem ter evidências distintas. Rollback: restaurar HTML anterior e reverter commit dos módulos/documentos, sem reescrever outros trabalhos.
+
+### Correção de localização encontrada no QA
+Teatro Ademir Rosa e Cinema Gilberto Gerlach usam vínculo documentado ao CIC/Agronômica. Sem coordenadas de entrada, continuam no centro regional aproximado já existente. Fonte da organização da Mostra de 08/10/2026, seção Serviço. O cadastro genérico anterior de Florianópolis impedia plotagem; teste cobre fallback regional com fonte e rejeita vínculo sem evidência.

@@ -13,3 +13,8 @@ assert.equal(geo.resolve({venue:'Unknown',region:'Florianópolis'},venues),null)
 assert.equal(geo.resolve({venue:'Unknown',region:'Lagoa da Conceição'},venues).precision,'region_centroid');
 assert.equal(geo.resolve(e,{venues:[{...venues.venues[0],coordinates:[0,0]}]}),null);
 console.log('Venue location tests passed');
+
+const regionOnly={venues:[{name:'Teatro Ademir Rosa',region:'Agronômica',locationEvidence:['https://example.org/cic']}]};
+assert.equal(geo.resolve({venue:'Teatro Ademir Rosa',region:'Florianópolis'},regionOnly)?.region,'Agronômica');
+assert.equal(geo.resolve({venue:'Teatro Ademir Rosa',region:'Florianópolis'},regionOnly)?.precision,'region_centroid');
+assert.equal(geo.resolve({venue:'Teatro Ademir Rosa',region:'Florianópolis'},{venues:[{name:'Teatro Ademir Rosa',region:'Agronômica'}]}),null);

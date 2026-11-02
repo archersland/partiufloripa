@@ -21,6 +21,28 @@
       ],
       "reviewedAt": "2026-10-29",
       "caveat": "Coordinates for Square SC complex, not exact club entrance"
+    },
+    {
+      "id": "teatro-ademir-rosa",
+      "name": "Teatro Ademir Rosa",
+      "region": "Agronômica",
+      "precision": "region_centroid",
+      "locationEvidence": [
+        "https://www.mostradecinemainfantil.com.br/feriadao-do-dia-das-criancas-mostra-ira-exibir-filmes-premiados-e-historias-para-toda-a-familia/"
+      ],
+      "reviewedAt": "2026-11-02",
+      "caveat": "Vínculo regional ao CIC; sem coordenada de entrada cadastrada."
+    },
+    {
+      "id": "cinema-gilberto-gerlach",
+      "name": "Cinema Gilberto Gerlach",
+      "region": "Agronômica",
+      "precision": "region_centroid",
+      "locationEvidence": [
+        "https://www.mostradecinemainfantil.com.br/feriadao-do-dia-das-criancas-mostra-ira-exibir-filmes-premiados-e-historias-para-toda-a-familia/"
+      ],
+      "reviewedAt": "2026-11-02",
+      "caveat": "Vínculo regional ao CIC; sem coordenada de entrada cadastrada."
     }
   ]
 }
