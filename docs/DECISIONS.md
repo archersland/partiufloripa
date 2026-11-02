@@ -1,35 +1,35 @@
-# Registro de decisões — ADR leve
+# Registro de decisÃµes â€” ADR leve
 
-**ADR-001 Portal web primeiro — aceito.** App e social apenas se o portal demonstrar tração.
+**ADR-001 Portal web primeiro â€” aceito.** App e social apenas se o portal demonstrar traÃ§Ã£o.
 
-**ADR-002 Stack estática — aceito.** GitHub Pages, HTML/CSS/JS, JSON e GeoJSON. Baixo custo; contrapartida: atualização editorial manual.
+**ADR-002 Stack estÃ¡tica â€” aceito.** GitHub Pages, HTML/CSS/JS, JSON e GeoJSON. Baixo custo; contrapartida: atualizaÃ§Ã£o editorial manual.
 
-**ADR-003 Sem pagamentos — aceito.** O PartiuFloripa encaminha para bilheterias oficiais e jamais processa pagamento de ingressos.
+**ADR-003 Sem pagamentos â€” aceito.** O PartiuFloripa encaminha para bilheterias oficiais e jamais processa pagamento de ingressos.
 
-**ADR-004 Mapa esquemático — aceito.** Contornos municipais reais, referências regionais aproximadas e calor de eventos cadastrados; não é presença real de pessoas.
+**ADR-004 Mapa esquemÃ¡tico â€” aceito.** Contornos municipais reais, referÃªncias regionais aproximadas e calor de eventos cadastrados; nÃ£o Ã© presenÃ§a real de pessoas.
 
-**ADR-005 Comercial adiado — aceito.** Não iniciar prospecção, afiliados ou negociação agora. AdSense web somente após validação e aprovação; AdMob é para apps.
+**ADR-005 Comercial adiado â€” aceito.** NÃ£o iniciar prospecÃ§Ã£o, afiliados ou negociaÃ§Ã£o agora. AdSense web somente apÃ³s validaÃ§Ã£o e aprovaÃ§Ã£o; AdMob Ã© para apps.
 
-**ADR-006 Direitos e proveniência — aceito como política.** Não presumir autorização por robots.txt ou por conteúdo público; auditar imagens e dados.
+**ADR-006 Direitos e proveniÃªncia â€” aceito como polÃ­tica.** NÃ£o presumir autorizaÃ§Ã£o por robots.txt ou por conteÃºdo pÃºblico; auditar imagens e dados.
 
-**ADR-007 Harness versionado — aceito.** AGENTS.md conciso, docs por tema, Git como fonte da verdade deste projeto.
+**ADR-007 Harness versionado â€” aceito.** AGENTS.md conciso, docs por tema, Git como fonte da verdade deste projeto.
 
-**Novo ADR:** título, data, contexto, decisão, alternativas, consequências, evidência e status. Não reescrever decisões históricas silenciosamente.
+**Novo ADR:** tÃ­tulo, data, contexto, decisÃ£o, alternativas, consequÃªncias, evidÃªncia e status. NÃ£o reescrever decisÃµes histÃ³ricas silenciosamente.
 
-**ADR-008 Mapa pronto e densidade mínima — aceito (2026-10-28).** Após reprovação visual em Android, substituir contornos municipais e rótulos manuais pelo Esri World Light Gray Canvas. Se houver menos de 3 regiões com eventos na data, exibir apenas marcadores, sem simular calor. Rever condições de uso do provedor antes de monetização.
+**ADR-008 Mapa pronto e densidade mÃ­nima â€” aceito (2026-10-28).** ApÃ³s reprovaÃ§Ã£o visual em Android, substituir contornos municipais e rÃ³tulos manuais pelo Esri World Light Gray Canvas. Se houver menos de 3 regiÃµes com eventos na data, exibir apenas marcadores, sem simular calor. Rever condiÃ§Ãµes de uso do provedor antes de monetizaÃ§Ã£o.
 
-**ADR-009 Imagens não específicas — aceito (2026-10-28).** Remover das 13 ocorrências os dois arquivos idênticos que exibem apenas a marca da casa, não cartazes específicos. Preservar arquivos para análise, sem considerá-los licenciados.
+**ADR-009 Imagens nÃ£o especÃ­ficas â€” aceito (2026-10-28).** Remover das 13 ocorrÃªncias os dois arquivos idÃªnticos que exibem apenas a marca da casa, nÃ£o cartazes especÃ­ficos. Preservar arquivos para anÃ¡lise, sem considerÃ¡-los licenciados.
 
-**ADR-010 Calor mesmo com evento �nico � aceito (2026-10-28).** Manter heatmap em toda noite com eventos mapeados, inclusive uma �nica regi�o, usando halo pequeno e intensidade proporcional, com marcador clic�vel. N�o representar presen�a de pessoas.
-
-
-**ADR-011 Seletor de data nativo � aceito (2026-10-28).** Substituir lista de datas por input date nativo, usando calend�rio do navegador/Android. Permitir dias sem eventos e exibir estado vazio; restringir ao intervalo das noites conhecidas. N�o depende de biblioteca externa.
+**ADR-010 Calor mesmo com evento único — aceito (2026-10-28).** Manter heatmap em toda noite com eventos mapeados, inclusive uma única região, usando halo pequeno e intensidade proporcional, com marcador clicável. Não representar presença de pessoas.
 
 
-**ADR-012 Categorias por experi�ncia � aceito (2026-10-28).** Baladas = DJs, pista, festas noturnas; Dan�a = espet�culo coreogr�fico; Shows = m�sica ao vivo; Humor, Teatro, Cinema, Festivais culturais, Feiras e Cultura permanecem distintos. Folian�polis e set de DJ Blancah passam a Baladas para atender inten��o de descoberta noturna. Cards exibem emoji + texto independentemente de cartaz; filtros tamb�m exibem emoji. Revis�o editorial futura pode reclassificar eventos com evid�ncia.
+**ADR-011 Seletor de data nativo — aceito (2026-10-28).** Substituir lista de datas por input date nativo, usando calendário do navegador/Android. Permitir dias sem eventos e exibir estado vazio; restringir ao intervalo das noites conhecidas. Não depende de biblioteca externa.
 
 
-**ADR-013 Fallback visual por casa � aceito (2026-10-28).** Hierarquia de capa: cartaz do evento quando dispon�vel, depois identidade visual da casa j� existente no reposit�rio, depois arte neutra da categoria com emoji. No fallback da casa, exibir aviso 'Imagem da casa' para n�o apresentar logotipo como cartaz espec�fico. O logo local do Bar do Espartano � reutilizado nas ocorr�ncias sem cartaz. Outros locais continuam com arte de categoria at� se obter imagem de casa adequada e autoriza��o de uso. N�o confundir reutiliza��o t�cnica com licen�a comercial.
+**ADR-012 Categorias por experiência — aceito (2026-10-28).** Baladas = DJs, pista, festas noturnas; Dança = espetáculo coreográfico; Shows = música ao vivo; Humor, Teatro, Cinema, Festivais culturais, Feiras e Cultura permanecem distintos. Folianópolis e set de DJ Blancah passam a Baladas para atender intenção de descoberta noturna. Cards exibem emoji + texto independentemente de cartaz; filtros também exibem emoji. Revisão editorial futura pode reclassificar eventos com evidência.
+
+
+**ADR-013 Fallback visual por casa — aceito (2026-10-28).** Hierarquia de capa: cartaz do evento quando disponível, depois identidade visual da casa já existente no repositório, depois arte neutra da categoria com emoji. No fallback da casa, exibir aviso 'Imagem da casa' para não apresentar logotipo como cartaz específico. O logo local do Bar do Espartano é reutilizado nas ocorrências sem cartaz. Outros locais continuam com arte de categoria até se obter imagem de casa adequada e autorização de uso. Não confundir reutilização técnica com licença comercial.
 
 
 **ADR-014 Automated collection with exception review - accepted (2026-10-29).** Automate event discovery and updates only from permitted sources. Route ambiguous data, conflicting changes, and rights issues to manual review. Source list, frequency, and exact rules are still pending. No implementation or QA acceptance is implied.
@@ -57,3 +57,7 @@
 **ADR-025 Esri basemap selected - accepted (2026-10-29).** The user corrected ADR-022: their previous selection to compare more map alternatives was an accidental click. Keep the existing Esri Light Gray Canvas as the approved primary basemap, with heatmap and native date picker unchanged. Other map providers remain optional technical experiments, not part of the MVP migration. This supersedes ADR-022's open-selection status; its comparison implementation and evidence are retained. Review provider terms and attribution before commercialization.
 
 **ADR-026 Editorial Noturno event-detail design - accepted (2026-10-29).** The user explicitly approved the revised Editorial Noturno event-detail concept after the upper hero background was lightened to create a subtle, visible separation from the darker information panel. Implement this approved direction for live event detail pages: editorial serif event title, warm accent, dark teal hero/panel distinction, readable timing and venue hierarchy, neutral category artwork until rights review. Preserve source provenance warnings, verified/unverified data distinctions, quarantine guard, accessibility and backward-compatible URLs. This approves the design direction and implementation, not publication of unverified events, beta launch or final end-to-end QA.
+
+**ADR-027 — Ampliar UX do MVP web com funcionalidades leves — aceito pelo Cliente (2026-11-02).** Contexto: revisão com `build-web-apps` evidenciou problemas de calendário fixo, resiliência, transparência e descoberta. Decisão: incluir datas rápidas, meses dinâmicos, compartilhamento, arquivo .ics, metadados editoriais, recuperação de mapa e indicação de aproximação cartográfica. Permanecer na stack estática. Alternativas avaliadas: migração para React/Next ou backend (rejeitadas por custo/risco desnecessários); somente reparos técnicos (insuficiente à solicitação). Consequências: testes Node e QA visual necessários; .ics com dados informados não garante evento confirmado; nenhuma conta ou pagamento. Evidências: `reports/BUILD-WEB-APPS-REVIEW-2026-11-02.md` e código na branch `main`. Aceite refere-se ao escopo, não a homologação do beta/design.
+
+**ADR-028 — Portas distintas de validação experimental e beta — implementação técnica autorizada (2026-11-02).** Contexto: `validate-events.cjs` rejeitava registros sem horário enquanto ADR-016/023 permite exceções apenas após revisão individual; o CI não executava esse script. Decisão técnica: `node scripts/validate-events.cjs` verifica integridade estruturada e reporta horário ausente como pendência no catálogo experimental; `--beta` exige verificação individual documentada e, quando faltar horário, exceção editorial com justificativa/data/evidência; registros em quarentena não são publicados pela listagem. Alternativa: aceitar silenciosamente dados incompletos (rejeitada). Consequência: CI atual não homologa nenhum evento; beta segue bloqueado até auditoria. Responsável técnico: executor da alteração; cliente mantém aceite exclusivo do beta.
