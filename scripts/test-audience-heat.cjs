@@ -24,4 +24,14 @@ assert.equal(heat.aggregate([event('Small'),event('Unknown','b')],registry).unkn
 assert.equal(heat.resolve(event('Small'),{venues:[{name:'Small',capacity:{people:20,...evidence,status:'disputed'}}]}).people,null);
 assert.match(heat.describe(event('Small'),registry),/20/);
 assert.match(heat.describe(event('Big','a',{audience:{expected:1200,...evidence}}),registry),/previsto/i);
+assert.equal(heat.visualWeight(null),0,'unknown reference must not render heat');
+assert.equal(heat.visualWeight(0),0,'documented expected zero must not render heat');
+assert.equal(heat.visualWeight(-1),0,'negative values must not render heat');
+assert.equal(heat.visualWeight(NaN),0,'non-finite values must not render heat');
+assert.equal(heat.visualWeight(10000),heat.max,'reference maximum');
+assert.equal(heat.visualWeight(20000),heat.max,'visual saturation is capped');
+const weights=[20,138,520,906,3000,10000].map(x=>heat.visualWeight(x));
+assert(weights[0]>0.18*heat.max,'small valid event must be perceptible');
+assert(weights.every((x,i)=>i===0||x>weights[i-1]),'larger audience must produce stronger heat');
+assert(heat.visualWeight(906)===heat.visualWeight(906),'intensity must be stable across dates');
 console.log('Audience heat: capacity, forecasts, evidence, unknowns, deduplication and overlapping sessions OK');
