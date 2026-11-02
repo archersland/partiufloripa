@@ -1,16 +1,28 @@
-# Arquitetura — realidade e evolução
+# Arquitetura — PartiuFloripa (arc42 proporcional, 2026-11-02)
 
-**Atual:** site estático HTML/CSS/JS em `index.html`; `events.json` com objeto `{updated,events}`; cartazes `images/*.webp`; `coastline.geojson` com contornos municipais; Leaflet + leaflet.heat sob demanda via CDN; deploy GitHub Actions/Pages em `main`. Sem backend.
+**Fonte:** `archersland/partiufloripa@main`. **Fase:** Discovery/MVP técnico experimental; não é catálogo editorial homologado. **Norma:** ALS v0.4 RELEASED; ISO/IEC/IEEE 42010 como referência conceitual, sem declaração de conformidade formal.
 
-**Contrato atual de evento:** `date` YYYY-MM-DD, `time` HH:MM, `title`, `venue`, `category`, `source` URL, `region`, `note`, `image` (opcional). Os sete primeiros são essenciais para exibição. Não alterar silenciosamente o contrato.
+## 1. Contexto, stakeholders e fronteiras
+Portal web de descoberta de eventos de Florianópolis. Público hipotético: moradores e visitantes; necessidades específicas ainda não validadas. Operador/editor controla registros e revisão; organizadores e bilheterias externas são fontes, não serviços operados pelo portal. Visitante encontra evento, consulta detalhe e sai para origem. Fora das fronteiras: conta/login, compra de ingressos, processamento financeiro, recursos sociais, aplicativo nativo e scraping não autorizado.
 
-**Estado observado em 2026-10-28:** 56 ocorrências, 14 arquivos de imagem locais. Correspondência, licenças e horários não foram auditados integralmente.
+## 2. Objetivos, qualidade e restrições
+Mobile-first, acessibilidade, leitura rápida, disponibilidade da agenda sem mapa/CDN, baixo custo fixo, proveniência e correção factual. Segurança: não vazar segredos, não executar conteúdos obtidos de fontes externas, escapar strings em HTML, validar links/arquivos. Privacidade: não declarar analytics ativo sem evidência. Mapa com calor de **ocorrências cadastradas**, nunca densidade medida de pessoas; pontos regionais aproximados não são entradas exatas.
 
-**Mapa:** contorno municipal real; nomes de regiões por coordenadas aproximadas; calor agregado por região de eventos noturnos, não localização precisa de cada casa nem fluxo de pessoas.
+## 3. Componentes e fluxos reais
+- **Interface pública:** `index.html` contém estilos e roteiro principal da agenda, busca/filtros, meses dinâmicos, atalhos Hoje/Amanhã/Fim de semana, cards, carrossel, mapa e fallback de carregamento. `evento.html` é template de detalhe, com aviso editorial, compartilhamento Web Share API/cópia de link e exportação .ics quando há data/hora bem formadas. `creditos.html` registra atribuição de imagens.
+- **Dados:** `events.json` objeto `{updated,events}`, com `id` persistente, `slug`, `date` (YYYY-MM-DD), `time` (HH:MM, pode estar ausente no protótipo), `title`, `venue`, `category`, `source` (HTTPS), `region`, `note` e campos opcionais de revisão/preço/arte. `sourceReview: quarantined` exclui da listagem; `status: verified` só quando houver verificação individual documentada. Dois registros têm `lastVerifiedAt` mas nenhum tem atualmente `status: verified`.
+- **Registros auxiliares:** `data/venues.json` com coordenadas e evidências; `data/image-rights.json`, `data/licensed-category-photos.json`, `data/venue-media.json`, `data/event-artist-photos.json`. Catálogo é obrigatório; falha em arquivos auxiliares reverte para diretórios vazios/arte de categoria e aviso, sem exibir arte não autorizada.
+- **Módulos JS:** `scripts/venue-location.js` resolve ponto de casa com evidência ou centro regional; `scripts/media-selection.js` escolhe mídia com política de direitos e fallback; `scripts/map-popup.js` gera popups escapados; `scripts/event-ux.js` centraliza intervalos de data, meses e serialização .ics.
+- **Mapa:** Leaflet 1.9.4 e leaflet.heat 0.2.0 carregados somente quando o usuário abre mapa; Esri World Light Gray Canvas como base. Mapa tem calendário HTML date, calor discreto e bolhas por casa/região. Cor/contorno distinguem centroides regionais de locais identificados; popup informa precisão; botão de retry após erro de carregamento. `coastline.geojson` permanece histórico, não renderizado.
+- **Build/publicação:** GitHub Actions `.github/workflows/pages.yml`: checagens estáticas e testes Node antes de gerar páginas legíveis `evento/<slug>/index.html` por `scripts/generate-event-pages.cjs` e implantar GitHub Pages. A origem de páginas canônicas ainda utiliza `https://wagarcdev.github.io/partiufloripa/`; verificar continuidade após transferência da organização antes de alterá-la.
+- **SEO:** IDs/slugs e páginas geradas já existem. Eventos não verificados são `noindex,follow`, páginas `verified` podem ser indexadas. Metadados gerados server-side na publicação, renderização de detalhe no cliente.
 
-**Contrato proposto, ainda NÃO implementado:** `id` estável; `sourceUrl`, `lastVerifiedAt`, `status` (draft/verified/cancelled/expired), `collectionMethod`, `scrapingPermission`, `imageSourceUrl`, `imageLicense`, `imagePermissionEvidence`, `venueId`, coordenadas verificadas; `affiliateUrl` somente em fase comercial.
+## 4. Decisões e evolução
+ADR-001/002/003: portal web estático e sem pagamentos. ADR-010/011/025: calor mesmo com único evento, calendário nativo e Esri aprovado. ADR-014/016/017/023: ingestão somente permitida, revisão humana para exceções, respeito a licenças. ADR-015: IDs/slugs/SEO. ADR-020: recomendações relacionadas adiadas. ADR-026: Editorial Noturno aprovado para detalhe. ADR-027/028: expansão leve do MVP e validação por estágios. **Nenhuma migração de framework ou backend proposta no presente ciclo.**
 
-**Dívidas:** JS/CSS/HTML monolíticos; testes UI ausentes; dados sem proveniência estruturada; `Object.groupBy` requer teste em Android antigo; CDN externo; sem pipeline de ingestão. Preferir alterações reversíveis e sem custo fixo.
-
-## Atualização cartográfica — 2026-10-28
-A camada ativa é **Esri World Light Gray Canvas** (tiles externos); o GeoJSON local permanece no repositório, mas não é usado no mapa atual. Rótulos manuais removidos. O heatmap aparece sempre que existe ao menos um evento mapeado na data, inclusive em região única, com halo discreto e marcador clicável; sem eventos mapeados, não há calor. A intensidade expressa eventos cadastrados, não público real, e utiliza posições regionais aproximadas. Verificar limites/licença do serviço Esri antes de tráfego comercial.
+## 5. Riscos, limites e verificações
+- **Dados:** no snapshot 02/11/2026, 56 registros; 5 quarentenados; 51 aptos à listagem experimental, dos quais 33 com data a partir de 02/11; nenhum evento marcado como editorialmente verificado. Revisar eventos e direitos antes de beta.
+- **Compatibilidade:** trocado `Object.groupBy` por `Map`; testes Android físico e navegadores continuam necessários.
+- **Disponibilidade:** CDN do mapa e tiles Esri externos; retry não elimina dependência de rede. A agenda fica disponível na falha de arquivos opcionais, mas não de `events.json`.
+- **Qualidade:** `node scripts/check-site.cjs`, `node scripts/validate-events.cjs`, `node scripts/test-event-ux.cjs` e testes existentes; para beta, rodar `node scripts/validate-events.cjs --beta` e exigir revisão editorial. Testes JS não substituem QA visual, rede, licenças, implantação e aceite humano.
+- **Futuro condicionado:** coleta/atualização assistida a partir de fontes aprovadas e revisão de exceções; especificações de ingestão e regras de permissão pendentes. Backend inexistente; não inferir banco, autenticação ou métricas.
