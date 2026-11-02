@@ -4,7 +4,7 @@ const template=fs.readFileSync(path.join(root,'evento.html'),'utf8');
 const dest=path.join(root,'evento');
 fs.rmSync(dest,{recursive:true,force:true});fs.mkdirSync(dest,{recursive:true});
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const origin='https://wagarcdev.github.io/partiufloripa/evento/';
+const origin='https://archersland.github.io/partiufloripa/evento/';
 let count=0;const seen=new Set();
 for(const e of data.events){
  if(!/^evt-[a-f0-9]{12}$/.test(e.id)||!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(e.slug)||seen.has(e.slug))throw Error('invalid id/slug: '+e.title);
