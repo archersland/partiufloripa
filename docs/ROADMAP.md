@@ -39,3 +39,20 @@
 - [ ] Revisar editorialmente os 56 registros e as 12 imagens ainda usadas.
 - [ ] Validar direitos de imagem, horários ausentes, regiões genéricas e condições de uso da base Esri.
 - [ ] Validar no Android físico, além da emulação.
+
+## Ciclo autorizado — 2026-11-02 (MVP web)
+Revisão detalhada: [OPT-01 a OPT-14](../reports/BUILD-WEB-APPS-REVIEW-2026-11-02.md).
+
+- [x] Registrar as oportunidades e adicionar ao escopo do MVP filtros rápidos, compartilhar, calendário .ics, transparência editorial e distinção de precisão cartográfica.
+- [x] Implementar início do mês dinâmico, evitar `Object.groupBy`, remover filtro fixo de outubro/novembro e oferecer atalhos de datas.
+- [x] Implementar fallback de registros auxiliares, botão de retry do mapa e marcador regional distinto.
+- [x] Implementar compartilhamento e exportação .ics com aviso de confirmação; mostrar fonte e situação editorial no detalhe.
+- [x] Separar validação estrutural experimental do gate `--beta` e adicionar teste Node a workflow existente.
+- [x] Atualizar documentação arquitetural, de produto, requisitos, decisões e operações.
+- [ ] Verificar execução do CI no commit final, comprovar implantação e realizar QA com navegador em Android/desktop, incluindo acessibilidade.
+- [ ] Verificar domínio real do GitHub Pages após transferência antes de alterar `canonical` e outros vínculos.
+- [ ] Auditar registros e direitos individuais; zero eventos com status `verified` no snapshot de 02/11.
+- [ ] Configurar descoberta/atualização editorial **somente após** fontes permitidas e regras de exceção documentadas (ADR-014). Não ativar scraping.
+- [ ] Aceite do beta web pelo Cliente após evidência, sem tratar deploy como homologação.
+
+**Sem mudança de stack, backend, pagamento, app, funcionalidades sociais, publicidade ou prospecção.** Resultado de CI/QA pendente não deve ser marcado concluído.
