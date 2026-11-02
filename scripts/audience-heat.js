@@ -39,7 +39,8 @@
   return (r.kind==='expected'?'Público previsto: ':'Capacidade de referência: ')+new Intl.NumberFormat('pt-BR').format(r.people)+' pessoas'+(r.kind==='capacity'?' · não é previsão de lotação':'')+(r.capped?' · limitado à capacidade informada':'');
  }
  const visualWeight=people=>typeof people==='number'&&Number.isFinite(people)&&people>0?10000*(0.18+0.82*Math.sqrt(Math.min(people/10000,1))):0;
- const api={resolve,aggregate,describe,visualWeight,max:10000};
+ const haloDiameter=people=>typeof people==='number'&&Number.isFinite(people)&&people>0?Math.round(28+40*Math.sqrt(Math.min(people,10000)/10000)):42;
+ const api={resolve,aggregate,describe,visualWeight,haloDiameter,max:10000};
  if(typeof module!=='undefined'&&module.exports)module.exports=api;
  if(root)root.PartiuAudience=api;
 })(typeof window!=='undefined'?window:null);
