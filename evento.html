@@ -60,6 +60,7 @@ a:focus-visible{outline:3px solid #f5d78f;outline-offset:5px}
 @media(max-width:700px){.content{grid-template-columns:minmax(0,1fr)}.hero{min-height:345px}.hero h1{font-size:clamp(49px,12vw,86px)}.hero-art .number{font-size:65px}.content h2{margin-bottom:8px}}
 @media(max-width:380px){.hero-art{gap:12px}.hero-art .number{font-size:55px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+.event-utilities{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}.event-utilities button{flex:1 1 175px;border:1px solid #c3d7ce;background:#16343a;color:#f4faf4;min-height:46px;border-radius:8px;font:700 14px system-ui,sans-serif;padding:10px;cursor:pointer}.event-utilities button:hover{background:#275057}.event-utilities button:focus-visible{outline:3px solid #f5d78f;outline-offset:3px}.utility-feedback{font-size:12px;color:#f5d78f;line-height:1.5;min-height:1.2em}.source-check{font-size:12px;line-height:1.5;color:#d4e5dd;margin-top:15px}
 </style>
 </head>
 <body>
@@ -68,7 +69,7 @@ a:focus-visible{outline:3px solid #f5d78f;outline-offset:5px}
 <a class="back" href="./index.html">← Voltar à agenda</a>
 <div id="detail" class="event-panel" aria-live="polite"><p class="error">Carregando evento...</p></div>
 </main>
-<script src="./scripts/media-selection.js"></script><script>
+<script src="./scripts/media-selection.js"></script><script src="./scripts/event-ux.js"></script><script>
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const icons={"Baladas":"🪩","Shows":"🎤","Humor":"😂","Teatro":"🎭","Cinema":"🎬","Dança":"💃","Festivais":"🎪","Feiras":"🛍️","Cultura":"📚"};
 const qs=new URLSearchParams(location.search);
@@ -102,9 +103,10 @@ if(qs.get("back")==="map"&&/^\d{4}-\d{2}-\d{2}$/.test(qs.get("date")||"")&&/^[a-
  });
 }
 const detail=document.getElementById("detail");
-let mediaRegistry={categoryPhotos:{items:[]},venueMedia:{items:[]},eventPhotos:{assets:[]},imageRights:{assets:[]}};
+let mediaRegistry={categoryPhotos:{items:[]},venueMedia:{items:[]},eventPhotos:{assets:[]},imageRights:{assets:[]}},currentEvent=null;
 function notice(message,warning=false){return '<p role="note" class="notice'+(warning?' warning':'')+'">'+esc(message)+'</p>'}
 function show(e){
+ currentEvent=e;
  document.title=e.title+" — PartiuFloripa";
  const emoji=icons[e.category]||"📅";
  const visual=PartiuMedia.select(e,mediaRegistry);
@@ -127,13 +129,45 @@ function show(e){
  (e.showTime?'<div class="time"><span>Início da atração</span><strong>'+esc(e.showTime)+'</strong></div>':"");
  const venueHtml='<div class="location"><div class="kicker">Onde acontece</div><strong>'+esc(validLocation?e.venue:"Local a confirmar")+'</strong><small>'+esc(validRegion?e.region:"Bairro a confirmar")+' · Florianópolis</small></div>';
  const ticketHtml=e.price?'<div class="secondary"><span class="label">Ingressos / valores informados</span><strong>'+esc(e.price)+'</strong></div>':"";
+ const sourceHost=sourceUrl?new URL(sourceUrl).hostname.replace(/^www\./,""):"";
+ const reviewInfo=reviewed
+  ?'Informações marcadas como verificadas'+(e.lastVerifiedAt?' em '+esc(new Intl.DateTimeFormat("pt-BR",{day:"2-digit",month:"2-digit",year:"numeric",timeZone:"UTC"}).format(new Date(e.lastVerifiedAt+"T12:00:00Z"))):'')
+  :e.lastVerifiedAt?'Última checagem registrada: '+esc(e.lastVerifiedAt)+'. Validação editorial completa pendente.'
+  :'Sem validação editorial individual registrada.';
+ const sourceInfo='<p class="source-check">Fonte: '+esc(sourceHost||"não disponível")+'. '+reviewInfo+'</p>';
+ const calendarPossible=PartiuEventUX.validDate(e.date)&&PartiuEventUX.validTime(e.time)&&e.date>=PartiuEventUX.todayFloripa();
+ const utilities=!quarantined?'<div class="event-utilities"><button type="button" id="event-share">Compartilhar evento</button>'+
+  (calendarPossible?'<button type="button" id="event-calendar">Adicionar ao calendário</button>':'')+'</div><p id="utility-feedback" role="status" class="utility-feedback"></p>':'';
  const source=sourceUrl&&!quarantined?'<a class="cta" href="'+esc(sourceUrl)+'" target="_blank" rel="noopener noreferrer">Conferir informações ↗</a>':'';
  const more=e.note?'<p class="note">'+esc(e.note)+'</p>':"";
  detail.innerHTML='<section class="hero" aria-labelledby="event-title"><div class="overline">PartiuFloripa / '+esc(e.category||"Eventos")+'</div><h1 id="event-title">'+esc(e.title)+'</h1><div class="hero-bottom"><div><div class="kicker">'+esc(e.category||"Evento")+' · Florianópolis</div><strong>'+esc(shortDate)+'</strong></div><div class="hero-art"><img class="hero-thumbnail" src="'+esc(visual.file)+'" alt="Foto ilustrativa ou de arquivo" loading="eager"><span class="number" aria-hidden="true">'+esc(e.date.slice(8,10))+'</span></div></div></section>'+
  '<div class="content"><section aria-labelledby="info-heading"><div class="kicker">Informações do evento</div><h2 id="info-heading">O que você precisa saber</h2>'+timeRows+venueHtml+ticketHtml+more+'</section>'+
- '<aside aria-labelledby="source-heading"><div class="kicker">Informações e ingressos</div><h2 id="source-heading">Confira os detalhes</h2><p class="context">Consulte a fonte antes de sair. Horários, disponibilidade e ingressos podem mudar.</p>'+warnings+source+
+ '<aside aria-labelledby="source-heading"><div class="kicker">Informações e ingressos</div><h2 id="source-heading">Confira os detalhes</h2><p class="context">Consulte a fonte antes de sair. Horários, disponibilidade e ingressos podem mudar.</p>'+warnings+source+sourceInfo+utilities+
  ''+(visual.kind==="artist"?'<p class="photo-caption">Foto de arquivo do artista, não desta apresentação em Florianópolis. <a target="_blank" rel="noopener noreferrer" href="'+esc(visual.sourceUrl)+'">Crédito e licença ↗</a></p>':visual.kind==="illustrative"?'<p class="photo-caption">Foto ilustrativa. <a href="./creditos.html">Crédito ↗</a></p>':'<p class="disclosure">Arte de categoria ilustrativa, sem representar um cartaz oficial.</p>')+'<p class="footer-note">O PartiuFloripa não vende ingressos.</p></aside></div>';
 }
+
+detail.addEventListener("click",async event=>{
+ const btn=event.target.closest("#event-share,#event-calendar");
+ if(!btn||!currentEvent)return;
+ const e=currentEvent,feedback=document.getElementById("utility-feedback");
+ if(btn.id==="event-calendar"){
+  const content=PartiuEventUX.calendarFile(e);
+  if(!content){if(feedback)feedback.textContent="Não há data e horário válidos para criar o arquivo.";return}
+  const url=URL.createObjectURL(new Blob([content],{type:"text/calendar;charset=utf-8"}));
+  const a=document.createElement("a");a.href=url;a.download=e.id+".ics";document.body.append(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1200);
+  if(feedback)feedback.textContent="Arquivo de calendário gerado. Confirme horário e disponibilidade na fonte oficial.";
+  return;
+ }
+ const canonical=document.querySelector('link[rel="canonical"]')?.href;
+ const shareUrl=canonical||location.href;
+ if(navigator.share){
+  try{await navigator.share({title:e.title,text:"Evento em Florianópolis — PartiuFloripa",url:shareUrl});if(feedback)feedback.textContent="Compartilhamento iniciado.";return}
+  catch(err){if(err?.name==="AbortError")return}
+ }
+ try{await navigator.clipboard.writeText(shareUrl);if(feedback)feedback.textContent="Link do evento copiado."}
+ catch(err){if(feedback)feedback.textContent="Copie o endereço desta página para compartilhar.";console.warn("Não foi possível copiar o link",err)}
+});
 Promise.all(["./events.json","./data/venue-media.json","./data/event-artist-photos.json","./data/licensed-category-photos.json","./data/image-rights.json"].map(url=>fetch(url).then(r=>{if(!r.ok)throw Error("Falha "+url);return r.json()}))).then(([data,venueMedia,eventPhotos,categoryPhotos,imageRights])=>{mediaRegistry={venueMedia,eventPhotos,categoryPhotos,imageRights};
  const e=data.events.find(x=>id?x.id===id:(x.date===date&&x.title===title&&x.venue===venue));
  if(!e){detail.innerHTML='<p class="error">Evento não encontrado. <a href="./index.html">Voltar à agenda</a>.</p>';return}
