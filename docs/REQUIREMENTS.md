@@ -46,3 +46,6 @@ Status: protÃ³tipo tÃ©cnico, nÃ£o catÃ¡logo auditado.
 | RF-28 | Validação editorial por estágio | Código implementado; QA CI pendente | `validate-events.cjs` valida integridade no protótipo, `--beta` exige revisão individual/evidências, sem proclamar beta |
 
 **Observação:** nenhuma das linhas marcadas "código implementado" equivale a aceite visual/produção/beta. O ambiente público existente é experimental. A aprovação de escopo pelo cliente não dispensa verificações, direitos nem aprovação final do beta.
+
+### Evidência proporcional do ciclo (02/11/2026)
+Os testes Node existentes e novos passaram em clone temporário; smoke de Chromium headless cobriu mobile 390×844, desktop 1280×800, 33 cards futuros, datas rápidas, detalhe, exportação real de .ics, mapa com evento e falha isolada de JSON auxiliar sem perder agenda. GitHub Actions do commit 3ed4c2d concluiu com sucesso; versão final e páginas geradas devem ser verificadas após a correção de canonical. **QA de share nativo/clipboard, retry de CDN, inspeção visual e aparelho Android físico pendentes**, portanto manter RF-18 a RF-28 sem aceite visual final. A URL de Pages confirmada é `https://archersland.github.io/partiufloripa/`.
