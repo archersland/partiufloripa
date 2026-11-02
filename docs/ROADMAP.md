@@ -49,8 +49,9 @@ Revisão detalhada: [OPT-01 a OPT-14](../reports/BUILD-WEB-APPS-REVIEW-2026-11-0
 - [x] Implementar compartilhamento e exportação .ics com aviso de confirmação; mostrar fonte e situação editorial no detalhe.
 - [x] Separar validação estrutural experimental do gate `--beta` e adicionar teste Node a workflow existente.
 - [x] Atualizar documentação arquitetural, de produto, requisitos, decisões e operações.
-- [ ] Verificar execução do CI no commit final, comprovar implantação e realizar QA com navegador em Android/desktop, incluindo acessibilidade.
-- [ ] Verificar domínio real do GitHub Pages após transferência antes de alterar `canonical` e outros vínculos.
+- [x] Verificar CI e implantação técnica: Actions do commit dc30e879 concluído com sucesso; URL archersland.github.io e canonical de evento responderam HTTP 200; smoke headless mobile/desktop passou.
+- [ ] Inspeção visual das capturas, QA de compartilhamento nativo, acessibilidade, importação de .ics em calendário externo e teste Android físico antes do aceite.
+- [x] Corrigir `canonical` das páginas legíveis para `https://archersland.github.io/partiufloripa/` após observar 404 no endereço histórico.
 - [ ] Auditar registros e direitos individuais; zero eventos com status `verified` no snapshot de 02/11.
 - [ ] Configurar descoberta/atualização editorial **somente após** fontes permitidas e regras de exceção documentadas (ADR-014). Não ativar scraping.
 - [ ] Aceite do beta web pelo Cliente após evidência, sem tratar deploy como homologação.
