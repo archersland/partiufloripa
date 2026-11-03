@@ -5,14 +5,15 @@
 const dialog=document.getElementById("detail-dialog"),content=document.getElementById("detail-content");
 if(!dialog||!content)return;
 let activeEvent=null;
-const media=event=>PartiuMedia.select(event,{categoryPhotos,venueMedia,eventPhotos,imageRights});
+const media=event=>PartiuMedia.select(event,mediaContext());
 const validExternal=url=>typeof url==="string"&&/^https:\/\//.test(url);
 const originLink=(url,label)=>validExternal(url)?'<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+esc(label)+'</a>':"";
 function picture(visual){
- const caption=visual.kind==="artist"?"Foto do artista · arquivo (não desta apresentação)":
-  visual.kind==="illustrative"?"Foto ilustrativa · não representa o evento ou a casa":
-  visual.kind==="event"?"Imagem licenciada do evento":"Arte ilustrativa de categoria";
- return '<figure class="detail-media"><img src="'+esc(visual.file)+'" alt="'+esc(caption)+'" loading="eager" onerror="this.hidden=true"><span>'+esc(caption)+'</span></figure>';
+ if(!visual.file)return '<div class="detail-media detail-media--empty" role="img" aria-label="Imagem real não cadastrada">Imagem real ainda não disponível</div>';
+ const caption=visual.kind==="event-review"?"Imagem do evento · reprodução em revisão privada":
+ visual.kind==="venue-review"?(visual.isLogo?"Logotipo da casa · revisão privada":"Imagem da casa · revisão privada"):
+ visual.kind==="event"?"Imagem do evento com licença verificada":"Imagem real";
+ return '<figure class="detail-media"><img data-kind="'+esc(visual.kind)+'" src="'+esc(visual.file)+'" alt="'+esc(caption)+'" loading="eager" onerror="this.hidden=true"><span>'+esc(caption)+'</span></figure>';
 }
 function open(contentHtml){
  content.innerHTML=contentHtml;
