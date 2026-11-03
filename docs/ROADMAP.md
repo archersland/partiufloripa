@@ -67,3 +67,11 @@ Revisão detalhada: [OPT-01 a OPT-14](../reports/BUILD-WEB-APPS-REVIEW-2026-11-0
 - [ ] Concluir revisão editorial individual, fonte primária por sessão, direitos de cartaz e acesso; não publicar novos eventos ou declarar `verified` automaticamente.
 - [ ] Geocodificar entradas de casas somente mediante evidência verificável; endereços textuais não são coordenadas nem marcam automaticamente no mapa.
 - [x] Validar CI de integridade do diretório: Actions run [41580131613](https://github.com/archersland/partiufloripa/actions/runs/41580131613) no commit `6a17575` terminou `success`; validação visual de novos locais sem eventos permanece fora do escopo (não há novos pins).
+
+## Pesquisa de Centro-Leste e Ponte — 03/11/2026
+- [x] Acrescentar 16 bares/casas com endereços e fontes ao `data/venues.json`: No Class, Bohô, Vodu, Boteco do Maicão Centro, Teodoro, SELVA, Opium, Ateliê 389, Desgosto, ORI Centro, Botequim Floripa, Scuna, Bar do Noel, Boteco do Alemão, Kibelândia e Barra Cô. **Total: 39 locais no registro.**
+- [x] Adicionar asserções para as 16 novas casas e não existência de coordenadas inventadas em `scripts/test-venue-location.cjs`.
+- [x] Registrar [proposta “Lugares”](PLACES-DISCOVERY-PROPOSAL.md) para exibir bares sem atrações, preservando agenda e heatmap.
+- [ ] **Decisão de produto aberta:** aceitar ou ajustar a terceira aba “Lugares” e seu escopo antes de implementar a UI.
+- [ ] Caso aprovada, modelar tipos de experiências, fontes/perfis, vínculo `event.venue`↔`venue.id`, estados sem eventos e filtros acessíveis; executar QA e CI.
+- [ ] Revalidar situação de casas com sinais de fechamento; **Haôma Baixo Centro excluído** por anúncio de despedida em maio de 2026.
