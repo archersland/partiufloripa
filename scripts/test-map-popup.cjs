@@ -6,7 +6,7 @@ for(const x of ["pf-map-card--single","Daniel Duncan","Floripa Comedy Club","29/
 assert(!empty.includes("pf-map-photo-wrap")&&!empty.includes("Sem foto oficial"),"No empty map photo placeholder");
 assert(!empty.includes("assets/covers/")&&!empty.includes("Foto ilustrativa"),"do not add generic illustrated fallback");
 const real=render(pos,[item],()=>({kind:"event-review",file:"./images/297ef980f8820632.webp"}));
-assert(real.includes("./images/297ef980f8820632.webp")&&real.includes("Revisão privada"));
+assert(real.includes("./images/297ef980f8820632.webp")&&!real.includes("Foto ilustrativa"),"Real event photo should render without decorative label");
 const many=render(pos,[item,{...item,title:"Segundo",slug:"segundo"},{...item,title:"Terceiro",slug:"terceiro"}],()=>({kind:"none",file:null}));
 assert(many.includes("pf-map-card--multi")&&many.includes("pf-map-events-scroll"));
 assert.equal((many.match(/class="pf-map-venue" title=/g)||[]).length,3);
