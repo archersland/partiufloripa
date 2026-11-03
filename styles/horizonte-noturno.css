@@ -447,7 +447,7 @@ body>.mast,body>.main,body>.foot{position:relative;z-index:1}
   display:block;
 }
 .place-card .place-art img[data-media-type="logo"]{
-  object-fit:contain;
+  object-fit:cover;
 }
 .place-card .place-links{
   padding:0 13px 10px;
