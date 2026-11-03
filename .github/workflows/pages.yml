@@ -24,6 +24,9 @@ jobs:
       - run: node scripts/test-event-ux.cjs
       - run: node scripts/test-venue-location.cjs
       - run: node scripts/test-venue-hours.cjs
+      - run: node scripts/test-home-layout.cjs
+      - run: node scripts/test-ui-baseline.cjs
+      - run: node scripts/test-product-regressions.cjs
       - run: node scripts/test-image-rights.cjs
       - run: node scripts/test-licensed-photos.cjs
       - run: node scripts/test-media-selection.cjs
@@ -43,4 +46,9 @@ jobs:
           path: .
       - id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify actual published UI and data contract
+        run: node scripts/verify-deployed-site.cjs
+        env:
+          PARTIU_SITE_URL: ${{ steps.deployment.outputs.page_url }}
+
 
