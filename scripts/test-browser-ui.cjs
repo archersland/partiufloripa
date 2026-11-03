@@ -58,11 +58,31 @@ async function main(){
    await send("Emulation.setDeviceMetricsOverride",{width,height:844,deviceScaleFactor:1,mobile:width<500});
    await send("Page.navigate",{url:site+"?qa="+width});
    await until(()=>evaluate("Boolean(document.querySelector('#featured a.event-card')&&document.querySelector('#agenda .event-search'))"));
-   const hero=await evaluate("(()=>{const el=document.querySelector('.mast');const s=getComputedStyle(el).backgroundImage;return {hasBridge:s.includes('data:image/webp;base64'),hasGradient:s.includes('linear-gradient'),width:document.documentElement.scrollWidth,viewport:document.documentElement.clientWidth}})()");
-   assert(hero.hasBridge&&hero.hasGradient,"Ponte must be visible as second CSS background layer");
+   const hero=await evaluate("(()=>{const el=getComputedStyle(document.body,'::before');const s=el.backgroundImage;return {hasBridge:s.includes('data:image/webp;base64'),hasGradient:s.includes('linear-gradient'),fixed:el.position==='fixed',height:el.height,width:document.documentElement.scrollWidth,viewport:document.documentElement.clientWidth}})()");
+   assert(hero.hasBridge&&hero.hasGradient&&hero.fixed,"Ponte must be fixed across the entire viewport");
    assert(hero.width<=hero.viewport+2,"Mobile/desktop page must not overflow horizontally: "+JSON.stringify(hero));
    const list=await evaluate("(()=>{const c=document.querySelector('#agenda .event-search');const img=c.querySelector('.event-media');return {horizontal:getComputedStyle(c).flexDirection==='row',width:img.getBoundingClientRect().width,overlays:getComputedStyle(c.querySelector('.event-art')).display}})()");
    assert(list.horizontal&&list.width<=115&&list.overlays==="none","Next-event cards must have unobstructed thumbnails: "+JSON.stringify(list));
+   
+   // The background should remain a fixed full-screen layer when the document scrolls.
+   const background=await evaluate("(()=>{window.scrollTo(0,240);const s=getComputedStyle(document.body,'::before');return {fixed:s.position==='fixed',height:parseFloat(s.height),viewport:innerHeight,scrollY:scrollY}})()");
+   assert(background.fixed&&background.height>=background.viewport-2,"Fixed bridge must cover the viewport while scrolling");
+   await evaluate("window.scrollTo(0,0)");
+   // Expand search in the same row, filter by a known event title, then collapse.
+   const toolbar=await evaluate("(()=>{const dates=document.querySelector('.quick-dates');const search=document.getElementById('date-search');return {searchHidden:search.hidden,datesVisible:!dates.hidden,calendarHidden:document.getElementById('date-picker-panel').hidden}})()");
+   assert(toolbar.searchHidden&&toolbar.datesVisible&&toolbar.calendarHidden,"Compact toolbar should default to date shortcuts");
+   await evaluate("document.getElementById('toggle-search').click()");
+   const openSearch=await evaluate("(()=>{const s=document.getElementById('date-search'),q=document.getElementById('search');return {visible:!s.hidden,datesHidden:document.querySelector('.quick-dates').hidden,focused:document.activeElement===q,expanded:document.getElementById('toggle-search').getAttribute('aria-expanded')}})()");
+   assert(openSearch.visible&&openSearch.datesHidden&&openSearch.focused&&openSearch.expanded==='true',"Search opens in the toolbar and replaces date chips");
+   await evaluate("document.getElementById('search').value='sem-evento-inexistente';document.getElementById('search').dispatchEvent(new Event('input',{bubbles:true}))");
+   assert.equal(await evaluate("document.querySelectorAll('#agenda a.event-card').length"),0,"Expanded search should keep existing filtering behavior");
+   await evaluate("document.getElementById('search').value='';document.getElementById('search').dispatchEvent(new Event('input',{bubbles:true}));document.getElementById('toggle-date').click()");
+   const picker=await evaluate("(()=>{const d=document.getElementById('date-picker-panel');return {visible:!d.hidden,searchHidden:document.getElementById('date-search').hidden,datesHidden:document.querySelector('.quick-dates').hidden,expanded:document.getElementById('toggle-date').getAttribute('aria-expanded')}})()");
+   assert(picker.visible&&picker.searchHidden&&picker.datesHidden&&picker.expanded==='true',"Calendar replaces search and date chips");
+   await evaluate("document.getElementById('global-date').value='2026-11-06';document.getElementById('global-date').dispatchEvent(new Event('change',{bubbles:true}))");
+   assert.equal(await evaluate("document.querySelector('.quick-dates').hidden"),false,"Calendar selection should restore date shortcuts");
+   await evaluate("document.querySelector('[data-quick-date=\\\"\\\"]').click()");
+   
    const before=await evaluate("location.pathname");
    await evaluate("document.querySelector('#featured a.event-card').click()");
    const opened=await evaluate("(()=>{const d=document.querySelector('#detail-dialog');return {open:d.open,title:!!d.querySelector('#detail-title'),source:!!d.querySelector('a.detail-primary'),pathname:location.pathname}})()");
