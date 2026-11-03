@@ -24,3 +24,16 @@
 - `scripts/verify-deployed-site.cjs` verifica após deploy **o HTML e os assets realmente servidos**, inclusive detalhes, esquemas de dados e tokens. Não confundir CI com aceite visual: inspeção em browser/Android continua como gate humano.
 
 **Mudanças materiais nesta referência:** exigir revisão do Cliente ou ADR explícito e atualização conjunta dos testes. Não “resolver” um teste retirando a asserção do baseline.
+
+## Adendo de interação v0.3 — 03/11/2026 (aguardando aceite visual)
+- A navegação primária ao clicar em card de evento (inclusive link de evento no popup do mapa) passa a abrir diálogo nativo sobre a aba atual. As URLs profundas preservam compartilhamento, SEO e abertura direta. Ctrl/Cmd+clique e abrir em nova aba continuam usando o link original.
+- O card de Lugar tem imagem ilustrativa licenciada, identificada como tal, e abre diálogo com nome, endereço textual, estado habitual com ressalvas, evidências e atrações futuras presentes no catálogo. Uma casa sem eventos também deve abrir seu detalhe.
+- A composição dos cards de Nos próximos dias dá prioridade a miniatura visível, título serifado, data e casa, sem sobrepor data grande/legendas sobre a foto compacta.
+- O hero mantém a imagem decorativa da Ponte Hercílio Luz embutida no CSS. A declaração CSS precisa ser válida (cor apenas na última camada da propriedade background); presença de dados WebP isolada não comprova renderização.
+- As fotos genéricas licenciadas do inventário existente não retratam as casas reais. Não chamá-las de fotos da casa. Substituição por foto real depende de fonte, licença/autorização e registro individuais. QA no navegador, Android físico e aceite do Cliente permanecem separados da aprovação técnica de CI.
+
+## Adendo visual v0.4 — Fundo fixo e barra compacta (03/11/2026, avaliação pendente)
+- Usar a mesma imagem decorativa da Ponte Hercílio Luz como uma camada fixa de tela inteira, atrás do conteúdo rolável. A ponte não acompanha o scroll; o fundo editorial das seções é semitransparente para preservar contraste. Não duplicar o grande bloco de dados da fotografia.
+- O hero preserva marca e título, mas NÃO contém mais a busca grande. A barra de datas principal mantém os atalhos Próximas datas/Hoje/Amanhã/Fim de semana e adiciona botões de lupa e calendário em área discreta.
+- Ao abrir busca: esconder atalhos e revelar campo de pesquisa na mesma linha, sem perder o filtro digitado ao alternar o modo. Ao abrir calendário: esconder busca e atalhos e revelar o input nativo de data; após escolher, restaurar atalhos mantendo data selecionada. Os modos são exclusivos e o usuário pode fechar pelo próprio botão ou Escape.
+- Mobile: atalhos poderão rolar horizontalmente dentro da barra, sem gerar overflow do documento; áreas de toque têm dimensões de aproximadamente 40px ou maiores e foco visível. Browser E2E mede o fundo fixed e verifica os dois modos e filtros em 390 e 1280px.

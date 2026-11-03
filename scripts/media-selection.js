@@ -1,33 +1,26 @@
 (function(root){
 "use strict";
+/* Selection policy: show only images of the actual event/venue. Unlicensed review
+   assets may load ONLY with an explicit private-preview registry. */
 const norm=s=>String(s||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").trim().toLowerCase().replace(/\s+/g," ");
 const fileOkay=(f,prefix)=>typeof f==="string"&&new RegExp("^\\./assets/"+prefix+"/[a-z0-9-]+\\.webp$").test(f);
-const stockOkay=a=>!!a&&a.rightsStatus==="approved"&&a.license==="Pexels License"&&a.rightsEvidenceUrl==="https://www.pexels.com/license/"&&/^https:\/\/www\.pexels\.com\/photo\//.test(a.sourcePageUrl||"")&&!!a.photographer&&fileOkay(a.file,"photos");
+const empty={file:null,kind:"none",label:"Imagem real ainda não cadastrada"};
+const previewPath=f=>typeof f==="string"&&( /^\.\/assets\/venue-review\/[a-z0-9-]+\.webp$/.test(f) || /^\.\/images\/[a-z0-9]+\.webp$/.test(f) || /^data:image\/webp;base64,[A-Za-z0-9+/=]{100,16000}$/.test(f));
 function select(event,registries={}){
- const generic=registries.categoryPhotos?.items||[];
- const eventPhotos=registries.eventPhotos?.assets||[];
  const specificRights=registries.imageRights?.assets||[];
  const verifiedPoster=specificRights.find(a=>a.eventId===event.id&&a.rightsStatus==="approved"&&a.rightsEvidenceUrl&&a.license&&/^\.\/images\/[\w.-]+\.webp$/.test(a.file));
  if(verifiedPoster)return {file:verifiedPoster.file,kind:"event",label:"Imagem do evento",credit:verifiedPoster.attribution||"",sourceUrl:verifiedPoster.rightsEvidenceUrl,license:verifiedPoster.license};
- const photo=eventPhotos.find(a=>a.status==="approved"&&a.eventIds?.includes(event.id)&&a.role==="artist_archive"&&a.isPhotoOfUpcomingEvent===false&&
-  ["cc by 4.0","cc0"].includes((a.license||"").toLowerCase())&&a.licenseUrl&&a.rightsEvidenceUrl?.startsWith("https://commons.wikimedia.org/wiki/File:")&&
-  !!a.photographer&&fileOkay(a.file,"event-artists"));
- if(photo)return {file:photo.file,kind:"artist",label:"Foto do artista · arquivo",credit:photo.photographer,sourceUrl:photo.sourceFilePage,license:photo.license,caption:photo.caption};
- const byFile=new Map(generic.filter(stockOkay).map(x=>[x.file,x]));
- const venueKey=norm(event.venue);
- const known=venueKey&&venueKey!=="local a confirmar"&&venueKey!=="a definir";
- const assigned=(registries.venueMedia?.items||[]).find(x=>norm(x.venue)===venueKey&&x.scope==="venue"&&x.photoType==="licensed_generic_illustration"&&x.sourceImageIsNotActualVenue===true);
- let licensed=assigned?byFile.get(assigned.imageFile):undefined;
- if(!licensed&&known){
-  const sorted=[...byFile.values()].sort((a,b)=>a.file.localeCompare(b.file));
-  let hash=2166136261;
-  for(const ch of venueKey){hash^=ch.codePointAt(0);hash=Math.imul(hash,16777619)}
-  if(sorted.length)licensed=sorted[(hash>>>0)%sorted.length];
+ const venueKey=norm(event.venue),id=event.id;
+ if(registries.reviewOnly===true&&registries.reviewMedia?.scope==="private-preview"){
+  const items=registries.reviewMedia;
+  const candidate=id?(items.events||[]).find(a=>a.eventId===id&&a.sourceEventUrl===event.source):
+    (items.venues||[]).find(a=>norm(a.venue)===venueKey);
+  if(candidate&&previewPath(candidate.file)&&candidate.rightsStatus==="pending"){
+   const isEvent=!!candidate.eventId;
+   return {file:candidate.file,kind:isEvent?"event-review":"venue-review",label:isEvent?"Imagem associada ao evento · revisão privada":"Identidade visual da casa · revisão privada",credit:candidate.credit||"",sourceUrl:candidate.sourceUrl||"",rightsStatus:"pending",isLogo:candidate.type==="logo"};
+  }
  }
- if(!licensed&&!known)licensed=[...byFile.values()].find(x=>x.category===event.category);
- if(licensed)return {file:licensed.file,kind:"illustrative",label:"Foto ilustrativa",credit:licensed.photographer,sourceUrl:licensed.sourcePageUrl,license:licensed.license};
- const covers={"Baladas":"baladas","Shows":"shows","Humor":"humor","Teatro":"teatro","Cinema":"cinema","Dança":"danca","Festivais":"festivais","Feiras":"feiras","Cultura":"cultura"};
- return {file:"./assets/covers/"+(covers[event.category]||"cultura")+".svg",kind:"cover",label:"Arte ilustrativa",credit:"PartiuFloripa"};
+ return empty;
 }
 const api={select,normalizeVenue:norm};
 if(typeof module!=="undefined"&&module.exports)module.exports=api;

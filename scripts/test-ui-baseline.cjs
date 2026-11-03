@@ -32,4 +32,23 @@ assert(detail.includes('href="./styles/horizonte-detalhe.css"'),"detail night st
 assert(credits.includes('data-ui-baseline="horizonte-noturno-v0.2"'),"credits must retain night identity");
 assert(detailCss.includes("--pf-peach:#ffaf78")&&detailCss.includes("--pf-mint:#8fe5cc"),"detail editorial palette is inconsistent");
 assert(detail.includes('src="./scripts/event-ux.js"')&&detail.includes("calendarFile("),"detail .ics flow lost");
+const dialogScript=fs.readFileSync(path.join(root,"scripts/detail-dialog.js"),"utf8");
+assert(css.includes("background:linear-gradient(")&&css.includes("no-repeat #08252d"),"bridge background shorthand must render both photo and night overlay");
+assert(!css.includes("background:#08252d linear-gradient("),"invalid first-layer background color would hide bridge photo");
+assert(html.includes('id="detail-dialog"')&&html.includes('src="./scripts/detail-dialog.js"'),"native modal host / script missing");
+assert(html.includes('class="place-open"')&&html.includes("data-place-id"),"place cards must open accessible local detail");
+assert(html.includes("PartiuMedia.select({venue:venue.name"),"venue cards need licensed editorial thumbnail selection");
+for(const hook of ["eventDetails(e)","placeDetails(venue)","a.event-card, .pf-map-popup .pf-map-event-link","ev.ctrlKey||ev.metaKey","sourceReview===\"quarantined\"","PartiuEventUX.calendarFile(e)"]){
+ assert(dialogScript.includes(hook),"detail modal behavior missing: "+hook);
+}
+assert(css.includes(".detail-dialog::backdrop")&&css.includes(".place-art img"),"modal and place photography styles missing");
+assert(css.includes("body::before")&&css.includes("position:fixed")&&css.includes("background-position:75% center"),"full-screen static bridge background missing");
+assert(html.indexOf('id="search"')>html.indexOf('class="date-bar"'),"search must live inside the date toolbar");
+assert(!html.includes('<div class="intro"><h1 class="hero-title">Seu próximo rolê<br>começa aqui.</h1><label class="search"'),"large hero search unexpectedly restored");
+for(const id of ["date-row","date-search","date-picker-panel","toggle-search","toggle-date"]){
+ assert(html.includes('id="'+id+'"'),"missing compact-toolbar control "+id);
+}
+for(const key of ["function setDateBarMode(mode)","aria-expanded","showPicker?.()"]){
+ assert(html.includes(key),"date toolbar interaction missing: "+key);
+}
 console.log("Approved Horizonte Noturno UI baseline passed: source markers, colors, editorial hierarchy, three tabs, data hooks, dates and heat separation");
