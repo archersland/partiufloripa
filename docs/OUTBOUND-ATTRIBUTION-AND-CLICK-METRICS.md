@@ -119,7 +119,30 @@ Fontes oficiais consultadas em 2026-11-03:
 6. Só publicar URLs parametrizadas após revisão de segurança, privacidade, casos positivos/negativos e rollback para link canônico. Se plataforma excluir UTMs/alterar destino, usar link original e métrica interna.
 7. Revisão de compatibilidade quando houver mudança de provedor, formato do link ou redirecionamentos. Não usar a auditoria como prospecção: **nenhum contato externo nesta etapa**.
 
-## 8. Aceite técnico futuro e riscos
+## 8. Inventário passivo do catálogo atual — snapshot de 2026-11-03
+
+Leitura **somente de `events.json` e `data/venues.json`**, sem visitar, alterar ou testar URLs no destino: **56 ocorrências, 35 URLs de fonte distintas e 8 domínios**. Contagens abaixo são de **ocorrências de eventos catalogadas**, NÃO de cliques recebidos, visualizações ou contratos com casas.
+
+| Domínio presente no campo `source` de `events.json` | Ocorrências | URLs distintas | Natureza indicada pelo link / consequência |
+| --- | ---: | ---: | --- |
+| `www.pensanoevento.com.br` | 27 | 27 | Plataforma de ingressos; **principal candidata para pesquisar compatibilidade**, sem evidência de que `source`/`ref` arbitrário seja registrado |
+| `ouviram.com.br` | 14 | 1 | Artigo/agenda agregada; tráfego enviado ao portal editorial, não necessariamente à casa |
+| `emfloripa.ia.br` | 5 | 1 | Agenda geral, e não necessariamente bilheteria de cada ocorrência |
+| `guiafloripa.com.br` | 4 | 2 | Agenda de terceiros; destino editorial |
+| `musicpark.com.br` | 2 | 1 | Agenda geral do operador, não landing específica dos dois eventos |
+| `tocaonde.com.br` | 2 | 1 | Guia editorial de terceiros |
+| `www.eventoon.com.br` | 1 | 1 | Página de cidade/agregador |
+| `undr.com.br` | 1 | 1 | Página de evento no site do operador, a conferir como destino oficial |
+
+O catálogo `data/venues.json` registra 39 lugares com evidências de localização, **mas não contém ainda campos `website` ou `officialSite`**. Links de `locationEvidence` servem para comprovação de endereço/identidade e **não devem ser convertidos automaticamente em CTA comercial**.
+
+**Achado de produto:** o campo atual `event.source` é uma fonte editorial de informação, não um contrato de **link de ingressos/destino da casa**. Para demonstrar valor B2B, é necessária classificação editorial individual de URLs e eventualmente um campo separado de **destino oficial de saída**, com proveniência e verificação próprias, preservando `source` para auditoria e sem inventar links. Essa separação exige especificação incremental e testes de regressão do detalhe/CTA/SEO, não migração automática dos 56 registros.
+
+A página pública de produtores da Pensanoevento confirma serviço de bilheteria e links próprios de divulgação, mas **não documenta aceitação genérica de `utm_source`, `source` ou `ref` arbitrários como atribuição em painel**: https://www.pensanoevento.com.br/vender-ingressos . Priorizar pesquisa documental dessa plataforma por representar 27 das 56 ocorrências; não testar ou ativar códigos sem evidência. Alguns serviços associados mencionam links personalizados, o que não equivale a licença para inventar identificação de afiliado.
+
+**Próximo levantamento:** para cada registro, classificar `editorial_source`, `organizer_site`, `ticketing_event_page`, `generic_agenda`, `unknown`; identificar o domínio que realmente receberia o visitante e documentar se a casa consegue consultar relatórios. O inventário deste item é **passivo e parcial**: não auditou os 35 redirecionamentos, direitos, mecanismos internos de analytics ou contratos.
+
+## 9. Aceite técnico futuro e riscos
 
 **Critérios:** testes automatizados do algoritmo de filtro/idempotência/deduplicação e construção segura de URLs; cenários permitidos e proibidos na seção 4; verificação no Chromium mobile/desktop e Android físico quando possível; CTA mantém o destino com coletor desligado; sem duplicação nas abas; relatório por evento/casa/30 dias reconciliável com fixture conhecida; revisão de tratamento de dados; teste com `noopener noreferrer`, ad blocker, falha de conexão e parâmetros existentes. Integrar aos checks/CI já existentes sem criar build apenas para docs.
 
