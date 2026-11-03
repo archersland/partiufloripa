@@ -42,4 +42,13 @@ for(const hook of ["eventDetails(e)","placeDetails(venue)","a.event-card, .pf-ma
  assert(dialogScript.includes(hook),"detail modal behavior missing: "+hook);
 }
 assert(css.includes(".detail-dialog::backdrop")&&css.includes(".place-art img"),"modal and place photography styles missing");
+assert(css.includes("body::before")&&css.includes("position:fixed")&&css.includes("background-position:75% center"),"full-screen static bridge background missing");
+assert(html.indexOf('id="search"')>html.indexOf('class="date-bar"'),"search must live inside the date toolbar");
+assert(!html.includes('<div class="intro"><h1 class="hero-title">Seu próximo rolê<br>começa aqui.</h1><label class="search"'),"large hero search unexpectedly restored");
+for(const id of ["date-row","date-search","date-picker-panel","toggle-search","toggle-date"]){
+ assert(html.includes('id="'+id+'"'),"missing compact-toolbar control "+id);
+}
+for(const key of ["function setDateBarMode(mode)","aria-expanded","showPicker?.()"]){
+ assert(html.includes(key),"date toolbar interaction missing: "+key);
+}
 console.log("Approved Horizonte Noturno UI baseline passed: source markers, colors, editorial hierarchy, three tabs, data hooks, dates and heat separation");
