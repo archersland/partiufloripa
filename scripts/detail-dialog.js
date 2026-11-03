@@ -9,7 +9,7 @@ const media=event=>PartiuMedia.select(event,mediaContext());
 const validExternal=url=>typeof url==="string"&&/^https:\/\//.test(url);
 const originLink=(url,label)=>validExternal(url)?'<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+esc(label)+'</a>':"";
 function picture(visual){
- if(!visual.file)return '<div class="detail-media detail-media--empty" role="img" aria-label="Imagem real não cadastrada">Imagem real ainda não disponível</div>';
+ if(!visual.file)return "";
  const caption=visual.kind==="event-review"?"Imagem do evento · reprodução em revisão privada":
  visual.kind==="venue-review"?(visual.isLogo?"Logotipo da casa · revisão privada":"Imagem da casa · revisão privada"):
  visual.kind==="event"?"Imagem do evento com licença verificada":"Imagem real";
