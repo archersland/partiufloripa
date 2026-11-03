@@ -18,3 +18,6 @@
 
 ## UX e operação (revisão 2026-11-02)
 A data rápida modifica a listagem e funciona em conjunto com categoria/região/horário. O calendário de noite do mapa continua sendo um controle próprio. Compartilhamento e arquivo .ics não substituem a confirmação com o organizador. Marcadores regionais e de casa têm representações diferentes, ambas aproximadas quando não houver entrada geográfica comprovada. O catálogo continua experimental; última checagem registrada não equivale a `status: verified`. Consulte [revisão enumerada](../reports/BUILD-WEB-APPS-REVIEW-2026-11-02.md).
+
+## Proposta em análise — “Lugares” (03/11/2026)
+O Cliente sugeriu que bares, botecos, baladas e espaços culturais possam ser descobertos mesmo quando não há atração específica cadastrada. A separação **Agenda (eventos datados) / Lugares (casas independentes de eventos) / Mapa (visão com semântica explícita)** é uma **proposta de UX ainda não aceita nem implementada**. A lista editorial foi enriquecida para 39 locais no `data/venues.json`, mas nenhuma casa sem evento é criada automaticamente na agenda ou calor. Consultar [especificação e critérios abertos](PLACES-DISCOVERY-PROPOSAL.md).
