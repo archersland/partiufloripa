@@ -20,9 +20,8 @@
    const audience=typeof PartiuAudience!=='undefined'&&capacityRegistry?PartiuAudience.resolve(e,capacityRegistry):null;
    const audienceHtml=audience?'<p>'+escape(PartiuAudience.describe(e,capacityRegistry))+'</p>'+(audience.sourceUrl?'<a target="_blank" rel="noopener noreferrer" href="'+escape(audience.sourceUrl)+'">Fonte da referência · '+escape(audience.reviewedAt)+'</a>':''):'';
    const metadata='<div class="pf-map-meta">'+escape(date)+' · '+escape(time)+(show?' · '+show:"")+'</div>';
-   const picture=src?'<img class="pf-map-photo" src="'+escape(src)+'" alt="'+escape(alt)+'" loading="eager">':'<div class="pf-map-photo pf-map-photo-empty" role="img" aria-label="Imagem real do evento pendente">Sem foto oficial</div>';
-   return '<article class="pf-map-event"><div class="pf-map-photo-wrap">'+picture+
-    (hint?'<span class="pf-map-image-hint">'+escape(hint)+'</span>':"")+'</div>'+
+   const picture=src?'<div class="pf-map-photo-wrap"><img class="pf-map-photo" src="'+escape(src)+'" alt="'+escape(alt)+'" loading="eager"></div>':'';
+   return '<article class="pf-map-event">'+picture+
     '<div class="pf-map-event-body"><div class="pf-map-venue" title="'+escape(precision)+'" aria-label="'+place+'. '+escape(precision)+'">'+place+'</div><span class="pf-map-category">'+escape(e.category||"Evento")+'</span>'+
     '<div class="pf-map-event-title">'+escape(e.title||"Evento")+'</div>'+metadata+audienceHtml+
     '<a class="pf-map-event-link" href="'+escape(href)+'" aria-label="Ver detalhes de '+escape(e.title||"evento")+'">Ver evento <span aria-hidden="true">↗</span></a></div></article>';
