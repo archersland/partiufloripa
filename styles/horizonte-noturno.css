@@ -331,3 +331,34 @@ body>.mast,body>.main,body>.foot{position:relative;z-index:1}
 @media(prefers-reduced-motion:reduce){
  .main.wrap,.date-bar{backdrop-filter:none}
 }
+
+
+/* Horizonte Noturno v0.5 — desktop portal canvas / authentic media surfaces. */
+@media(min-width:1024px){
+ .wrap{max-width:1190px;padding-left:34px;padding-right:34px}
+ .nav{min-height:76px}
+ .intro{padding:10px 0 32px}
+ .hero-title{font-size:clamp(48px,5vw,64px);max-width:780px}
+ .main.wrap{padding:22px 30px 44px}
+ #list-panel .section-head{margin-bottom:17px}
+ #featured .feature.event-featured{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);align-items:stretch;min-height:285px;max-height:370px}
+ #featured .event-featured .event-media{height:100%;aspect-ratio:auto;min-height:0}
+ #featured .event-featured .event-info{padding:24px 26px;justify-content:center;display:flex;flex-direction:column}
+ #agenda .cards{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px}
+ #agenda .event-search{min-width:0;min-height:124px}
+ .places-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+ .place-open{gap:12px}
+ .place-card .place-art{flex-basis:94px;width:94px;height:94px}
+ .place-card .place-links{padding-left:116px}
+}
+@media(min-width:1440px){.wrap{max-width:1250px}}
+.event-media{background:linear-gradient(125deg,#10343a,#09252d)}
+.event-media .event-no-media{display:flex;align-items:center;justify-content:center;flex-direction:column;width:100%;height:100%;padding:16px;color:#b5cfca;text-align:center;font-size:12px;line-height:1.45}
+.event-media .event-no-media strong{font:400 24px/1.15 var(--pf-serif);color:#ecf8ee;margin-bottom:5px}
+.event-media img[data-kind="event-review"]{object-fit:contain;background:#0a2027}
+.event-media .review-media-caption{position:absolute;z-index:3;bottom:8px;right:8px;background:#041b21e8;color:#f8f3e8;padding:4px 8px;border-radius:6px;font:700 10px/1.2 "DM Sans",sans-serif}
+.place-card .place-art .place-empty{display:flex;align-items:center;justify-content:center;height:100%;padding:7px;text-align:center;color:#cde0db;font-size:12px}
+.place-card .place-art img{object-fit:contain;background:#0e2024}
+.place-card .place-art-caption{font-size:9px}
+.detail-sheet .detail-media--empty{display:grid;place-items:center;text-align:center;color:#bfd4cf;font:400 23px var(--pf-serif);padding:20px}
+.detail-sheet .detail-media img[data-kind="event-review"],.detail-sheet .detail-media img[data-kind="venue-review"]{object-fit:contain;background:#081d22}
