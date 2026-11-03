@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-11-03",
+  "timezone": "America/Sao_Paulo",
+  "policy": "Grade semanal habitual, não sinal de aberto agora, confirmação em tempo real, feriado ou evento extraordinário. Sem fonte, classificar como desconhecido. Fontes revistas há mais de 90 dias não determinam status.",
+  "venues": [
+    {
+      "id": "berlin-floripa",
+      "openDays": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "closedDays": [
+        0,
+        1
+      ],
+      "hoursText": "Ter–sáb: galeria/café a partir das 13h30; bar/restaurante a partir das 19h",
+      "sourceUrl": "https://berlinfloripa.com.br/",
+      "reviewedAt": "2026-11-03",
+      "note": "Site oficial informa terça a sábado; horários podem mudar em eventos e feriados."
+    },
+    {
+      "id": "scuna-bar-club",
+      "openDays": [
+        5,
+        6
+      ],
+      "closedDays": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "hoursText": "Sexta e sábado, a partir das 22h",
+      "sourceUrl": "https://scunabar.com.br/",
+      "reviewedAt": "2026-11-03",
+      "note": "Horário habitual publicado no site da casa; apresentações especiais podem ocorrer fora do padrão."
+    },
+    {
+      "id": "ori-boteco-centro",
+      "openDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "closedDays": [],
+      "hoursText": "Seg–dom: 9h às 23h30",
+      "sourceUrl": "https://www.oriboteco.com.br/",
+      "reviewedAt": "2026-11-03",
+      "note": "Unidade Centro, Rua Henrique Valgas, 318; não transferir horários de outras unidades."
+    },
+    {
+      "id": "chopp-do-gus-corrego-grande",
+      "openDays": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "closedDays": [
+        0,
+        1
+      ],
+      "hoursText": "Ter: 18h–2h; qua/qui: 18h–0h30; sex/sáb: 18h–2h",
+      "sourceUrl": "https://ilovefloripa.com.br/lugar/chopp-do-gus-corrego-grande-florianopolis",
+      "reviewedAt": "2026-11-03",
+      "note": "Fonte secundária com horários explicitamente fechados domingo e segunda; confirmação com a casa recomendada."
+    },
+    {
+      "id": "no-class",
+      "openDays": [
+        4,
+        5,
+        6
+      ],
+      "closedDays": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "hoursText": "Funcionamento habitual divulgado: quinta a sábado; festas costumam seguir até 4h",
+      "sourceUrl": "https://www.pensanoevento.com.br/locais/394/no-class",
+      "reviewedAt": "2026-11-03",
+      "note": "Perfil da casa descreve atividade de quinta a sábado, mas lista evento especial numa quarta. Fechado = normalmente fora do calendário regular, não garantia de porta fechada."
+    }
+  ]
+}
