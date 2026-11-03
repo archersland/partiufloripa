@@ -493,3 +493,22 @@ body>.mast,body>.main,body>.foot{position:relative;z-index:1}
  .place-card .place-art{width:126px;min-width:126px;height:100%}
  .place-card .place-title{font-size:18px}
 }
+
+/* Horizonte Noturno v0.6.3 — minimal inset around place imagery; home untouched. */
+.place-card{padding-left:169px;border-radius:14px}
+.place-card .place-art{
+  inset:6px auto 6px 6px;
+  width:156px;
+  min-width:156px;
+  height:auto;
+  border-radius:9px;
+}
+.place-card.place-card--text-only{padding-left:0}
+@media(max-width:699px){
+  .place-card{padding-left:154px}
+  .place-card .place-art{width:141px;min-width:141px;height:auto}
+}
+@media(max-width:365px){
+  .place-card{padding-left:139px}
+  .place-card .place-art{width:126px;min-width:126px;height:auto}
+}
