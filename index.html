@@ -143,7 +143,11 @@ function card(e,variant="search"){
  const media='<div class="event-media'+(isStock?' has-stock-photo':'')+'" data-cat="'+esc(e.category)+'" data-media-kind="'+esc(visual.kind)+'" data-media-src="'+esc(visual.file)+'">'+image+graphic+photoNotice+(variant==="featured"?'<div class="event-overlays">'+tag+dateTag+'</div>':'')+'</div>';
  const place='<div class="event-place"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.6"/></svg><div><strong>'+esc(e.venue||"Local a confirmar")+'</strong><small>'+esc(displayRegion(e)||"Florianópolis")+' · Florianópolis</small></div></div>';
  const price=e.price!=null&&String(e.price).trim()?'<span class="event-price">A partir de <strong>'+esc(e.price)+'</strong> <span aria-hidden="true">💵</span></span>':'<span class="event-price event-price-unknown">Consultar valores</span>';
- return '<a class="feature event-card '+(variant==="featured"?'event-featured':'event-search')+'" href="'+esc(eventUrl(e))+'" aria-label="Ver detalhes de '+esc(e.title)+'">'+media+'<div class="event-info">'+(variant==="search"?'<div class="event-meta">'+tag+dateTag+'</div>':'')+'<h3>'+esc(e.title)+'</h3>'+place+'<div class="event-bottom">'+price+'<span class="event-action" aria-hidden="true">↗</span></div></div></a>';
+ const isVitrine=variant==="search";
+ const bottom=isVitrine
+  ?'<div class="event-bottom"><span class="event-when">'+dateTag+'</span><span class="event-action" aria-hidden="true">Detalhes →</span></div>'
+  :'<div class="event-bottom">'+price+'<span class="event-action" aria-hidden="true">↗</span></div>';
+ return '<a class="feature event-card '+(isVitrine?'event-search event-vitrine':'event-featured')+'" href="'+esc(eventUrl(e))+'" aria-label="Ver detalhes de '+esc(e.title)+'">'+media+'<div class="event-info">'+(isVitrine?'<div class="event-meta">'+tag+'</div>':'')+'<h3>'+esc(e.title)+'</h3>'+place+bottom+'</div></a>';
 }
 function filtered(){
  const q=$("search").value.trim().toLocaleLowerCase("pt-BR"),cat=$("category").value,reg=$("region").value,p=$("period").value;

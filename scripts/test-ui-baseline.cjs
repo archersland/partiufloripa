@@ -32,4 +32,10 @@ assert(detail.includes('href="./styles/horizonte-detalhe.css"'),"detail night st
 assert(credits.includes('data-ui-baseline="horizonte-noturno-v0.2"'),"credits must retain night identity");
 assert(detailCss.includes("--pf-peach:#ffaf78")&&detailCss.includes("--pf-mint:#8fe5cc"),"detail editorial palette is inconsistent");
 assert(detail.includes('src="./scripts/event-ux.js"')&&detail.includes("calendarFile("),"detail .ics flow lost");
+// ADR-038: Home list only; keep the editorial highlight independent.
+assert(html.includes("event-search event-vitrine"),"Vitrine Noturna list template missing");
+assert(html.includes('class="event-when"'),"Vitrine footer needs original date/time");
+assert(html.includes("Detalhes →"),"Vitrine CTA label missing");
+assert(css.includes("#agenda .event-vitrine .event-media"),"Vitrine thumbnail layout missing");
+assert(css.includes("flex:0 0 37%"),"Vitrine mobile thumbnail rule missing");
 console.log("Approved Horizonte Noturno UI baseline passed: source markers, colors, editorial hierarchy, three tabs, data hooks, dates and heat separation");

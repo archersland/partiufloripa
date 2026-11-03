@@ -142,3 +142,77 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
  .date-bar .quick-dates button{padding:8px 9px;font-size:12px}
  #agenda .event-search .event-media{flex-basis:74px;width:74px;min-height:82px;height:82px}
 }
+
+/* ADR-038 — Vitrine Noturna v1.0: the Home upcoming-event list only. */
+#agenda .cards{gap:11px}
+#agenda .event-vitrine{
+ display:flex;flex-direction:row;gap:0;width:100%;min-height:154px;margin:0;padding:0;
+ overflow:hidden;border:1px solid #345960;border-radius:12px;background:#102e36;
+ box-shadow:0 8px 14px #00151a38;color:#f8f3e8;
+}
+#agenda .event-vitrine:hover{background:#143940;border-color:var(--pf-mint)}
+#agenda .event-vitrine .event-media{
+ flex:0 0 28%;width:28%;height:auto;min-height:154px;align-self:stretch;
+ border-radius:0;background:#174047;
+}
+#agenda .event-vitrine .event-art{
+ display:flex;align-items:flex-start;justify-content:flex-end;padding:7px;
+ background:linear-gradient(0deg,#04182075,transparent 60%);
+}
+#agenda .event-vitrine .event-art-date,
+#agenda .event-vitrine .event-art-venue{display:none}
+#agenda .event-vitrine .event-media[data-media-kind="cover"]::after{
+ content:"ARTE DE CATEGORIA";position:absolute;z-index:4;bottom:8px;left:8px;
+ color:#f5efe8;font:700 8px/1.2 "DM Sans",sans-serif;letter-spacing:1px;
+ text-shadow:0 1px 5px #001820;
+}
+#agenda .event-vitrine .event-info{
+ display:flex;flex:1;min-width:0;flex-direction:column;justify-content:flex-start;
+ padding:13px 15px 11px;
+}
+#agenda .event-vitrine .event-meta{display:flex;align-items:center;margin:0;gap:5px}
+#agenda .event-vitrine .event-category{
+ padding:0;border:0;border-radius:0;background:transparent;color:var(--pf-mint);
+ font:700 10px/1.25 "DM Sans",sans-serif;letter-spacing:.4px;text-transform:uppercase;
+}
+#agenda .event-vitrine .event-info h3{
+ margin:7px 0 9px;font:400 22px/1.13 var(--pf-serif);color:#fffdf5;
+ overflow-wrap:anywhere;
+}
+#agenda .event-vitrine .event-place{margin:auto 0 6px;gap:5px;min-width:0}
+#agenda .event-vitrine .event-place svg{width:15px;height:15px}
+#agenda .event-vitrine .event-place strong{font-size:12px;line-height:1.25}
+#agenda .event-vitrine .event-place small{font-size:10px;line-height:1.3}
+#agenda .event-vitrine .event-bottom{
+ display:flex;align-items:baseline;justify-content:space-between;gap:8px;
+ margin:7px 0 0;padding:8px 0 0;border-top:1px solid var(--pf-line);
+}
+#agenda .event-vitrine .event-when{min-width:0}
+#agenda .event-vitrine .event-date{
+ display:inline;border:0;border-radius:0;padding:0;background:none;
+ color:var(--pf-peach);font:700 10px/1.35 "DM Sans",sans-serif;letter-spacing:.2px;
+ white-space:normal;
+}
+#agenda .event-vitrine .event-date em{color:var(--pf-peach);font-style:normal}
+#agenda .event-vitrine .event-action{
+ flex:none;white-space:nowrap;font:700 11px/1.2 "DM Sans",sans-serif;color:var(--pf-mint);
+}
+#agenda .event-vitrine:focus-visible{outline:3px solid var(--pf-peach);outline-offset:3px}
+@media(max-width:699px){
+ #agenda .event-vitrine{min-height:158px;gap:0;padding:0}
+ #agenda .event-vitrine .event-media{flex:0 0 37%;width:37%;min-height:158px;height:auto}
+ #agenda .event-vitrine .event-info{padding:12px 10px 10px}
+ #agenda .event-vitrine .event-info h3{font-size:20px}
+ #agenda .event-vitrine .event-category{font-size:9px}
+ #agenda .event-vitrine .event-place strong{font-size:11px}
+ #agenda .event-vitrine .event-place small{font-size:9px}
+ #agenda .event-vitrine .event-date{font-size:9px}
+ #agenda .event-vitrine .event-action{font-size:10px}
+}
+@media(max-width:365px){
+ #agenda .event-vitrine .event-media{flex:0 0 36%;width:36%;min-height:158px;height:auto}
+ #agenda .event-vitrine .event-info h3{font-size:18px}
+ #agenda .event-vitrine .event-bottom{gap:4px}
+ #agenda .event-vitrine .event-action{font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){#agenda .event-vitrine{transition:none}}
