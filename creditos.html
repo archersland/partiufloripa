@@ -10,13 +10,23 @@ p{line-height:1.65;color:#c9dce0}.lead{max-width:780px}
 .card{background:#162932;border:1px solid #37505a;border-radius:12px;overflow:hidden}
 .card img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
 .card>div{padding:14px}.card h2{font-size:18px;margin:0 0 8px}.card p{margin:3px 0 10px;font-size:13px}
-</style></head><body>
+</style><style>
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap");
+:root{background:#041b21;color:#f8f3e8;font-family:"DM Sans",sans-serif}
+body{background:#041b21;color:#f8f3e8}
+header,main{max-width:780px;padding-left:20px;padding-right:20px}
+header a,.card a,main a{color:#8fe5cc}
+h1{font:400 clamp(30px,6vw,48px)/1.12 "DM Serif Display",Georgia,serif;color:#fffdf5;letter-spacing:-.4px}
+p{color:#a9bdc7}
+.card{background:#0a252c;border-color:#315b60}
+a:focus-visible{outline:3px solid #ffaf78;outline-offset:3px}
+</style></head><body data-ui-baseline="horizonte-noturno-v0.2">
 <header><a href="./index.html">← Voltar à agenda</a></header>
 <main><h1>Créditos das fotografias</h1>
 <p class="lead">As fotografias abaixo são <strong>ilustrativas das categorias</strong>. Elas não retratam necessariamente o artista, a casa, a cidade ou a apresentação anunciada. Foram selecionadas individualmente de páginas com indicação da <a href="https://www.pexels.com/pt-br/licenca/" target="_blank" rel="noopener noreferrer">Licença Pexels</a>, que permite uso em sites e projetos comerciais. Direitos de pessoas, marcas e obras retratadas podem exigir cuidados adicionais.</p>
 <div id="cards" class="cards"><p>Carregando créditos…</p></div>
 <h2>Fotos de arquivo de artistas</h2><p>Fotos de artistas ou produções, mas de outras datas e cidades. Não representam os shows anunciados.</p><div id="artist-credits" class="cards"><p>Carregando…</p></div>
-<p>Os cartazes e fotografias específicas dos eventos são tratados separadamente e não são usados sem evidência de direitos. Para pedir a correção ou remoção de uma imagem, consulte o <a href="https://github.com/wagarcdev/partiufloripa">repositório público do projeto</a>.</p>
+<p>Os cartazes e fotografias específicas dos eventos são tratados separadamente e não são usados sem evidência de direitos. Para pedir a correção ou remoção de uma imagem, consulte o <a href="https://github.com/archersland/partiufloripa">repositório público do projeto</a>.</p>
 </main>
 <script>
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
