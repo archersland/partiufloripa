@@ -35,3 +35,8 @@ Este repositório é a fonte da verdade **do PartiuFloripa**. Mudanças de escop
 
 ## Revisão de melhoria do MVP
 As capacidades Build Web Apps e oportunidades OPT-01 a OPT-14 estão [documentadas](reports/BUILD-WEB-APPS-REVIEW-2026-11-02.md). O [roadmap](docs/ROADMAP.md) discrimina código implementado, testes, pendências editoriais e aceite do beta. Não ativar scraping ou novas campanhas sem permissão.
+
+## Lugares — implementação de 03/11/2026
+A navegação principal tem **Agenda / Lugares / Mapa** com seletor de data em nível superior (Hoje, Amanhã, Fim de semana e outra data). `data/venues.json` contém 39 locais; Lugares inclui casas sem ocorrência em `events.json`, busca por nome/bairro, filtros de bairro e funcionamento **habitual** (costuma abrir, costuma fechar, horário não confirmado). Fechados aparecem depois e acinzentados; desconhecidos continuam separados. `data/venue-hours.json` documenta fonte, revisão e dias de 5 casas, sem afirmar “aberto agora”, disponibilidade em feriados ou mudanças especiais. A falta de horário **não** é classificada como fechado.
+
+Validação técnica usa `node scripts/test-venue-hours.cjs` no pipeline já existente, junto com checagem estrutural, UX e eventos. **Não há nova categoria de evento, heatmap de bares sem show, horários fictícios ou coordenadas de entradas inventadas.** Revisão visual, cobertura editorial e aceite beta são distintos do deploy de código.
