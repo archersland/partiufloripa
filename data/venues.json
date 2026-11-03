@@ -329,6 +329,259 @@
       ],
       "reviewedAt": "2026-11-03",
       "caveat": "Endereço e vocação cultural no site oficial; coordenadas de entrada pendentes."
+    },
+    {
+      "id": "no-class",
+      "name": "No Class",
+      "aliases": [
+        "No Class Club",
+        "Class"
+      ],
+      "region": "Centro",
+      "address": "Rua Victor Meirelles, 184 - Centro, Florianópolis - SC",
+      "locationEvidence": [
+        "https://www.pensanoevento.com.br/locais/394/no-class",
+        "https://www.instagram.com/noclassbar/"
+      ],
+      "caveat": "Casa de pista/drinks no Centro-Leste; o endereço e a agenda têm origem em perfil público de bilheteria. Não confundir noites de funcionamento com evento confirmado.",
+      "precision": "region_centroid",
+      "reviewedAt": "2026-11-03"
+    },
+    {
+      "id": "boho-bar-pista",
+      "name": "Bohô Bar & Pista",
+      "aliases": [
+        "Bohô Floripa",
+        "Boho Bar & Pista"
+      ],
+      "region": "Centro",
+      "address": "Rua Victor Meirelles, 226 - Centro, Florianópolis - SC",
+      "locationEvidence": [
+        "https://tocaonde.com.br/events/190239-polly-jinx-sur-boho-bar-pista-florianopolis",
+        "https://www.instagram.com/bohofloripa/"
+      ],
+      "caveat": "Bar e pista com histórico de DJs; endereço também documentado em fonte primária indexada. Não copiar posts ou declarar festa futura sem revisão.",
+      "precision": "region_centroid",
+      "reviewedAt": "2026-11-03"
+    },
+    {
+      "id": "vodu-arte-bar",
+      "name": "Vodu Arte Bar",
+      "aliases": [
+        "Vodu Bar"
+      ],
+      "region": "Centro",
+      "address": "Rua Victor Meirelles, 154, térreo - Centro, Florianópolis - SC",
+      "locationEvidence": [
+        "https://www.instagram.com/p/DesNiKajwaL/",
+        "https://florianopolissc.com.br/locais/vodu-bar"
+      ],
+      "caveat": "Perfil público indexado indica programação musical; acesso à publicação nativa do Instagram não foi feito.",
+      "precision": "region_centroid",
+      "reviewedAt": "2026-11-03"
+    },
+    {
+      "id": "boteco-do-maicao-centro",
+      "name": "Boteco do Maicão Centro",
+      "aliases": [
+        "Boteco do Maicão"
+      ],
+      "region": "Centro",
+      "address": "Rua Victor Meirelles, 230 - Centro, Florianópolis - SC",
+      "locationEvidence": [
+        "https://www.instagram.com/botecodomaicaocentro/",
+        "https://andapride.com.br/maps/lugares/boteco-do-maicao-centro/"
+      ],
+      "caveat": "Distinguir do bar vizinho no nº 226; postagens indexadas citam área no segundo andar. Sem confirmação de entrada/andar pelo operador.",
+      "precision": "region_centroid",
+      "reviewedAt": "2026-11-03"
+    },
+    {
+      "id": "teodoro-bar",
+      "name": "Teodoro Bar",
+      "aliases": [
+        "Teo Bar"
+      ],
+      "region": "Centro",
+      "address": "Rua João Pinto, 132, loja 02 - Centro, Florianópolis - SC",
+      "locationEvidence": [
+        "https://www.instagram.com/p/DTbjlsfkUkD/",
+        "https://www.instagram.com/p/Dcw4jAKkSjs/"
+      ],
+      "caveat": "Bar do Centro-Leste com posts indexados de eventos com DJ; nenhum evento individual foi inserido.",
+      "precision": "region_centroid",
+      "reviewedAt": "2026-11-03"
+    },
+    {
+      "id": "selva-bar-floripa",
+      "name": "SELVA Bar Floripa",
+      "aliases": [
+        "Selva Floripa",
+        "Selva Bar"
+      ],
+      "region": "Centro",
+      "address": "Avenida Hercílio Luz, 449 - Centro, Florianópolis - SC",
+      "locationEvidence": [
+        "https://www.instagram.com/reel/DaeVKDeMLIQ/",
+        "https://www.instagram.com/selvafloripa/"
+      ],
+      "caveat": "Bar e noites de DJs na Avenida Hercílio Luz; fontes sociais públicas indexadas; horário e funcionamento atuais a confirmar.",
+      "precision": "region_centroid",
+      "reviewedAt": "2026-11-03"
+    },
+    {
+      "id": "opium-bar",
+      "name": "Opium Bar",
+      "aliases": [
+        "Bar Opium"
+      ],
+      "region": "Centro",
+      "address": "Avenida Hercílio Luz, 892 - Centro, Florianópolis - SC",
+      "locationEvidence": [
+        "https://floripa.lgbt/cultura/arte-drag/quarta-edicao-do-drag-battle-promete-espetaculos-imperdiveis-no-opium-bar/",
+        "https://www.instagram.com/p/DbjRNJliV61/"
+      ],
+      "caveat": "Bar com eventos culturais e performances; endereço corroborado por notícia e postagem pública indexada, não ponto de entrada confirmado.",
+      "precision": "region_centroid",
+      "reviewedAt": "2026-11-03"
+    },
+    {
+      "id": "atelie-389",
+      "name": "Ateliê 389",
+      "region": "Centro",
+      "address": "Avenida Hercílio Luz, 389 - Centro, Florianópolis - SC",
+      "locationEvidence": [
+        "https://www.pensanoevento.com.br/locais/2550/atelie-389",
+        "https://uticket.com.br/evento/frog-in-trance-halloween-edition/01MHTD4BZMTX6C"
+      ],
+      "caveat": "Espaço de festas/arte e música; endereço verificado em página de bilheteria. Não incorporar eventos sem checagem individual.",
+      "precision": "region_centroid",
+      "reviewedAt": "2026-11-03"
+    },
+    {
+      "id": "desgosto-bar",
+      "name": "Desgosto Bar",
+      "region": "Centro",
+      "address": "Rua Padre Roma, 174 - Centro, Florianópolis - SC",
+      "locationEvidence": [
+        "https://underfloripa.com.br/agenda/ploho/",
+        "https://agendametal.com.br/show/ploho-florianopolis/"
+      ],
+      "caveat": "Espaço de shows alternativos, com evento publicado para 05/11/2026; endereço jornalístico confirmado, operação em outras datas não inferida.",
+      "precision": "region_centroid",
+      "reviewedAt": "2026-11-03"
+    },
+    {
+      "id": "ori-boteco-centro",
+      "name": "ORI Boteco Centro",
+      "aliases": [
+        "Ori Boteco - Centro",
+        "Mercearia Ori Centro"
+      ],
+      "region": "Centro",
+      "address": "Rua Henrique Valgas, 318 - Centro, Florianópolis - SC",
+      "locationEvidence": [
+        "https://www.oriboteco.com.br/",
+        "https://florianopolissc.com.br/lugares/ori-boteco-centro"
+      ],
+      "caveat": "Unidade Centro, próxima ao eixo Ponte Hercílio Luz; local para sair mesmo sem atração. Não confundir com unidades Santa Mônica/Campeche.",
+      "precision": "region_centroid",
+      "reviewedAt": "2026-11-03"
+    },
+    {
+      "id": "botequim-floripa",
+      "name": "Botequim Floripa",
+      "region": "Centro",
+      "address": "Avenida Rio Branco, 632 - Centro, Florianópolis - SC",
+      "locationEvidence": [
+        "https://ilovefloripa.com.br/lugar/botequim-floripa",
+        "https://www.instagram.com/reel/DeC8s4IhlnC/"
+      ],
+      "caveat": "Boteco e local de música/dança com atividade publicada; não confundir com Botequim Guanabara e Botequim das Flores.",
+      "precision": "region_centroid",
+      "reviewedAt": "2026-11-03"
+    },
+    {
+      "id": "scuna-bar-club",
+      "name": "Scuna Bar Club",
+      "aliases": [
+        "Scuna Bar"
+      ],
+      "region": "Centro",
+      "address": "Avenida Osvaldo Rodrigues Cabral, 1251 - Centro, Florianópolis - SC",
+      "locationEvidence": [
+        "https://scunabar.com.br/",
+        "https://tocaonde.com.br/events/183985-banda-forum-scuna-bar-florianopolis"
+      ],
+      "caveat": "Casa de música ao vivo próxima à Ponte Hercílio Luz, programação anunciada pelo próprio site; imagem de flyer sem licença de reuso.",
+      "precision": "region_centroid",
+      "reviewedAt": "2026-11-03"
+    },
+    {
+      "id": "bar-do-noel",
+      "name": "Bar do Noel",
+      "aliases": [
+        "Canto do Noel"
+      ],
+      "region": "Centro",
+      "address": "Rua Tiradentes, 186 - Centro, Florianópolis - SC",
+      "locationEvidence": [
+        "https://tocaonde.com.br/venues/1007441-bar-do-noel-florianopolis",
+        "https://www.instagram.com/bardonoelfloripa/"
+      ],
+      "caveat": "Boteco conhecido por samba; links públicos de casa e perfil, sem confirmação de shows em toda noite.",
+      "precision": "region_centroid",
+      "reviewedAt": "2026-11-03"
+    },
+    {
+      "id": "boteco-do-alemao",
+      "name": "Boteco do Alemão",
+      "aliases": [
+        "Bar do Alemão"
+      ],
+      "region": "Centro",
+      "address": "Avenida Hercílio Luz, 692 - Centro, Florianópolis - SC",
+      "locationEvidence": [
+        "https://www.instagram.com/bardoalemaofloripa/",
+        "https://restaurantguru.com.br/Bar-do-Alemao-Florianopolis-8"
+      ],
+      "caveat": "Boteco para encontros sem atração; perfil social indexado, programação específica não verificada.",
+      "precision": "region_centroid",
+      "reviewedAt": "2026-11-03"
+    },
+    {
+      "id": "kibelandia-chopperia",
+      "name": "Kibelândia Chopperia",
+      "aliases": [
+        "Chopperia Kibelândia",
+        "Kibelândia"
+      ],
+      "region": "Centro",
+      "address": "Rua Victor Meirelles, 98 - Centro, Florianópolis - SC",
+      "locationEvidence": [
+        "https://www.instagram.com/kibelandiafloripa/",
+        "https://guiadasemana.com.br/florianopolis/restaurantes/estabelecimento/choperia-kibelandia"
+      ],
+      "caveat": "Bar/gastronomia tradicional; pode não ter atrações, motivo para considerar aba de Lugares. Endereço e perfil públicos.",
+      "precision": "region_centroid",
+      "reviewedAt": "2026-11-03"
+    },
+    {
+      "id": "barra-co",
+      "name": "Barra Cô Drinks e Shots",
+      "aliases": [
+        "Barra Cô",
+        "Barra.Cô"
+      ],
+      "region": "Centro",
+      "address": "Rua Tiradentes, 164 - Centro, Florianópolis - SC",
+      "locationEvidence": [
+        "https://floripa.lgbt/vida-noturna/bares-lgbt-em-florianopolis/",
+        "https://florianopolissc.com.br/locais/barra-co-drinks-e-shots"
+      ],
+      "caveat": "Bar compacto de drinks; confirmação de funcionamento em noite específica pendente. Não tratar como show.",
+      "precision": "region_centroid",
+      "reviewedAt": "2026-11-03"
     }
   ]
 }
