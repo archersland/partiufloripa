@@ -1,36 +1,25 @@
-const assert=require('node:assert/strict'),path=require('node:path'),fs=require('node:fs'),crypto=require('node:crypto');
-const root=path.resolve(__dirname,'..');
-const load=name=>JSON.parse(fs.readFileSync(path.join(root,'data',name+'.json'),'utf8'));
-const events=JSON.parse(fs.readFileSync(path.join(root,'events.json'),'utf8')).events;
-const ctx={categoryPhotos:load('licensed-category-photos'),venueMedia:load('venue-media'),eventPhotos:load('event-artist-photos'),imageRights:load('image-rights')};
-const media=require('./media-selection.js');
-const groups=new Map(),differentMedia=[];
+const assert=require("node:assert/strict"),fs=require("node:fs"),path=require("node:path"),crypto=require("node:crypto");
+const root=path.resolve(__dirname,".."),load=p=>JSON.parse(fs.readFileSync(path.join(root,p),"utf8"));
+const media=require("./media-selection.js"),events=load("events.json").events,rights=load("data/image-rights.json");
+const ctx={imageRights:rights};
 for(const e of events){
  const selected=media.select(e,ctx);
- assert(selected.file&&fs.existsSync(path.join(root,selected.file)),'Media missing for '+e.title);
- assert(['artist','illustrative','cover','event'].includes(selected.kind));
- if(selected.kind==='artist'){
-   assert(selected.label.includes('arquivo')&&selected.sourceUrl.startsWith('https://commons.wikimedia.org/'));
-   differentMedia.push(e.id);
- } else if(e.venue!=='Local a confirmar'){
-   const key=media.normalizeVenue(e.venue);
-   if(groups.has(key))assert.equal(selected.file,groups.get(key),'Same venue must have one common generic fallback: '+e.venue);
-   else groups.set(key,selected.file);
- }
+ assert.equal(selected.kind,"none","No unlicensed posters or generic images may become public by default: "+e.id);
+ assert.equal(selected.file,null);
 }
-assert.equal(differentMedia.length,4,'1 Vitor Kley + 3 Gregorio Duvivier archive records');
-assert.equal(ctx.venueMedia.items.length,14);
-assert(ctx.venueMedia.items.every(x=>ctx.categoryPhotos.items.some(i=>i.file===x.imageFile&&i.rightsStatus==='approved')));
-for(const a of ctx.eventPhotos.assets){
- assert(a.eventIds.length>0&&['cc by 4.0','cc0'].includes(a.license.toLowerCase()));
- assert(a.isPhotoOfUpcomingEvent===false&&a.sourceFilePage===a.rightsEvidenceUrl);
- assert(a.licenseUrl&&a.photographer&&a.modifiedFromOriginal);
- assert(/^\.\/assets\/event-artists\/[a-z0-9-]+\.webp$/.test(a.file));
- const binary=fs.readFileSync(path.join(root,a.file));
- assert.equal(crypto.createHash('sha256').update(binary).digest('hex'),a.sha256);
+assert(rights.assets.length===12&&rights.assets.every(x=>x.rightsStatus==="pending"),"The twelve catalogued posters remain rights-pending");
+const historic=load("data/event-artist-photos.json");
+for(const a of historic.assets){
+ assert(a.isPhotoOfUpcomingEvent===false,"archive photos must not be passed as event-specific");
+ assert.equal(crypto.createHash("sha256").update(fs.readFileSync(path.join(root,a.file))).digest("hex"),a.sha256);
 }
-const today=events.find(e=>e.title==='Daniel Duncan');
-const other=events.find(e=>e.title.startsWith('Luã Lima'));
-assert.equal(media.select(today,ctx).file,media.select(other,ctx).file);
-assert.equal(media.select(today,ctx).kind,'illustrative');
-console.log('Media priority and invariants passed: '+groups.size+' venues, '+differentMedia.length+' artist-archive events');
+const selected=events.find(e=>e.id==="evt-76f759a2b51c");
+const preview={scope:"private-preview",events:[{eventId:selected.id,sourceEventUrl:selected.source,file:"./images/c44cc3c865ffdb06.webp",rightsStatus:"pending"}],venues:[{venue:"Bar do Espartano",file:"./assets/venue-review/bar-do-espartano.webp",rightsStatus:"pending",type:"logo"}]};
+assert.equal(media.select(selected,{...ctx,reviewMedia:preview}).kind,"none","review without explicit permission stays closed");
+assert.equal(media.select(selected,{...ctx,reviewOnly:true,reviewMedia:preview}).kind,"event-review");
+assert.equal(media.select({...selected,id:"evt-111111111111"},{...ctx,reviewOnly:true,reviewMedia:preview}).kind,"none","event images cannot attach to unrelated events");
+assert.equal(media.select({...selected,source:"https://wrong.example.com"},{...ctx,reviewOnly:true,reviewMedia:preview}).kind,"none","review source must match");
+assert.equal(media.select({venue:"Bar do Espartano"},{...ctx,reviewOnly:true,reviewMedia:preview}).kind,"venue-review");
+assert.equal(media.select({...selected,venue:"Bar do Espartano"},{...ctx,reviewOnly:true,reviewMedia:preview}).kind,"event-review","venue logotype cannot replace event poster");
+assert.equal(media.select({venue:"LUGAR FICTÍCIO"},{...ctx,reviewOnly:true,reviewMedia:preview}).kind,"none");
+console.log("Authentic-only media policy: 56 events default to empty; 12 source-linked pending posters; private preview gated and correctly keyed");
