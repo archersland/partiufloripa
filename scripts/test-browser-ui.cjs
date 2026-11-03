@@ -81,7 +81,7 @@ async function main(){
    assert(picker.visible&&picker.searchHidden&&picker.datesHidden&&picker.expanded==='true',"Calendar replaces search and date chips");
    await evaluate("document.getElementById('global-date').value='2026-11-06';document.getElementById('global-date').dispatchEvent(new Event('change',{bubbles:true}))");
    assert.equal(await evaluate("document.querySelector('.quick-dates').hidden"),false,"Calendar selection should restore date shortcuts");
-   await evaluate("document.querySelector('[data-quick-date=\\\"\\\"]').click()");
+   await evaluate("document.querySelector('.quick-dates button').click()");
    
    const before=await evaluate("location.pathname");
    await evaluate("document.querySelector('#featured a.event-card').click()");
