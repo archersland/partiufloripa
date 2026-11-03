@@ -209,7 +209,7 @@ function placeCard(venue,opening){
  const check=state!=="unknown"&&opening.reviewedAt?'<span class="place-region"> · Consultado em '+esc(opening.reviewedAt.split("-").reverse().join("/"))+'</span>':"";
  const image=PartiuMedia.select({venue:venue.name,category:"Cultura"},mediaContext());
 
- const thumb=image.file?'<span class="place-art"><img data-kind="'+esc(image.kind)+'" src="'+esc(image.file)+'" alt="" loading="lazy" onerror="this.hidden=true"></span>':"";
+ const thumb=image.file?'<span class="place-art"><img data-kind="'+esc(image.kind)+'" data-media-type="'+(image.isLogo?"logo":"photo")+'" src="'+esc(image.file)+'" alt="" loading="lazy" onerror="this.hidden=true"></span>':"";
  return '<article class="place-card is-'+state+(image.file?'':' place-card--text-only')+'"><button type="button" class="place-open" data-place-id="'+esc(venue.id)+'" aria-label="Ver detalhes de '+esc(venue.name)+'">'+
   thumb+'<span class="place-main"><span class="place-title">'+esc(venue.name)+'</span><span class="place-region">'+esc(venue.region||"Florianópolis")+'</span>'+
   '<span class="place-status '+(state==="open"?"":state)+'">'+esc(label)+'</span>'+check+
