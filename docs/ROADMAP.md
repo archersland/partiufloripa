@@ -57,3 +57,13 @@ Revisão detalhada: [OPT-01 a OPT-14](../reports/BUILD-WEB-APPS-REVIEW-2026-11-0
 - [ ] Aceite do beta web pelo Cliente após evidência, sem tratar deploy como homologação.
 
 **Sem mudança de stack, backend, pagamento, app, funcionalidades sociais, publicidade ou prospecção.** Resultado de CI/QA pendente não deve ser marcado concluído.
+
+## Auditoria Firecrawl de eventos e casas — 03/11/2026
+- [x] Inventariar **56 ocorrências** e **14 locais físicos** existentes; registrar situação individual e fontes em [auditoria de novembro](../reports/VENUE-AND-EVENT-AUDIT-2026-11-03.md).
+- [x] Incluir no diretório **9 novas casas**, a começar por Célula Showcase, ETC. Casa de Vinhos e Artes e Chopp do Gus; endereços textuais com evidência, sem coordenadas presumidas.
+- [x] Completar metadados dos 14 locais que já apareciam nos eventos (total **23 registros** de locais no diretório, com as 3 entradas anteriores preservadas).
+- [x] Acrescentar testes de cobertura e integridade do diretório ao teste existente, reaproveitando GitHub Actions.
+- [ ] Resolver os conflitos **BACKWASH/NA ONDA** e **MUNDO M: Stage/Indoor**; conferir horários de Folianópolis e vínculos genéricos de bilheteria.
+- [ ] Concluir revisão editorial individual, fonte primária por sessão, direitos de cartaz e acesso; não publicar novos eventos ou declarar `verified` automaticamente.
+- [ ] Geocodificar entradas de casas somente mediante evidência verificável; endereços textuais não são coordenadas nem marcam automaticamente no mapa.
+- [ ] Validar CI e experiência de localização após alterações; separar verificação técnica de aceite do beta.
