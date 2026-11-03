@@ -50,3 +50,6 @@
 - Nunca mostrar "Horário não confirmado" como filtro, cartão ou categoria pública. Sem calendário semanal comprovado para a data selecionada, o local **não entra** na lista de Lugares; passa à fila editorial sem ser tratado como fechado. Não alterar status de eventos ou inventar agenda/horários.
 - A comunicação "costumam abrir/fechar" é **habitual**, não "aberto agora": preservar referência à fonte e ressalvas sobre feriados. Os horários são verificados por dia, unidade e data da fonte; controle de validade de 90 dias mantido.
 - Arquivo de pendências: `reports/VENUE-HOURS-INVESTIGATION-2026-11-03.md`. CI e validação mobile/desktop são gates distintos de publicação e aceite do Cliente.
+
+## Correção v0.6.1 — Lugares sempre visíveis (03/11/2026)
+Substitui apenas a regra de ocultar casas sem grade comprovada no adendo v0.6: **todas as 39 casas permanecem na listagem**. As com grade desconhecida são agrupadas visualmente em **Fechadas**, provisoriamente, com ordenação alfabética por letra, enquanto os dados preservam `unknown` para investigação futura. O status apresentado não comprova que o estabelecimento esteja realmente fechado. Preservam-se a Home de coluna única e Lugares em duas colunas desktop.
