@@ -5,7 +5,7 @@
 const norm=s=>String(s||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").trim().toLowerCase().replace(/\s+/g," ");
 const fileOkay=(f,prefix)=>typeof f==="string"&&new RegExp("^\\./assets/"+prefix+"/[a-z0-9-]+\\.webp$").test(f);
 const empty={file:null,kind:"none",label:"Imagem real ainda não cadastrada"};
-const previewPath=f=>typeof f==="string"&&( /^\.\/assets\/venue-review\/[a-z0-9-]+\.(?:webp|jpe?g|png)$/.test(f) || /^\.\/images\/[a-z0-9]+\.webp$/.test(f) || /^data:image\/webp;base64,[A-Za-z0-9+/=]{100,16000}$/.test(f));
+const previewPath=f=>typeof f==="string"&&( /^\.\/assets\/(?:venue-review|event-review)\/[a-z0-9-]+\.(?:webp|jpe?g|png)$/.test(f) || /^\.\/images\/[a-z0-9]+\.webp$/.test(f) || /^data:image\/webp;base64,[A-Za-z0-9+/=]{100,16000}$/.test(f));
 function select(event,registries={}){
  const specificRights=registries.imageRights?.assets||[];
  const verifiedPoster=specificRights.find(a=>a.eventId===event.id&&a.rightsStatus==="approved"&&a.rightsEvidenceUrl&&a.license&&/^\.\/images\/[\w.-]+\.webp$/.test(a.file));
