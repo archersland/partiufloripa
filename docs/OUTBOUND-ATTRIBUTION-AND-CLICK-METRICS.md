@@ -1,6 +1,6 @@
 # Medição de cliques externos e identificação de origem — PartiuFloripa
 
-**Versão:** 0.1, 2026-11-03. **Estado:** requisitos e protocolo de pesquisa documentados; **não implementado, não implantado e não homologado**. Complementa RF-12 e ADR-036. Não constitui autorização para prospecção, acordos comerciais, afiliados, mudanças em links públicos, lançamento do beta, serviços pagos ou automação de rastreamento.
+**Versão:** 0.2, 2026-11-03. **Estado:** pesquisa documental e estratégia de produto **homologadas pelo Cliente** em 03/11/2026 como baseline de requisitos; **mecanismo de coleta, parametrização de links, campanhas, parcerias, implantação e resultados não foram homologados nem implementados**. Complementa RF-12 e ADR-036. Não constitui autorização para prospecção, acordos comerciais, afiliados, mudanças em links públicos, lançamento do beta, serviços pagos ou automação de rastreamento.
 
 ## 1. Objetivo e limites do produto
 
@@ -163,7 +163,63 @@ Fontes:
 
 **Consequência para PartiuFloripa:** priorizar a medição própria e a visibilidade da origem; não tratar a possibilidade técnica de parametrizar URLs como direito a comissionamento. Investigar programas como **monetização futura separada** somente após nova decisão do Cliente, sem cadastrar, prospectar ou substituir links atuais.
 
-## 9. Aceite técnico futuro e riscos
+## 10. Consolidação técnica e estratégica — pesquisa de referência homologada v0.2
+
+### Classificação formal de produto (F1 — mensuração interna; Growth B2B futuro)
+
+**Categoria:** capacidade transversal **de observabilidade e atribuição de tráfego** do portal web; componente privado de métricas/relatórios, com instrumentação não bloqueante de CTAs públicos. Não é uma nova aba pública, um programa de afiliados ou promessa de remuneração. Entra na **F1 — beta e validação de audiência**, antes da F3 comercial, sujeita aos gates de privacidade, implementação e aceite técnico. Os CTAs atuais continuam operando sem nenhuma alteração neste ciclo.
+
+**Resultado esperado de F1:** relatório **interno** por evento, casa, tipo de destino e janela temporal, com denominadores e qualidade de coleta explícitos. A marca poderá ficar reconhecível em mecanismos de UTM/ref **somente para plataformas e URLs individualmente validadas**, sem interferir em comissões alheias. **Demonstrar tráfego não autoriza prospecção nem declara venda.**
+
+### Pesquisa técnica adicional (verificações documentais 2026-11-03)
+
+| Caminho de coleta | Evidência de capacidade | Parecer para a F1 |
+| --- | --- | --- |
+| **Umami (nuvem ou self-hosted)** | Documenta eventos customizados via HTML/JavaScript com propriedades. Plano Hobby anuncia 100 mil eventos incluídos e retenção de 6 meses, sujeito a termos vigentes. | **Candidato a PoC de baixo custo.** Não inferir que deduplicação/idempotência e usuários únicos seguem nosso contrato sem testes; estudar exportação e privacidade |
+| **Google Analytics 4** | Eventos customizados por `gtag('event',...)`, incluindo parâmetros, além de medição aprimorada de cliques externos. | **Candidato a PoC.** Atenção a eventos automáticos duplicados, retenção, consentimento/base legal e limitações de contagem customizada |
+| **Cloudflare Web Analytics (produto Web Analytics)** | Gratuito e orientado à privacidade para page views/RUM, mas documentação FAQ afirma **que não oferece custom events**. | **Não atende isoladamente** ao contrato de cliques deduplicados por `event_id`/`venue_id`. Não confundir com Cloudflare Workers |
+| **Endpoint mínimo/Worker autorizado** | Cloudflare Workers publica camada gratuita com limites de requisições, mas **não fornece deduplicação, armazenamento, segurança ou relatórios por si só**. | **Alternativa em investigação**, exige desenho de armazenamento, privacidade, custo, controle de abuso e manutenção; não ativar |
+| **Plausible** | Eventos/atributos e rastreio automático de links externos existem, mas eventos customizados participam da cobrança. | **Alternativa comparativa**, testar custo/compatibilidade antes de selecionar |
+
+**Evidências oficiais:**
+- https://docs.umami.is/docs/track-events
+- https://docs.umami.is/docs/tracker-functions
+- https://umami.is/pricing
+- https://developers.google.com/analytics/devguides/collection/ga4/events
+- https://developers.cloudflare.com/web-analytics/faq/
+- https://developers.cloudflare.com/workers/platform/pricing/
+- https://plausible.io/docs/custom-event-goals
+
+**Nota sobre privacidade:** as orientações da ANPD exigem finalidade definida, transparência, minimização e base legal apropriada ao contexto. Não afirmar que a simples ausência de cookie isenta o produto de revisão da LGPD; sessão efêmera também pode ser dado pessoal conforme o tratamento. Fontes: https://www.gov.br/anpd/pt-br/assuntos/noticias/anpd-lanca-guia-orientativo-201ccookies-e-protecao-de-dados-pessoais201d e https://www.gov.br/anpd/pt-br/assuntos/noticias/anpd-lanca-guia-orientativo-sobre-legitimo-interesse .
+
+### Compatibilidade e recompensa — atualização após reconferência
+
+- **Sympla / Afiliados:** artigo oficial atualizado em 06/10/2026 confirma **convite do organizador**, aceite e links de atribuição com visitas/vendas/financeiro. Comissionamento depende de habilitação; não existe percentual universal comprovado. https://ajuda.sympla.com.br/hc/pt-br/articles/210255583-Posso-divulgar-eventos-como-afiliado
+- **Sympla / Evento Amigo:** mecanismo de **indicação de novo produtor**, distinto da venda de ingressos. Conteúdo de ajuda indexado em busca (23/08/2026) menciona **R$ 50 Pix por indicação qualificada**, porém a URL oficial retornou **HTTP 404** na abertura direta em 03/11/2026; **programa ativo, elegibilidade e cadastro não confirmados**. Não usar como premissa de receita nem iniciar cadastro.
+- **PensaNoEvento:** site oficial confirma links personalizados com cupons para influencers, PDVs individuais para comissários/RPs e cálculo automático de comissões em listas. **Não** confirma um sistema aberto de autoafiliação nem uma sintaxe pública de `ref/source` arbitrável. https://www.pensanoevento.com.br/conheca
+- **Shotgun:** produtor pode convidar promoters, inclusive mídias online, e atribuir links rastreáveis por evento. A própria documentação informa que **não há divisão automática da receita** pelo serviço, de modo que remuneração depende de relação com o produtor. https://support-pro.shotgun.live/hc/pt-br/articles/13970546627858-Criar-e-gerenciar-promoters e https://support-pro.shotgun.live/hc/pt-br/articles/13970940523154--Portal-do-Promoter
+- **Eventbrite:** relatórios de tracking links disponíveis ao organizador; isso não confirma um programa de remuneração universal para sites externos. https://www.eventbrite.com/help/en-us/articles/591670/download-a-tracking-links-report/
+- **Evvnt:** a documentação confirma `?ref=` **arbitrário sem cadastro prévio**, exibível no painel após visita e com atribuição de compra em janela de 30 minutos; **não estabelece direito de comissão**. https://support.evvnt.com/articles/6194309735-referral-code-tracking
+- **GA4 UTM:** `utm_source` e demais parâmetros são uma convenção de marcação; a instrumentação e atribuição dependem do destino, podem ser alteradas por redirecionamentos, scripts ou política do site. https://support.google.com/analytics/answer/11242870?hl=pt-BR
+- **`noreferrer`:** HTML suprime o cabeçalho `Referer`; ver https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel/noreferrer . Não retirar o atributo por conveniência comercial sem avaliação.
+
+### Fonte editorial ≠ CTA comercial
+
+A **matriz passiva dos 35 links** do catálogo foi separada em [OUTBOUND-LINK-INVENTORY-2026-11-03.md](OUTBOUND-LINK-INVENTORY-2026-11-03.md). Registro original `event.source` é **fonte documental**, não necessariamente site de organizador ou bilheteria: 28 das 56 ocorrências **não têm link individual inequívoco de ingressos no campo source** (26 em agregadores/editorial + 2 apontando agenda geral Music Park). As 27 ocorrências da PensaNoEvento incluem 26 páginas com caminho `/eventos/...` e 1 perfil; nenhuma página final foi validada nesta etapa. **Não converter campo `source` automaticamente em identificador afiliado, CTA de compra ou URL parametrizada.**
+
+### Critérios para considerar esta **pesquisa** homologada
+
+- [x] Estratégia B2B, métricas, rejeição, deduplicação inicial, resiliência, direitos e limites documentados.
+- [x] Causas de não atribuição e distinção `Referer`/UTM/`ref`/afiliado explicitadas por fontes oficiais.
+- [x] Inventário passivo de **56 ocorrências, 35 fontes distintas e 39 lugares**, com matriz individual e classificação provisória.
+- [x] Comparação documental de opções de coleta, incluindo limitação de eventos customizados do Cloudflare Web Analytics.
+- [x] Comparação de programas de promoters/indicações **sem prometer pagamentos ou afiliados automáticos**.
+- [x] Decisão de produto e critérios de implementação/aceite separados da pesquisa (ADR-036/037, RF-41–45, roadmap).
+
+**Fora da homologação:** conferência de cada página final, redirecionamentos/captura de UTM/ref por casa; testes em runtime; implementação de serviço analítico e modelo de dados; aprovação jurídica/privacidade; estimativa de pessoas, tráfego ou conversões; cadastro em programas; convites, contatos, campanhas e publicação do portal. Essas são dependências do ciclo **de implementação** ou **comercial**, não falhas escondidas na conclusão da pesquisa documental.
+
+
+## 11. Aceite técnico futuro e riscos
 
 **Critérios:** testes automatizados do algoritmo de filtro/idempotência/deduplicação e construção segura de URLs; cenários permitidos e proibidos na seção 4; verificação no Chromium mobile/desktop e Android físico quando possível; CTA mantém o destino com coletor desligado; sem duplicação nas abas; relatório por evento/casa/30 dias reconciliável com fixture conhecida; revisão de tratamento de dados; teste com `noopener noreferrer`, ad blocker, falha de conexão e parâmetros existentes. Integrar aos checks/CI já existentes sem criar build apenas para docs.
 
