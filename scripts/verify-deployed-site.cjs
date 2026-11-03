@@ -26,6 +26,12 @@ async function verify(){
  assert(events.events.length>=56,"published events lost");
  assert(venues.venues.length>=39,"published venues lost");
  assert(hours.venues.length>=5,"published reviewed schedules lost");
+ const details=await (await get("./evento/"+events.events[0].slug+"/")).text();
+ assert(details.includes('data-ui-baseline="horizonte-noturno-v0.2"'),"published detail is using legacy design");
+ assert(details.includes('<base href="../../">'),"published detail has broken relative asset base");
+ assert(details.includes('href="./styles/horizonte-detalhe.css"'),"published detail stylesheet missing");
+ const detailCss=await (await get("./styles/horizonte-detalhe.css")).text();
+ assert(detailCss.includes("--pf-peach:#ffaf78"),"published detail style inconsistent");
  const scripts=await Promise.all(["./scripts/home-layout.js","./scripts/venue-hours.js"].map(p=>get(p).then(x=>x.text())));
  assert(scripts[0].includes("selectHome("),"published home logic missing");
  assert(scripts[1].includes("function status("),"published venue-hours logic missing");
