@@ -142,6 +142,27 @@ A página pública de produtores da Pensanoevento confirma serviço de bilheteri
 
 **Próximo levantamento:** para cada registro, classificar `editorial_source`, `organizer_site`, `ticketing_event_page`, `generic_agenda`, `unknown`; identificar o domínio que realmente receberia o visitante e documentar se a casa consegue consultar relatórios. O inventário deste item é **passivo e parcial**: não auditou os 35 redirecionamentos, direitos, mecanismos internos de analytics ou contratos.
 
+## 9. Pesquisa complementar — programas de recompensa (consulta 2026-11-03)
+
+**Separação necessária:** rastreamento de origem ≠ programa aberto a divulgadores ≠ comissão por ingresso ≠ indicação de novo produtor. As verificações abaixo são **documentais**, sem cadastro, afiliação ou contato.
+
+| Plataforma | Programa/possibilidade | Recompensa | Adesão/autorização | Grau de evidência |
+| --- | --- | --- | --- | --- |
+| Sympla «Evento Amigo» | Referência pública indexada: indicação de **novos organizadores** que publiquem seu primeiro evento/conteúdo pago | **R$ 50 via Pix por organizador qualificado**, sem limite anunciado | Página indexada descreve formulário e link individual, **mas o URL do artigo retornou HTTP 404 em consulta direta de 03/11/2026**; disponibilidade real do programa e cadastro **não confirmados** | Oferta documentada em resultado de busca; elegibilidade/termos atuais pendentes |
+| Sympla «Comissários/Afiliados» | Atribuição de visitas e vendas de ingressos usando link/código próprio | Comissão **somente se habilitada pelo produtor**; valor e limites variáveis | **Convite do organizador por e-mail** e aceite da afiliação | Suporte oficial atualizado em 06/10/2026 |
+| PensaNoEvento | Links personalizados para influencers, PDVs individuais para comissários/RPs e cálculo de comissões em «Nomes na Lista» | Plataforma **suporta configuração de comissões**, sem percentual público universal confirmado | A depender de configuração/permissão de produtor; **programa aberto de auto-adesão não confirmado** | Funcionalidades no site institucional |
+| Eventbrite | Links rastreáveis de divulgação/afiliados no painel do organizador | **Não há remuneração automática geral comprovada**; eventuais acordos específicos com organizadores não foram verificados | Organizador gera/compartilha link; requer permissões no painel | Ajuda oficial de tracking links |
+| Evvnt | Código arbitrário `ref` registra visitas, ingressos e receita | **Nenhuma comissão automática documentada para o autor do código** | Não exige cadastro para registrar o código no analytics do evento | Ajuda oficial do sistema |
+
+Fontes: 
+- Sympla Evento Amigo (página indexada, ligação direta indisponível na consulta): https://ajuda.sympla.com.br/hc/pt-br/articles/24139057931028-Como-funciona-o-programa-Evento-Amigo
+- Sympla Afiliados: https://ajuda.sympla.com.br/hc/pt-br/articles/210255583-Posso-divulgar-eventos-como-afiliado
+- PensaNoEvento funcionalidades: https://www.pensanoevento.com.br/conheca
+- Eventbrite tracking: https://www.eventbrite.com/help/en-au/articles/835126/how-to-create-promotional-tracking-links/
+- Evvnt: https://support.evvnt.com/articles/6194309735-referral-code-tracking
+
+**Consequência para PartiuFloripa:** priorizar a medição própria e a visibilidade da origem; não tratar a possibilidade técnica de parametrizar URLs como direito a comissionamento. Investigar programas como **monetização futura separada** somente após nova decisão do Cliente, sem cadastrar, prospectar ou substituir links atuais.
+
 ## 9. Aceite técnico futuro e riscos
 
 **Critérios:** testes automatizados do algoritmo de filtro/idempotência/deduplicação e construção segura de URLs; cenários permitidos e proibidos na seção 4; verificação no Chromium mobile/desktop e Android físico quando possível; CTA mantém o destino com coletor desligado; sem duplicação nas abas; relatório por evento/casa/30 dias reconciliável com fixture conhecida; revisão de tratamento de dados; teste com `noopener noreferrer`, ad blocker, falha de conexão e parâmetros existentes. Integrar aos checks/CI já existentes sem criar build apenas para docs.
