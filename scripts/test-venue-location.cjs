@@ -42,3 +42,21 @@ assert.equal(geo.resolve({venue:'Bar do Espartano',region:'Florianópolis'},venu
 assert.equal(geo.resolve({venue:'Teatro Álvaro de Carvalho',region:'Florianópolis'},venues).precision,'region_centroid');
 assert.equal(geo.resolve({venue:'Célula Showcase',region:'Florianópolis'},venues),null,'No source-approved João Paulo coordinates/centroid');
 console.log('Venue directory coverage and provenance passed: '+namedVenues.length+' catalog venues, '+venues.venues.length+' registered');
+
+
+const centerEastAndBridge=[
+ 'no-class','boho-bar-pista','vodu-arte-bar','boteco-do-maicao-centro',
+ 'teodoro-bar','selva-bar-floripa','opium-bar','atelie-389','desgosto-bar',
+ 'ori-boteco-centro','botequim-floripa','scuna-bar-club','bar-do-noel',
+ 'boteco-do-alemao','kibelandia-chopperia','barra-co'
+];
+for(const id of centerEastAndBridge){
+ const v=venues.venues.find(v=>v.id===id);
+ assert(v,'Missing Centro-Leste or bridge area venue '+id);
+ assert(v.address&&v.locationEvidence.length>0,'Address/evidence required '+id);
+ assert.equal(v.coordinates,undefined,'No fabricated venue entrance coordinates '+id);
+ assert.equal(v.precision,'region_centroid','Location must remain approximate '+id);
+ assert.equal(v.region,'Centro','Region should stay Centro for '+id);
+}
+assert.equal(venues.venues.length,39,'Expected 39 sourced venue records after research');
+console.log('Centro-Leste/bridge research venue registry passed ('+centerEastAndBridge.length+' additions)');
