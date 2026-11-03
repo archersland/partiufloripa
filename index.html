@@ -236,7 +236,7 @@ function renderPlaces(){
  const count=Object.values(groups).reduce((n,a)=>n+a.length,0);
  // Keep pendingInvestigation internal for editorial research; never show unknown cards.
  $("places-stats").textContent=count+" lugares com funcionamento documentado · "+groups.open.length+" costumam abrir · "+groups.closed.length+" costumam fechar.";
- const configs=[["open","Costumam abrir neste dia"],["closed","Fechados neste dia"]];
+ const configs=[["open","Costumam abrir neste dia"],["closed","Costumam fechar neste dia"]];
  const sections=configs.filter(([key])=>!filter||key===filter).map(([key,title])=>{
   const entries=groups[key].sort((a,b)=>a.venue.name.localeCompare(b.venue.name,"pt-BR"));
   if(!entries.length)return "";
