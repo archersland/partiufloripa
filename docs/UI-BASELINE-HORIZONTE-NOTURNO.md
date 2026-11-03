@@ -24,3 +24,10 @@
 - `scripts/verify-deployed-site.cjs` verifica após deploy **o HTML e os assets realmente servidos**, inclusive detalhes, esquemas de dados e tokens. Não confundir CI com aceite visual: inspeção em browser/Android continua como gate humano.
 
 **Mudanças materiais nesta referência:** exigir revisão do Cliente ou ADR explícito e atualização conjunta dos testes. Não “resolver” um teste retirando a asserção do baseline.
+
+## Adendo de interação v0.3 — 03/11/2026 (aguardando aceite visual)
+- A navegação primária ao clicar em card de evento (inclusive link de evento no popup do mapa) passa a abrir diálogo nativo sobre a aba atual. As URLs profundas preservam compartilhamento, SEO e abertura direta. Ctrl/Cmd+clique e abrir em nova aba continuam usando o link original.
+- O card de Lugar tem imagem ilustrativa licenciada, identificada como tal, e abre diálogo com nome, endereço textual, estado habitual com ressalvas, evidências e atrações futuras presentes no catálogo. Uma casa sem eventos também deve abrir seu detalhe.
+- A composição dos cards de Nos próximos dias dá prioridade a miniatura visível, título serifado, data e casa, sem sobrepor data grande/legendas sobre a foto compacta.
+- O hero mantém a imagem decorativa da Ponte Hercílio Luz embutida no CSS. A declaração CSS precisa ser válida (cor apenas na última camada da propriedade background); presença de dados WebP isolada não comprova renderização.
+- As fotos genéricas licenciadas do inventário existente não retratam as casas reais. Não chamá-las de fotos da casa. Substituição por foto real depende de fonte, licença/autorização e registro individuais. QA no navegador, Android físico e aceite do Cliente permanecem separados da aprovação técnica de CI.
