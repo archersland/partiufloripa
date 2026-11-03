@@ -92,8 +92,13 @@ async function main(){
    assert.equal(await evaluate("document.getElementById('detail-dialog').open"),false,"Event dialog must close");
    await evaluate("document.getElementById('tab-places').click()");
    await until(()=>evaluate("Boolean(document.querySelector('.place-open'))"));
-   const places=await evaluate("(()=>({count:document.querySelectorAll('.place-open').length,empty:document.querySelectorAll('.place-open .place-empty').length,illustrative:document.querySelectorAll('.place-open img[src*=\"/photos/\"]').length}))()");
-   assert(places.count>=30&&places.empty===places.count&&places.illustrative===0,"Unlicensed/generic venue imagery must not appear in public/CI");
+   const places=await evaluate("(()=>({count:document.querySelectorAll('.place-open').length,empty:document.querySelectorAll('.place-open .place-empty').length,images:document.querySelectorAll('.place-open img').length,illustrative:document.querySelectorAll('.place-open img[src*=\"/photos/\"]').length,privateReview:reviewMedia.scope==='private-preview'}))()");
+   assert(places.count>=30&&places.images+places.empty===places.count&&places.illustrative===0,"Venue imagery must be actual or absent, never generic");
+   if(places.privateReview){
+    assert(places.images>=3,"Private review must include supplied venue identity visuals");
+    const uploaded=await evaluate("['Bar do Espartano','Floripa Comedy Club','ETC. Casa de Vinhos e Artes'].every(name=>[...document.querySelectorAll('.place-open')].some(b=>b.textContent.includes(name)&&b.querySelector('img')))");
+    assert(uploaded,"User-supplied logos must be displayed in private review");
+   }else assert(places.empty===places.count,"Public/CI should not include unlicensed venue visuals");
    await evaluate("document.querySelector('.place-open').click()");
    const place=await evaluate("(()=>{const d=document.getElementById('detail-dialog');return {open:d.open,title:!!d.querySelector('#detail-title'),hours:d.textContent.includes('Funcionamento habitual'),events:d.textContent.includes('Eventos no portal'),pathname:location.pathname}})()");
    assert(place.open&&place.title&&place.hours&&place.events&&place.pathname===before,"Venue click must open its own dialog without navigation");
