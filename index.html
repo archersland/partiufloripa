@@ -188,6 +188,63 @@ function render(){
  updateDateControls();
 }
 
+function placeCard(venue,opening){
+ const state=opening.status;
+ const label=state==="open"?"Costuma abrir neste dia":state==="closed"?"Costuma fechar neste dia":"Horário não confirmado";
+ const source=/^https:\/\//.test(opening.sourceUrl)?opening.sourceUrl:"";
+ const evidence=(venue.locationEvidence||[]).find(u=>/^https:\/\//.test(u))||"";
+ const address=venue.address||"";
+ const external=' target="_blank" rel="noopener noreferrer"';
+ const addressLink=address?'<a href="https://www.google.com/maps/search/?api=1&amp;query='+encodeURIComponent(address)+'"'+external+'>Buscar endereço no mapa</a>':"";
+ const sourceLink=source?'<a href="'+esc(source)+'"'+external+'>Fonte dos horários</a>':evidence?'<a href="'+esc(evidence)+'"'+external+'>Fonte do local</a>':"";
+ const timeText=state!=="unknown"&&opening.hoursText?'<p class="place-hours">'+esc(opening.hoursText)+'</p>':"";
+ const check=state!=="unknown"&&opening.reviewedAt?'<span class="place-region"> · Consultado em '+esc(opening.reviewedAt.split("-").reverse().join("/"))+'</span>':"";
+ return '<article class="place-card is-'+state+'"><div class="place-art" aria-hidden="true">⌖</div><div class="place-main"><h4>'+esc(venue.name)+'</h4><div class="place-region">'+esc(venue.region||"Florianópolis")+'</div>'+
+  '<div><span class="place-status '+(state==="open"?"":state)+'">'+esc(label)+'</span>'+check+'</div>'+
+  '<p class="place-address">'+esc(address||"Endereço de entrada não registrado")+'</p>'+timeText+
+  '<div class="place-links">'+sourceLink+addressLink+'</div></div></article>';
+}
+function renderPlaces(){
+ const list=venueDirectory?.venues||[],results=$("places-results");
+ $("places-date-label").textContent="Explore bares, pistas e espaços culturais para "+selectedDateLabel()+", mesmo sem eventos cadastrados.";
+ if(venuesUnavailable){results.innerHTML='<div class="empty">O diretório de lugares está indisponível. Tente atualizar a página.</div>';$("places-stats").textContent="";return}
+ const query=$("search").value.trim().normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase("pt-BR");
+ const region=$("place-region").value,filter=$("place-status").value,selected=selectedDate();
+ const groups={open:[],closed:[],unknown:[]};
+ for(const venue of list){
+  if(region&&venue.region!==region)continue;
+  const searchText=[venue.name,venue.region,venue.address,...(venue.aliases||[])].join(" ").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase("pt-BR");
+  if(query&&!searchText.includes(query))continue;
+  const state=PartiuVenueHours.status(venue.id,hoursDirectory,selected,today);
+  groups[state.status].push({venue,state});
+ }
+ const count=Object.values(groups).reduce((n,a)=>n+a.length,0);
+ $("places-stats").textContent=count+" lugares encontrados · "+groups.open.length+" costumam abrir · "+groups.closed.length+" costumam fechar · "+groups.unknown.length+" sem horário confirmado.";
+ const configs=[["open","Costumam abrir neste dia"],["closed","Costumam fechar neste dia"],["unknown","Horário ainda não confirmado"]];
+ const sections=configs.filter(([key])=>!filter||key===filter).map(([key,title])=>{
+  const entries=groups[key].sort((a,b)=>a.venue.name.localeCompare(b.venue.name,"pt-BR"));
+  if(!entries.length)return "";
+  return '<section class="places-group" aria-label="'+esc(title)+'"><h3 class="places-group-heading">'+esc(title)+' <span class="places-count">'+entries.length+'</span></h3>'+
+   '<div class="places-grid">'+entries.map(x=>placeCard(x.venue,x.state)).join("")+'</div></section>';
+ }).join("");
+ results.innerHTML=sections||'<div class="empty">Nenhum lugar corresponde aos filtros. Experimente outro bairro ou funcionamento.</div>';
+}
+function setView(view){
+ if(activeView!==view)$("search").value="";
+ activeView=view;
+ for(const [id,panel] of [["list","list-panel"],["places","places-panel"],["map","map-panel"]]){
+  const active=id===view;
+  $("tab-"+id).classList.toggle("active",active);
+  $("tab-"+id).setAttribute("aria-selected",String(active));
+  $(panel).hidden=!active;
+ }
+ $("agenda-section").hidden=view!=="list";
+ $("agenda-divider").hidden=view!=="list";
+ $("search").placeholder=view==="places"?"Buscar bar, casa ou bairro...":view==="map"?"Buscar eventos na agenda...":"Buscar evento ou artista...";
+ $("search").setAttribute("aria-label",$("search").placeholder);
+ if(view==="places")renderPlaces();
+ if(view==="list")render();
+}
 let mapInstance=null,heatLayer=null,venueMarkers=null,mapReady=null,activeView="list";
 const previewParams=new URLSearchParams(location.search);
 let previewDate=/^\d{4}-\d{2}-\d{2}$/.test(previewParams.get("date")||"")?previewParams.get("date"):null;
