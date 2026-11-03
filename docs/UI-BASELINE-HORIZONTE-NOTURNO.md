@@ -31,3 +31,9 @@
 - A composição dos cards de Nos próximos dias dá prioridade a miniatura visível, título serifado, data e casa, sem sobrepor data grande/legendas sobre a foto compacta.
 - O hero mantém a imagem decorativa da Ponte Hercílio Luz embutida no CSS. A declaração CSS precisa ser válida (cor apenas na última camada da propriedade background); presença de dados WebP isolada não comprova renderização.
 - As fotos genéricas licenciadas do inventário existente não retratam as casas reais. Não chamá-las de fotos da casa. Substituição por foto real depende de fonte, licença/autorização e registro individuais. QA no navegador, Android físico e aceite do Cliente permanecem separados da aprovação técnica de CI.
+
+## Adendo visual v0.4 — Fundo fixo e barra compacta (03/11/2026, avaliação pendente)
+- Usar a mesma imagem decorativa da Ponte Hercílio Luz como uma camada fixa de tela inteira, atrás do conteúdo rolável. A ponte não acompanha o scroll; o fundo editorial das seções é semitransparente para preservar contraste. Não duplicar o grande bloco de dados da fotografia.
+- O hero preserva marca e título, mas NÃO contém mais a busca grande. A barra de datas principal mantém os atalhos Próximas datas/Hoje/Amanhã/Fim de semana e adiciona botões de lupa e calendário em área discreta.
+- Ao abrir busca: esconder atalhos e revelar campo de pesquisa na mesma linha, sem perder o filtro digitado ao alternar o modo. Ao abrir calendário: esconder busca e atalhos e revelar o input nativo de data; após escolher, restaurar atalhos mantendo data selecionada. Os modos são exclusivos e o usuário pode fechar pelo próprio botão ou Escape.
+- Mobile: atalhos poderão rolar horizontalmente dentro da barra, sem gerar overflow do documento; áreas de toque têm dimensões de aproximadamente 40px ou maiores e foco visível. Browser E2E mede o fundo fixed e verifica os dois modos e filtros em 390 e 1280px.
