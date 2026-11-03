@@ -17,7 +17,7 @@ function select(event,registries={}){
     (items.venues||[]).find(a=>norm(a.venue)===venueKey);
   if(candidate&&previewPath(candidate.file)&&candidate.rightsStatus==="pending"){
    const isEvent=!!candidate.eventId;
-   return {file:candidate.file,kind:isEvent?"event-review":"venue-review",label:isEvent?"Imagem associada ao evento · revisão privada":"Identidade visual da casa · revisão privada",credit:candidate.credit||"",sourceUrl:candidate.sourceUrl||"",rightsStatus:"pending",isLogo:candidate.type==="logo"};
+   return {file:candidate.file,kind:isEvent?"event-review":"venue-review",label:isEvent?"Imagem associada ao evento · revisão privada":"Identidade visual da casa · revisão privada",credit:candidate.credit||"",sourceUrl:candidate.sourceUrl||"",rightsStatus:"pending",isLogo:candidate.type==="logo",isShowArchive:candidate.type==="show_archive"};
   }
  }
  return empty;
