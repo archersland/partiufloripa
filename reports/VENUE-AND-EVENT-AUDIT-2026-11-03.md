@@ -154,3 +154,8 @@ Todos os 14 estão agora identificáveis pelo nome no registro, mas isso **não*
 5. Executar testes de localização/validação e CI; conferir que novas casas sem eventos **não aparecem inventadas** no mapa e que nenhuma capacidade ou estimativa de público foi importada sem fonte.
 
 **Resultado deste ciclo:** inventário das 56 ocorrências e dos 14 locais, registro de 9 novas casas e lista de discrepâncias; auditoria editorial exaustiva de datas, alterações, licenças e autorizações de ingestão **não concluída**. Esta é uma entrega de pesquisa, não aceite de publicação beta.
+
+## 8. Verificação de persistência e testes (03/11/2026)
+- O inventário `data/venues.json` (23 entradas), as asserções em `scripts/test-venue-location.cjs` e este relatório foram gravados e **relidos** na `main`.
+- GitHub Actions [run 41580131613](https://github.com/archersland/partiufloripa/actions/runs/41580131613), commit `6a17575af0ad9d7e40f91508193207ccd268cbf0`: `completed/success` após a inclusão de locais, relatório e documentação de origem. Isso demonstra a execução dos checks técnicos e do workflow, **não** valida endereço de entrada, realidade de eventos, permissão de coleta nem aceite de beta.
+- Ainda não foram coletados pontos de entrada geográfica exatos, nem feitas revisões editoriais humanas individuais dos 56 eventos. Não realizar migração ou publicação de cartazes sem evidência de direitos.
