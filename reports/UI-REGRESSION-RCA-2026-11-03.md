@@ -23,3 +23,10 @@ Em 03/11/2026 a aba Lugares foi implementada diretamente no `index.html` herdado
 - Scripts de regressão versionados e acionados pelo GitHub Actions antes do Pages; teste HTTP após o deploy realiza verificação separada da experiência publicada.
 - O status de CI da versão final e screenshots mobile/desktop devem ser registrados após a execução. **Commit ≠ CI verde ≠ URL atualizada ≠ aceite visual no Android.**
 - Não houve coleta indevida de fontes, reuso de cartazes sem licença, novos eventos inventados ou contatos externos.
+
+## Verificações executadas após a correção
+- GitHub Actions [run 41712665456](https://github.com/archersland/partiufloripa/actions/runs/41712665456), SHA `2bb56528b362b76a44a67fa78ce5dc234012c61a`: **validate success / deploy success**, ambos observados no workflow.
+- `validate` executou checagem estrutural, validação de eventos, testes de audiência/heatmap, datas, locais, horários, mídia/direitos, além de `test-home-layout`, `test-ui-baseline` e `test-product-regressions`.
+- `deploy` gerou **56 páginas profundas** e `test-generated-details` passou em 3 casos (normal/inicial/final/quarentena). A etapa **pós-deploy HTTP** registrou literalmente `Live deployed site verified: approved theme + editorial logic + venue hours + catalog floors https://archersland.github.io/partiufloripa/`.
+- Conferência pública separada via navegador remoto de leitura em `?view=places&date=2026-11-04`: HTTP 200, **39 locais**, 3 geralmente abertos, 1 geralmente fechado e 35 sem horários confirmados. O No Class passou a desconhecido fora de dias regulares por poder anunciar evento extraordinário, em vez de falso “fechado”.
+- A captura mobile 390×844 foi solicitada à ferramenta de navegação (resultado técnico retornado); a inspeção visual comparativa rigorosa e o aparelho Android **não foram homologados**. Estas lacunas não anulam a validação automatizada e não autorizam declarar aceite humano.
