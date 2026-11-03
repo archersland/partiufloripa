@@ -90,6 +90,6 @@ Revisão detalhada: [OPT-01 a OPT-14](../reports/BUILD-WEB-APPS-REVIEW-2026-11-0
 - [x] Restaurar hero, busca, destaque principal e próximos eventos horizontais, preservando Agenda/Lugares/Mapa e horários.
 - [x] Unificar tema dos detalhes e créditos com a identidade noturna e manter URLs/SEO/.ics.
 - [x] Acrescentar gates automáticos **além da UI**: invariantes de Eventos/Lugares/Mapa, projeção editorial, páginas geradas, checks HTTP pós-deploy.
-- [ ] Verificar CI final e site efetivamente servido; registrar URL/commit/run e evidência.
+- [x] CI e publicação com conferência HTTP realizados: [run 41712665456](https://github.com/archersland/partiufloripa/actions/runs/41712665456) terminou success e o verificador pós-deploy confirmou UI noturna, scripts, contratos de dados e páginas profundas; [RCA com evidências](../reports/UI-REGRESSION-RCA-2026-11-03.md).
 - [ ] QA visual mobile/desktop e aparelho Android + aceite final do Cliente.
 - [ ] Atualizar a cobertura de horários/locais sem inventar abertura ao vivo.
