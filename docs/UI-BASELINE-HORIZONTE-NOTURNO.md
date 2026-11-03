@@ -43,3 +43,10 @@
 - Evento somente com imagem do próprio evento/edição, em vez de foto ilustrativa de categoria ou do artista em outro evento. Casa somente com imagem ou símbolo da própria casa, nunca logo emprestado nem foto stock. Ausência de imagem genuína é estado editorial explícito, não convite a preencher com outra imagem.
 - Imagens históricas de data/image-rights.json continuam pendentes e bloqueadas no catálogo público. Para avaliar visualmente a associação evento↔imagem e casa↔marca, usar overlay de revisão privada data/media-review.local.json (não versionado, Tailscale), com pendência de direitos visível.
 - 12 associações históricas de imagens de eventos; oito mídias de casas em prévia, sendo três exemplos fornecidos pelo Cliente e cinco referências públicas. A falta de outras fotos não autoriza inventar, copiar sem licença ou declarar cobertura editorial completa.
+
+## Adendo v0.6 — Agenda linear e horários de Lugares (03/11/2026; em revisão)
+- Desktop: a Home/Agenda exibe **uma coluna** para a lista de próximos dias; o Destaque do dia mantém o tratamento editorial. Sem cards em grade dupla.
+- Lugares: **duas colunas no desktop**, uma no mobile; seção "Costumam fechar neste dia" ao final, cartões em ordem alfabética e subdivididos por letra.
+- Nunca mostrar "Horário não confirmado" como filtro, cartão ou categoria pública. Sem calendário semanal comprovado para a data selecionada, o local **não entra** na lista de Lugares; passa à fila editorial sem ser tratado como fechado. Não alterar status de eventos ou inventar agenda/horários.
+- A comunicação "costumam abrir/fechar" é **habitual**, não "aberto agora": preservar referência à fonte e ressalvas sobre feriados. Os horários são verificados por dia, unidade e data da fonte; controle de validade de 90 dias mantido.
+- Arquivo de pendências: `reports/VENUE-HOURS-INVESTIGATION-2026-11-03.md`. CI e validação mobile/desktop são gates distintos de publicação e aceite do Cliente.
