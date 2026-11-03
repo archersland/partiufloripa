@@ -14,6 +14,7 @@ function matchesDate(event,mode,today){
  if(mode==="today")return event.date===today;
  if(mode==="tomorrow")return event.date===shiftDate(today,1);
  if(mode==="weekend")return weekendDates(today).includes(event.date);
+ if(validDate(mode))return event.date===mode;
  return true;
 }
 function months(events){return [...new Set(events.filter(e=>validDate(e.date)).map(e=>e.date.slice(0,7)))].sort()}
