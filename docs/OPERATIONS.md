@@ -53,3 +53,13 @@ O modo experimental do validador acusa integridade inválida como erro e dados i
 - Simular ausência de `venue-hours.json`: todos os lugares devem virar horário não confirmado; ausência de `events.json` não deve bloquear Lugares; ausência de `venues.json` deve mostrar indisponibilidade sem dizer que não existem casas.
 - Não validar horário em fonte genérica ou com mais de 90 dias de revisão; não alegar aberto agora, feriado normal ou atividade em casa sem evento. Conferir que `events.json` e potencial de público continuam independentes.
 - A nova URL pode aceitar `?view=places&date=YYYY-MM-DD` para inspeção de data sem redefinir o mês da Agenda; conferir comportamento visual após deploy. QA no Android físico e aceite humano continuam pendentes.
+
+## Procedimento antirregressão — Horizonte Noturno (03/11/2026)
+1. Antes de alterar HTML/CSS, ler [UI-BASELINE-HORIZONTE-NOTURNO.md](UI-BASELINE-HORIZONTE-NOTURNO.md) e distinguir prévia privada aprovada do artefato público `main`/Pages. Não tomar o arquivo público legado como modelo visual.
+2. O workflow existente valida sintaxe/eventos/mapa/direitos **e** `test-ui-baseline.cjs`, `test-home-layout.cjs`, `test-product-regressions.cjs`. O gerador de páginas profundas é seguido de `test-generated-details.cjs` antes do artefato de Pages.
+3. Depois de `actions/deploy-pages`, `verify-deployed-site.cjs` solicita HTML, CSS, scripts, 39 locais (mínimo), 56 ocorrências (mínimo), horários e um detalhe gerado a partir da URL **efetivamente publicada**. Validação na `main` sem publicação não encerra o gate.
+4. Reproduzir cenários positivos e negativos com dados sem risco: agenda sem evento, Lugar sem show, dias de abertura conhecidos/fechados/desconhecidos, fonte vencida, Evento quarantined, bairro sem coordenada, falta de JSON auxiliar, heatmap com/sem referência de público, tempo e URL profunda. Evitar falsos passes e não retirar asserções quando o teste detectar bug.
+5. Evidência visual deve incluir captura do layout real mobile 390×844 e desktop, comparação com referência Horizonte Noturno e fluxo real Agenda→Lugares→Mapa→evento→voltar. A verificação de contrato e screenshot isolada não homologam UX/Android.
+6. Alteração material na identidade exige decisão explícita e revisão de baseline; não silenciar falha de testes para implantar a UI legada.
+
+Incidente e correção de origem: [RCA da regressão](../reports/UI-REGRESSION-RCA-2026-11-03.md).
