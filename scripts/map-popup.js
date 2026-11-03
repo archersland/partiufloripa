@@ -11,7 +11,7 @@
    const visual=selectMedia(e)||{};
    const src=validPhoto(visual.file)?visual.file:null;
    const alt=visual.kind==="event-review"?"Imagem do evento em revisão privada":visual.kind==="event"?"Imagem do evento autorizada":"Imagem indisponível";
-   const hint=visual.kind==="event-review"?"Revisão privada":"";
+   const hint="";
    const date=/^\d{4}-\d{2}-\d{2}$/.test(e.date||"")?e.date.slice(8,10)+"/"+e.date.slice(5,7):"Data a confirmar";
    const time=/^([01]\d|2[0-3]):[0-5]\d$/.test(e.time||"")?e.time:"A confirmar";
    const show=/^([01]\d|2[0-3]):[0-5]\d$/.test(e.showTime||"")?'<span class="pf-map-show">Show '+escape(e.showTime)+'</span>':"";
