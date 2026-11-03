@@ -109,3 +109,16 @@ Revisão detalhada: [OPT-01 a OPT-14](../reports/BUILD-WEB-APPS-REVIEW-2026-11-0
 - [ ] Testar fluxo real em mobile/desktop/teclado e integração; obter autorização para eventual publicação e medir baseline real antes de estabelecer metas.
 
 **Dependências:** RF-12 e RF-41–45; ADR-005/036. Divulgação patrocinada, afiliados, contatos com casas e publicação permanecem fora desta autorização.
+
+## F1 — Growth B2B: estudo homologado, implementação condicionada (03/11/2026)
+
+- [x] Homologar como capacidade transversal planejada (ADR-037), preservando o adiamento comercial (ADR-005).
+- [x] Concluir pesquisa documental v0.2 de UTM/ref/afiliados, obstáculos do `noreferrer`, opções de analítica (GA4, Umami, Cloudflare Web Analytics, Worker, Plausible) e privacy gate.
+- [x] Inventariar **35 URLs de fonte** presentes em 56 ocorrências e registrar classificação **provisória** individual em [matriz](OUTBOUND-LINK-INVENTORY-2026-11-03.md); conferir 39 locais sem campo oficial de website.
+- [ ] Auditar individualmente página final, URL de bilheteria oficial, redirects/compatibilidade de parâmetro e proveniência editorial. **Pesquisa documental pronta não significa compatibilidade operacional comprovada.**
+- [ ] Escolher e testar o coletor mais simples com requisitos de privacidade/custo; Cloudflare Web Analytics isolado não suporta eventos customizados no momento desta pesquisa.
+- [ ] Implementar **apenas após avaliação técnica** instrumentação de CTA não bloqueante e métrica deduplicada com testes no CI existente, separando fonte editorial e destino oficial.
+- [ ] Definir política de retenção/base legal e testar falha/limites/abuso/teclado/Android; obter autorização de publicação antes de mudar o portal.
+- [ ] Medir baseline real antes de estabelecer metas/relatórios externos. Contatos, afiliados, anúncios, destaques pagos e patrocínios permanecem F3 e exigem nova autorização.
+
+**Homologação atual:** pesquisa e escopo funcional, **não** software implementado, links alterados, coleta ativa, conversão comercial ou beta.
