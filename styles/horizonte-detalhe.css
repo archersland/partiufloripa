@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap");
+/* Horizonte Noturno: details page inherits approved editorial visual language. No alteration to event facts, source/rights or .ics/share code. */
+:root{--pf-bg:#041b21;--pf-surface:#0a252c;--pf-mint:#8fe5cc;--pf-peach:#ffaf78;--pf-muted:#a9bdc7;--pf-line:#315b60;font-family:"DM Sans",sans-serif;font-size:15px;background:var(--pf-bg);color:#f8f3e8;color-scheme:dark}
+body{background:var(--pf-bg);color:#f8f3e8;font-family:"DM Sans",sans-serif}
+.site-head{max-width:780px;padding:16px 20px}
+.brand{font-weight:700;letter-spacing:-1.3px;font-size:25px}
+.brand span{color:#56d5b7}
+.wrap{max-width:780px;padding:0 20px 56px}
+.back{color:var(--pf-mint);font-size:13px}
+.event-panel{background:var(--pf-surface);border:1px solid var(--pf-line);border-radius:14px}
+.hero{background:radial-gradient(ellipse at 90% 10%,#2b5655,transparent 65%),linear-gradient(145deg,#082c32,#0b2630 70%);min-height:230px;padding:24px 24px 22px;color:#fffdf6;gap:12px}
+.hero:after{border-color:var(--pf-mint);opacity:.09}
+.hero h1{font-family:"DM Serif Display",Georgia,serif;font-style:normal;font-weight:400;font-size:clamp(36px,5vw,58px);line-height:1.07;letter-spacing:-.5px;max-width:670px;margin:14px 0}
+.hero-art .number{font-family:"DM Serif Display",Georgia,serif;font-weight:400;letter-spacing:-1px;color:var(--pf-peach);font-size:clamp(50px,8vw,76px)}
+.hero-thumbnail{border:2px solid var(--pf-peach)}
+.overline,.kicker{color:var(--pf-mint);letter-spacing:1.1px}
+.content{border-top:2px solid var(--pf-peach);padding:25px;gap:27px}
+.content h2{font-family:"DM Serif Display",Georgia,serif;font-weight:400;letter-spacing:-.3px;font-size:clamp(24px,3vw,32px)}
+.time{border-color:var(--pf-line)}
+.time span,.location small,.secondary,.note,.context,.disclosure,.footer-note,.source-check{color:var(--pf-muted)}
+.time strong{color:#f8f3e8}
+.cta{background:var(--pf-peach);color:#14262b;border-radius:25px;font-weight:700}
+.cta:hover{background:#ffc49d}
+.event-utilities button{background:#14363a;border-color:var(--pf-line);color:#f8f3e8;border-radius:10px;font-family:"DM Sans",sans-serif}
+.event-utilities button:hover{background:#225050}
+.utility-feedback{color:var(--pf-peach)}
+.notice{border-left:2px solid var(--pf-peach);background:#16353a}
+.notice.warning{border-color:var(--pf-peach);background:#392b24}
+a:focus-visible,button:focus-visible{outline:3px solid var(--pf-peach);outline-offset:3px}
+@media(max-width:700px){.content{grid-template-columns:1fr;padding:18px}.hero{padding:22px 17px;min-height:225px}.hero h1{font-size:clamp(32px,8vw,47px)}.hero-art .number{font-size:50px}.hero-bottom{gap:12px}}
