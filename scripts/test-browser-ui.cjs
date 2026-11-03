@@ -104,7 +104,7 @@ async function main(){
   if(socket&&socket.readyState===WebSocket.OPEN)socket.close();
   chrome.kill("SIGTERM");
   server.close();
-  fs.rmSync(tmp,{recursive:true,force:true});
+  try{fs.rmSync(tmp,{recursive:true,force:true,maxRetries:20,retryDelay:250})}catch(e){console.warn("Headless Chrome temp cleanup deferred: "+e.message)}
  }
 }
 main().catch(e=>{console.error(e.stack||e);server.close();process.exitCode=1});
