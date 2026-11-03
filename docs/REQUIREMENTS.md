@@ -87,3 +87,7 @@ QA visual mobile/desktop, falhas de rede interativas e aceite do Cliente continu
 | RF-45 | Privacidade, resiliência e confiança da contagem | Definir base legal/transparência/retenção/coletor antes de ativar, nenhum fingerprint/cookie persistente por padrão, métricas com definições versionadas, CTA funcional sob falha e regressão mobile/teclado |
 
 **Portas de aceite:** auditoria editorial de destinos, revisão de privacidade e custos, testes com dados controlados, verificação de publicação somente após autorização separada. A configuração `rel="noopener noreferrer"` do CTA atual inibe `Referer`; não a remover sem revisão explícita.
+
+## Homologação de pesquisa Growth B2B — 03/11/2026
+
+**RF-41 a RF-45 ficam aprovados como requisitos planejados na F1**, com pesquisa documental **homologada** conforme ADR-037. Seus critérios quantitativos, intervalos de deduplicação (30 s / 30 min / 24 h) e retenção ainda são **hipóteses técnicas para QA**, não parâmetros de produção aceitos. **Nenhum RF foi marcado implementado.** A comprovação operacional futura inclui tráfego sintético de teste, idempotência, cliques positivos/negativos, reenvio, falha de coletor, navegação e auditoria de consentimento/base legal. Relatórios de sessões não poderão ser divulgados como pessoas únicas, visitas ao destino ou vendas.
