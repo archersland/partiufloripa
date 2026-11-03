@@ -33,7 +33,7 @@ function close(){
 }
 function findPlace(name){
  const normalized=PartiuMedia.normalizeVenue(name);
- return (venueDirectory.venues||[]).find(v=>[v.name,...(v.aliases||[])].some(n=>PartiuMedia.normalizeVenue(n)===normalized)&&PartiuVenueHours.status(v.id,hoursDirectory,selectedDate(),today).status!=="unknown");
+ return (venueDirectory.venues||[]).find(v=>[v.name,...(v.aliases||[])].some(n=>PartiuMedia.normalizeVenue(n)===normalized));
 }
 function eventDetails(e){
  if(!e||e.sourceReview==="quarantined")return;
@@ -63,10 +63,9 @@ function eventDetails(e){
 function placeDetails(venue){
  if(!venue)return;
  const opening=PartiuVenueHours.status(venue.id,hoursDirectory,selectedDate(),today);
- if(opening.status==="unknown")return; // withheld for editorial schedule research
  activeEvent=null;
  const visual=media({venue:venue.name,category:"Cultura"});
- const status=opening.status==="open"?"Costuma abrir neste dia":"Costuma fechar neste dia";
+ const status=opening.status==="open"?"Costuma abrir neste dia":opening.status==="closed"?"Costuma fechar neste dia":"Fechada (classificação provisória)";
  const source=(venue.locationEvidence||[]).find(validExternal)||"";
  const links=originLink(source,"Fonte do local ↗")+originLink(opening.sourceUrl,"Fonte dos horários ↗");
  const map=venue.address?'<a href="https://www.google.com/maps/search/?api=1&amp;query='+encodeURIComponent(venue.address)+'" target="_blank" rel="noopener noreferrer">Buscar endereço no mapa ↗</a>':"";
@@ -81,7 +80,7 @@ function placeDetails(venue){
   '<p class="detail-muted">Dados do local consultados em '+esc(venue.reviewedAt||"data não informada")+'. A localização pode ser aproximada; o ponto exato de entrada não é presumido.</p></section>'+
   '<section class="detail-panel"><h3>Funcionamento habitual</h3><p><strong>'+esc(status)+'</strong></p>'+
   (opening.hoursText?'<p>'+esc(opening.hoursText)+'</p>':"")+
-  '<p class="detail-muted">Não é disponibilidade ao vivo. Feriados e eventos especiais podem alterar os horários.</p></section>'+
+  '<p class="detail-muted">Não é disponibilidade ao vivo. Casas sem grade validada aparecem provisoriamente como fechadas até investigação editorial.</p></section>'+
   '<section class="detail-panel"><h3>Eventos no portal</h3>'+eventsHtml+'</section>'+
   '<section class="detail-panel"><h3>Verificar informações</h3><div class="detail-actions">'+links+map+'</div>'+
   '<p class="detail-muted">Imagem da casa ou identidade visual, quando cadastrada. A reprodução em prévia privada não significa autorização de publicação.</p></section></article>');
