@@ -28,10 +28,13 @@ async function main(){
  const bin=[process.env.CHROME_BIN,"/usr/bin/google-chrome","/usr/bin/chromium","/usr/bin/chromium-browser"].filter(Boolean).find(f=>fs.existsSync(f));
  assert(bin,"Headless Chrome/Chromium must be installed for UI E2E");
  const tmp=fs.mkdtempSync(path.join(os.tmpdir(),"partiu-qa-"));
- const chrome=spawn(bin,["--headless=new","--no-sandbox","--disable-gpu","--disable-dev-shm-usage","--no-first-run","--remote-debugging-port=0","--user-data-dir="+tmp,"about:blank"],{stdio:"ignore"});
+ const chrome=spawn(bin,["--headless=new","--no-sandbox","--disable-gpu","--disable-dev-shm-usage","--no-first-run","--no-default-browser-check","--remote-debugging-port=0","--user-data-dir="+tmp,"about:blank"],{stdio:["ignore","ignore","pipe"]});
+ let chromeError="";
+ chrome.stderr.on("data",chunk=>{if(chromeError.length<6000)chromeError+=String(chunk)});
+
  let socket;
  try{
-  const active=await until(()=>fs.existsSync(path.join(tmp,"DevToolsActivePort"))?fs.readFileSync(path.join(tmp,"DevToolsActivePort"),"utf8"):null);
+  const active=await until(()=>fs.existsSync(path.join(tmp,"DevToolsActivePort"))?fs.readFileSync(path.join(tmp,"DevToolsActivePort"),"utf8"):null,40000).catch(error=>{throw Error("Chrome startup timed out. Exit="+chrome.exitCode+"; stderr="+chromeError.slice(-2000),{cause:error})});
   const port=Number(active.split("\n")[0]);
   const pages=await (await fetch("http://127.0.0.1:"+port+"/json/list")).json();
   const target=pages.find(p=>p.type==="page");
