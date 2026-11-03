@@ -75,3 +75,12 @@ Revisão detalhada: [OPT-01 a OPT-14](../reports/BUILD-WEB-APPS-REVIEW-2026-11-0
 - [ ] **Decisão de produto aberta:** aceitar ou ajustar a terceira aba “Lugares” e seu escopo antes de implementar a UI.
 - [ ] Caso aprovada, modelar tipos de experiências, fontes/perfis, vínculo `event.venue`↔`venue.id`, estados sem eventos e filtros acessíveis; executar QA e CI.
 - [ ] Revalidar situação de casas com sinais de fechamento; **Haôma Baixo Centro excluído** por anúncio de despedida em maio de 2026.
+
+## Execução da aba Lugares — 03/11/2026
+- [x] Implementar navegação Agenda / Lugares / Mapa com seletor de datas superior e filtros de bairro/status, sem misturar locais e eventos.
+- [x] Separar listas “Costumam abrir” e “Costumam fechar”, com grupo “Horário não confirmado” e estilo visual secundário para fechados.
+- [x] Implementar resolvedor de horários semanais em `scripts/venue-hours.js`, com 5 cadastros individualmente referenciados em `data/venue-hours.json` e fallback seguro para 34 sem dados.
+- [x] Acrescentar `scripts/test-venue-hours.cjs` ao workflow existente; não gerar heatmap a partir da existência de bares.
+- [ ] Ampliar horários com fontes estáveis e comprovar exceções/feriados; atualmente sem medição de “aberto agora”.
+- [ ] Fazer QA visual e funcional de Lugares/Mapa/Agenda em mobile/desktop, conferir deployment e aceitar layout com o Cliente.
+- [ ] Revalidar calendários externos e qualidade de eventos (gates editoriais antigos).
