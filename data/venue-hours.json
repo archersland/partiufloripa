@@ -82,16 +82,11 @@
         5,
         6
       ],
-      "closedDays": [
-        0,
-        1,
-        2,
-        3
-      ],
+      "closedDays": [],
       "hoursText": "Funcionamento habitual divulgado: quinta a sábado; festas costumam seguir até 4h",
       "sourceUrl": "https://www.pensanoevento.com.br/locais/394/no-class",
       "reviewedAt": "2026-11-03",
-      "note": "Perfil da casa descreve atividade de quinta a sábado, mas lista evento especial numa quarta. Fechado = normalmente fora do calendário regular, não garantia de porta fechada."
+      "note": "A casa descreve quinta a sábado como período habitual, mas divulga festas em outros dias (inclusive quarta). Fora desses dias, tratar como desconhecido, não fechado."
     }
   ]
 }
