@@ -58,6 +58,7 @@ async function main(){
    await send("Emulation.setDeviceMetricsOverride",{width,height:844,deviceScaleFactor:1,mobile:width<500});
    await send("Page.navigate",{url:site+"?qa="+width});
    await until(()=>evaluate("Boolean(document.querySelector('#featured a.event-card')&&document.querySelector('#agenda .event-search'))"));
+   if(width===1280){const layout=await evaluate("(()=>({wrap:document.querySelector('.main.wrap').getBoundingClientRect().width,cols:getComputedStyle(document.querySelector('#agenda .cards')).gridTemplateColumns.split(' ').length}))()");assert(layout.wrap>1000&&layout.cols===2,"Desktop needs widened two-column editorial grid: "+JSON.stringify(layout));}
    const hero=await evaluate("(()=>{const el=getComputedStyle(document.body,'::before');const s=el.backgroundImage;return {hasBridge:s.includes('data:image/webp;base64'),hasGradient:s.includes('linear-gradient'),fixed:el.position==='fixed',height:el.height,width:document.documentElement.scrollWidth,viewport:document.documentElement.clientWidth}})()");
    assert(hero.hasBridge&&hero.hasGradient&&hero.fixed,"Ponte must be fixed across the entire viewport");
    assert(hero.width<=hero.viewport+2,"Mobile/desktop page must not overflow horizontally: "+JSON.stringify(hero));
@@ -90,9 +91,9 @@ async function main(){
    await evaluate("document.getElementById('detail-close').click()");
    assert.equal(await evaluate("document.getElementById('detail-dialog').open"),false,"Event dialog must close");
    await evaluate("document.getElementById('tab-places').click()");
-   await until(()=>evaluate("Boolean(document.querySelector('.place-open img'))"));
-   const places=await evaluate("(()=>{const a=document.querySelector('.place-open');const img=a.querySelector('img');return {count:document.querySelectorAll('.place-open').length,img:img.getAttribute('src'),caption:a.querySelector('.place-art-caption')?.textContent}})()");
-   assert(places.count>=30&&places.img.startsWith("./assets/")&&/ilustrativa/i.test(places.caption),"Places must show transparently labelled media");
+   await until(()=>evaluate("Boolean(document.querySelector('.place-open'))"));
+   const places=await evaluate("(()=>({count:document.querySelectorAll('.place-open').length,empty:document.querySelectorAll('.place-open .place-empty').length,illustrative:document.querySelectorAll('.place-open img[src*=\"/photos/\"]').length}))()");
+   assert(places.count>=30&&places.empty===places.count&&places.illustrative===0,"Unlicensed/generic venue imagery must not appear in public/CI");
    await evaluate("document.querySelector('.place-open').click()");
    const place=await evaluate("(()=>{const d=document.getElementById('detail-dialog');return {open:d.open,title:!!d.querySelector('#detail-title'),hours:d.textContent.includes('Funcionamento habitual'),events:d.textContent.includes('Eventos no portal'),pathname:location.pathname}})()");
    assert(place.open&&place.title&&place.hours&&place.events&&place.pathname===before,"Venue click must open its own dialog without navigation");
