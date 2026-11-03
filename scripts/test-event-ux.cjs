@@ -13,6 +13,9 @@ assert.deepEqual(ux.weekendDates('2026-11-02'),['2026-11-07','2026-11-08']);
 assert.deepEqual(ux.weekendDates('2026-11-07'),['2026-11-07','2026-11-08']);
 assert.deepEqual(ux.weekendDates('2026-11-08'),['2026-11-08']);
 assert.equal(ux.matchesDate({date:'2026-11-08'},'weekend',today),true);
+assert.equal(ux.matchesDate({date:'2026-11-10'},'2026-11-10',today),true);
+assert.equal(ux.matchesDate({date:'2026-11-11'},'2026-11-10',today),false);
+
 assert.equal(ux.validDate('2026-02-30'),false);
 assert.equal(ux.validTime('25:15'),false);
 const event={id:'evt-012345abcdef',title:'Show, teste; Floripa',date:'2026-11-07',time:'21:30',venue:'Teatro\nSC',region:'Centro',source:'https://example.org/evento'};
