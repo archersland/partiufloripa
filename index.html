@@ -197,8 +197,8 @@ function render(){
 }
 
 function placeCard(venue,opening){
- const state=opening.status;
- const label=state==="open"?"Costuma abrir neste dia":"Costuma fechar neste dia";
+ const state=opening.status==="open"?"open":"closed";
+ const label=state==="open"?"Costuma abrir neste dia":"Fechada";
  const source=/^https:\/\//.test(opening.sourceUrl)?opening.sourceUrl:"";
  const evidence=(venue.locationEvidence||[]).find(u=>/^https:\/\//.test(u))||"";
  const address=venue.address||"";
@@ -219,7 +219,7 @@ function placeCard(venue,opening){
 }
 function renderPlaces(){
  const list=venueDirectory?.venues||[],results=$("places-results");
- $("places-date-label").textContent="Casas com funcionamento documentado para "+selectedDateLabel()+". Consulte a fonte para feriados e alterações.";
+ $("places-date-label").textContent="Casas da ilha para "+selectedDateLabel()+". Locais sem horário validado aparecem provisoriamente entre os fechados.";
  if(venuesUnavailable){results.innerHTML='<div class="empty">O diretório de lugares está indisponível. Tente atualizar a página.</div>';$("places-stats").textContent="";return}
  const query=$("search").value.trim().normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase("pt-BR");
  const region=$("place-region").value,filter=$("place-status").value,selected=selectedDate();
@@ -230,13 +230,14 @@ function renderPlaces(){
   const searchText=[venue.name,venue.region,venue.address,...(venue.aliases||[])].join(" ").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase("pt-BR");
   if(query&&!searchText.includes(query))continue;
   const state=PartiuVenueHours.status(venue.id,hoursDirectory,selected,today);
-  if(state.status==="unknown"){pendingInvestigation++;continue}
-  groups[state.status].push({venue,state});
+  if(state.status==="unknown")pendingInvestigation++;
+  const displayGroup=state.status==="open"?"open":"closed";
+  groups[displayGroup].push({venue,state});
  }
  const count=Object.values(groups).reduce((n,a)=>n+a.length,0);
- // Keep pendingInvestigation internal for editorial research; never show unknown cards.
- $("places-stats").textContent=count+" lugares com funcionamento documentado · "+groups.open.length+" costumam abrir · "+groups.closed.length+" costumam fechar.";
- const configs=[["open","Costumam abrir neste dia"],["closed","Costumam fechar neste dia"]];
+ // Horários desconhecidos continuam unknown no cadastro, mas aparecem no grupo visual Fechadas.
+ $("places-stats").textContent=count+" lugares encontrados · "+groups.open.length+" costumam abrir · "+groups.closed.length+" agrupados como fechados."
+ const configs=[["open","Costumam abrir neste dia"],["closed","Fechadas"]];
  const sections=configs.filter(([key])=>!filter||key===filter).map(([key,title])=>{
   const entries=groups[key].sort((a,b)=>a.venue.name.localeCompare(b.venue.name,"pt-BR"));
   if(!entries.length)return "";
