@@ -145,7 +145,7 @@ function card(e,variant="search"){
  const hour=e.time?e.time.slice(0,5).replace(":00","H"):"Horário a confirmar";
  const tag='<span class="event-category"><span aria-hidden="true">'+symbol+'</span> '+esc(e.category)+'</span>';
  const dateTag='<span class="event-date"><span aria-hidden="true">▦</span> '+esc(dateLabel)+' <em>'+esc(hour)+'</em></span>';
- const image=visual.file?'<img class="authentic-photo" data-kind="'+esc(visual.kind)+'" src="'+esc(visual.file)+'" alt="'+esc(visual.label)+'" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add(\'image-failed\')">':'<div class="event-no-media"><strong>'+esc(e.category)+'</strong><span>Imagem do evento pendente</span></div>';
+ const image=visual.file?'<img class="authentic-photo" data-kind="'+esc(visual.kind)+'" src="'+esc(visual.file)+'" alt="'+esc(visual.label)+'" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add(\'image-failed\')">':"";
  const graphic='';
  const photoNotice="";
  const media='<div class="event-media" data-cat="'+esc(e.category)+'" data-media-kind="'+esc(visual.kind)+'" data-media-src="'+esc(visual.file||"")+'">'+image+graphic+photoNotice+(variant==="featured"?'<div class="event-overlays">'+tag+dateTag+'</div>':"")+'</div>';
@@ -208,8 +208,8 @@ function placeCard(venue,opening){
  const timeText=state!=="unknown"&&opening.hoursText?'<span class="place-hours">'+esc(opening.hoursText)+'</span>':"";
  const check=state!=="unknown"&&opening.reviewedAt?'<span class="place-region"> · Consultado em '+esc(opening.reviewedAt.split("-").reverse().join("/"))+'</span>':"";
  const image=PartiuMedia.select({venue:venue.name,category:"Cultura"},mediaContext());
- const hint=image.kind==="venue-review"?(image.isLogo?"Logo da casa":"Foto da casa"):"Imagem real pendente";
- const thumb='<span class="place-art">'+(image.file?'<img data-kind="'+esc(image.kind)+'" src="'+esc(image.file)+'" alt="" loading="lazy" onerror="this.hidden=true">':'<span class="place-empty">Imagem da casa pendente</span>')+'</span>';
+
+ const thumb=image.file?'<span class="place-art"><img data-kind="'+esc(image.kind)+'" src="'+esc(image.file)+'" alt="" loading="lazy" onerror="this.hidden=true"></span>':"";
  return '<article class="place-card is-'+state+'"><button type="button" class="place-open" data-place-id="'+esc(venue.id)+'" aria-label="Ver detalhes de '+esc(venue.name)+'">'+
   thumb+'<span class="place-main"><span class="place-title">'+esc(venue.name)+'</span><span class="place-region">'+esc(venue.region||"Florianópolis")+'</span>'+
   '<span class="place-status '+(state==="open"?"":state)+'">'+esc(label)+'</span>'+check+
