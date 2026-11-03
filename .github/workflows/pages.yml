@@ -1,7 +1,7 @@
 name: Deploy PartiuFloripa
 on:
   push:
-    branches: [main]
+    branches: [main, fix/horizonte-dialogs-media-20261103]
   workflow_dispatch:
   pull_request:
     branches: [main]
@@ -35,8 +35,12 @@ jobs:
       - run: node scripts/test-licensed-photos.cjs
       - run: node scripts/test-media-selection.cjs
       - run: node scripts/test-map-popup.cjs
+      - run: node scripts/generate-event-pages.cjs
+        if: github.ref != 'refs/heads/main'
+      - run: node scripts/test-generated-details.cjs
+        if: github.ref != 'refs/heads/main'
   deploy:
-    if: github.event_name != 'pull_request'
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     needs: validate
     runs-on: ubuntu-latest
     environment:
