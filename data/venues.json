@@ -43,6 +43,292 @@
       ],
       "reviewedAt": "2026-11-02",
       "caveat": "Vínculo regional ao CIC; sem coordenada de entrada cadastrada."
+    },
+    {
+      "id": "bar-do-espartano",
+      "name": "Bar do Espartano",
+      "region": "Lagoa da Conceição",
+      "address": "Av. das Rendeiras, 1098 - Lagoa da Conceição, Florianópolis - SC",
+      "precision": "region_centroid",
+      "locationEvidence": [
+        "https://www.pensanoevento.com.br/locais/867/bar-do-espartano-florianopolis",
+        "https://www.likefloripa.com.br/eventos/carnaesparta-baile-do-tangi-lagoa/"
+      ],
+      "reviewedAt": "2026-11-03",
+      "caveat": "Número de rua corroborado por agenda do local e guia; coordenada/entrada não verificadas."
+    },
+    {
+      "id": "stage-music-park",
+      "name": "Stage Music Park",
+      "region": "Jurerê",
+      "address": "Rodovia Jornalista Maurício Sirotski Sobrinho, 1050 - Jurerê, Florianópolis - SC",
+      "precision": "region_centroid",
+      "locationEvidence": [
+        "https://musicpark.com.br/agenda/",
+        "https://musicpark.com.br/"
+      ],
+      "reviewedAt": "2026-11-03",
+      "caveat": "Endereço do complexo Music Park, não da entrada Stage. Há conflito específico quanto à atribuição de MUNDO M (13/11) a Stage ou Indoor."
+    },
+    {
+      "id": "terraza-music-park",
+      "name": "Terraza Music Park",
+      "region": "Jurerê",
+      "address": "Rodovia Jornalista Maurício Sirotski Sobrinho, 1050 - Jurerê, Florianópolis - SC",
+      "precision": "region_centroid",
+      "locationEvidence": [
+        "https://terrazamusicpark.com.br/",
+        "https://musicpark.com.br/agenda/"
+      ],
+      "reviewedAt": "2026-11-03",
+      "caveat": "Endereço do complexo Music Park, não da entrada da casa Terraza."
+    },
+    {
+      "id": "mis-sc",
+      "name": "MIS/SC",
+      "aliases": [
+        "Museu da Imagem e do Som de Santa Catarina"
+      ],
+      "region": "Agronômica",
+      "address": "Centro Integrado de Cultura, Av. Gov. Irineu Bornhausen, 5600 - Agronômica, Florianópolis - SC",
+      "precision": "region_centroid",
+      "locationEvidence": [
+        "https://ouviram.com.br/agenda/shows-e-eventos-em-florianopolis-outubro-novembro-2026"
+      ],
+      "reviewedAt": "2026-11-03",
+      "caveat": "Endereço textual do CIC, não da entrada individual do museu; fonte jornalística secundária."
+    },
+    {
+      "id": "teatro-pedro-ivo",
+      "name": "Teatro Pedro Ivo",
+      "region": "Saco Grande",
+      "address": "Rodovia SC-401, km 15, 4600 - Saco Grande, Florianópolis - SC",
+      "precision": "region_centroid",
+      "locationEvidence": [
+        "https://ouviram.com.br/agenda/shows-e-eventos-em-florianopolis-outubro-novembro-2026"
+      ],
+      "reviewedAt": "2026-11-03",
+      "caveat": "Localização textual publicada em guia; ponto geográfico e entrada pendentes."
+    },
+    {
+      "id": "teatro-alvaro-de-carvalho",
+      "name": "Teatro Álvaro de Carvalho",
+      "aliases": [
+        "TAC"
+      ],
+      "region": "Centro",
+      "address": "Rua Marechal Guilherme, 26 - Centro, Florianópolis - SC",
+      "precision": "region_centroid",
+      "locationEvidence": [
+        "https://ouviram.com.br/agenda/shows-e-eventos-em-florianopolis-outubro-novembro-2026"
+      ],
+      "reviewedAt": "2026-11-03",
+      "caveat": "Endereço textual de guia; coordenadas da entrada pendentes."
+    },
+    {
+      "id": "passarela-nego-quirido",
+      "name": "Passarela Nego Quirido",
+      "region": "Centro",
+      "precision": "region_centroid",
+      "locationEvidence": [
+        "https://www.pmf.sc.gov.br/entidades/cultura/index.php?cms=passarela+nego+quirido&menu=9&submenuid=2107",
+        "https://baladasfloripa.com.br/passarela-nego-quirido-florianopolis/"
+      ],
+      "reviewedAt": "2026-11-03",
+      "caveat": "Endereço numérico e entrada ainda divergentes entre diretórios. Não geocodificar sem esclarecer."
+    },
+    {
+      "id": "delfino-146",
+      "name": "Delfino 146",
+      "aliases": [
+        "Porão Delfino 146"
+      ],
+      "region": "Centro",
+      "address": "Rua Luís Delfino, 146 - Centro, Florianópolis - SC",
+      "precision": "region_centroid",
+      "locationEvidence": [
+        "https://delfino146.com.br/",
+        "https://www.pensanoevento.com.br/locais/343/delfino-146"
+      ],
+      "reviewedAt": "2026-11-03",
+      "caveat": "Agenda oficial remete à plataforma de ingressos; coordenadas da entrada pendentes."
+    },
+    {
+      "id": "balburdia-florianopolis",
+      "name": "Balbúrdia Florianópolis",
+      "aliases": [
+        "Balbúrdia Cervejeira Florianópolis",
+        "Balbúrdia Cervejeira Floripa"
+      ],
+      "region": "Centro",
+      "address": "Rua Almirante Lamego, 425 - Centro, Florianópolis - SC",
+      "precision": "region_centroid",
+      "locationEvidence": [
+        "https://www.pensanoevento.com.br/locais/1790/balburdia-cervejeira-florianopolis",
+        "https://www.instagram.com/balburdia.floripa/"
+      ],
+      "reviewedAt": "2026-11-03",
+      "caveat": "Nome de marca também aparece como Balbúrdia Cervejeira Floripa; coordenadas da entrada pendentes."
+    },
+    {
+      "id": "p12-jurere",
+      "name": "P12 Jurerê",
+      "aliases": [
+        "P12 Jurerê Internacional",
+        "P12"
+      ],
+      "region": "Jurerê",
+      "address": "Jurerê Internacional - Florianópolis - SC",
+      "precision": "region_centroid",
+      "locationEvidence": [
+        "https://parador12.com.br/"
+      ],
+      "reviewedAt": "2026-11-03",
+      "caveat": "Somente localização de bairro no site oficial; endereço de acesso/entrada não verificado."
+    },
+    {
+      "id": "undr-florianopolis",
+      "name": "UNDR Florianópolis",
+      "region": "Centro",
+      "address": "Alameda Adolfo Konder, 1007 - Centro, Florianópolis - SC",
+      "precision": "region_centroid",
+      "locationEvidence": [
+        "https://undr.com.br/eventos/halloween-festa-a-fantasia-open-bar-2/",
+        "https://undr.com.br/floripa/"
+      ],
+      "reviewedAt": "2026-11-03",
+      "caveat": "Endereço confirmado em evento antigo no site da própria casa; entrada não geocodificada."
+    },
+    {
+      "id": "celula-showcase",
+      "name": "Célula Showcase",
+      "aliases": [
+        "Célula Cultural",
+        "Célula"
+      ],
+      "region": "João Paulo",
+      "address": "Rodovia João Paulo, 75 - João Paulo, Florianópolis - SC",
+      "precision": "region_centroid",
+      "locationEvidence": [
+        "https://www.instagram.com/celulashowcase/",
+        "https://shotgun.live/en/events/13-11-sex-emocionados-a-festa-emo-da-celula"
+      ],
+      "reviewedAt": "2026-11-03",
+      "caveat": "Fonte pública indexada do perfil da casa e evento em bilheteria; sem cópia de cartazes, coordenadas/entrada não verificadas."
+    },
+    {
+      "id": "etc-casa-de-vinhos",
+      "name": "ETC. Casa de Vinhos e Artes",
+      "aliases": [
+        "ETC. Casa de Vinhos, Arte e Cultura",
+        "Etcetera Casa"
+      ],
+      "region": "Rio Tavares",
+      "address": "Servidão Amantino Cameu, 500, casa A - Pedrita/Rio Tavares, Florianópolis - SC",
+      "precision": "region_centroid",
+      "locationEvidence": [
+        "https://www.instagram.com/p/DRhhjekjTNH/",
+        "https://uticket.com.br/evento/etc-apresenta-naquela-mesa/01LYFEZD4HPSRH"
+      ],
+      "reviewedAt": "2026-11-03",
+      "caveat": "Casa também anunciada como ETC. Casa de Vinhos, Arte e Cultura / Etcetera Casa. Conferir horário de cada evento individualmente; coordenadas da entrada pendentes."
+    },
+    {
+      "id": "chopp-do-gus-corrego-grande",
+      "name": "Chopp do Gus",
+      "aliases": [
+        "Chopp do Gus - Córrego Grande",
+        "Chopp Gus"
+      ],
+      "region": "Córrego Grande",
+      "address": "Rua João Pio Duarte Silva, 1650 - Córrego Grande, Florianópolis - SC",
+      "precision": "region_centroid",
+      "locationEvidence": [
+        "https://choppdogus.com.br/",
+        "https://tocaonde.com.br/venues/128579-chopp-do-gus-florianopolis"
+      ],
+      "reviewedAt": "2026-11-03",
+      "caveat": "Somente unidade Córrego Grande; não confundir com outras unidades. Sem coordenada de entrada verificada."
+    },
+    {
+      "id": "john-bull-floripa",
+      "name": "John Bull Floripa",
+      "aliases": [
+        "John Bull Pub"
+      ],
+      "region": "Lagoa da Conceição",
+      "address": "Av. das Rendeiras, 1046 - Lagoa da Conceição, Florianópolis - SC",
+      "precision": "region_centroid",
+      "locationEvidence": [
+        "https://johnbullfloripa.com.br/"
+      ],
+      "reviewedAt": "2026-11-03",
+      "caveat": "Endereço divulgado no site oficial; sem coordenada de entrada verificada."
+    },
+    {
+      "id": "bugio-centro",
+      "name": "Bugio Centro",
+      "aliases": [
+        "Centro Bugio"
+      ],
+      "region": "Centro",
+      "address": "Rua Victor Meirelles, 112 - Centro Histórico, Florianópolis - SC",
+      "precision": "region_centroid",
+      "locationEvidence": [
+        "https://www.cervejariabugio.com.br/",
+        "https://cidadecriativa.floripa.br/servicos/bugio-centro-floripa-unesco/"
+      ],
+      "reviewedAt": "2026-11-03",
+      "caveat": "Casa do Centro, distinta do Bugio Trindade; sem coordenada de entrada."
+    },
+    {
+      "id": "bugio-trindade",
+      "name": "Bugio Trindade",
+      "region": "Trindade",
+      "address": "Servidão Cristiano Wanderley Faria, 25 - Trindade, Florianópolis - SC",
+      "precision": "region_centroid",
+      "locationEvidence": [
+        "https://www.cervejariabugio.com.br/"
+      ],
+      "reviewedAt": "2026-11-03",
+      "caveat": "Unidade da Trindade, distinta da unidade Centro; coordenadas pendentes."
+    },
+    {
+      "id": "berlin-floripa",
+      "name": "Berlin Floripa",
+      "region": "Centro",
+      "address": "Rua Vítor Konder, 409 - Centro, Florianópolis - SC",
+      "precision": "region_centroid",
+      "locationEvidence": [
+        "https://berlinfloripa.com.br/"
+      ],
+      "reviewedAt": "2026-11-03",
+      "caveat": "Música ao vivo divulgada na página oficial; não inferir programação de evento específico."
+    },
+    {
+      "id": "galeria-lama",
+      "name": "Galeria Lama",
+      "region": "Centro",
+      "address": "Calçadão João Pinto, 198 - Centro, Florianópolis - SC",
+      "precision": "region_centroid",
+      "locationEvidence": [
+        "https://www.galerialama.com.br/",
+        "https://www.galerialama.com.br/about-1"
+      ],
+      "reviewedAt": "2026-11-03",
+      "caveat": "Casa cultural e galeria; diretórios também citam saída pela Rua Antônio Luz. Não inferir entrada exata."
+    },
+    {
+      "id": "franz-cabaret",
+      "name": "Franz Cabaret",
+      "region": "Centro",
+      "address": "Rua Cristóvão Nunes Pires, 84 - Centro, Florianópolis - SC",
+      "precision": "region_centroid",
+      "locationEvidence": [
+        "https://www.franzcabaret.com/"
+      ],
+      "reviewedAt": "2026-11-03",
+      "caveat": "Endereço e vocação cultural no site oficial; coordenadas de entrada pendentes."
     }
   ]
 }
