@@ -99,3 +99,18 @@ Adições desde a primeira revisão:
 **Eventos:** 12 arquivos históricos com associação registrada no Git, porém apenas **11 imagens ativadas na prévia privada**. A associação do evento `evt-362d49fca53d` não foi ativada porque o registro já apresentava divergência entre título catalogado e fonte. Assim, **45 eventos não recebem imagem** na prévia (44 sem arquivo associado e um bloqueado para revisão).
 
 **Escopo da evidência:** associação e aparência específicas devem ser confirmadas individualmente. Acessibilidade do link não é licença; fotos históricas podem não refletir o estado atual da casa. Todos os treze materiais continuam com status jurídico **pending**. Nenhum dos conteúdos de terceiros nem as imagens fornecidas pelo Cliente foram incorporados à distribuição pública do repositório.
+
+## Revisão complementar de fotos reais — cobertura ampliada para 19 casas
+
+Uma nova pesquisa pontual de fotos identificáveis ampliou a prévia Tailscale para **19 das 39 casas**, restando **20 casas sem mídia específica selecionada**. O estado acima de 13/26 é um snapshot anterior; este é o total da última conciliação. Todas as fotos novas continuam marcadas **pending**, sem inclusão dos arquivos em qualquer commit público.
+
+| Casa | Evidência da identidade visual | Fonte de consulta |
+|---|---|---|
+| MIS/SC | Entrada identificada do Museu da Imagem e do Som | https://visitefloripa.com.br/o-que-ver/museu-da-imagem-e-do-som/ |
+| Delfino 146 | Fachada com letreiro da casa (foto histórica) | https://www.deleitese.com/post/2016/02/03/delfino-146 |
+| Teatro Pedro Ivo | Fotografia da fachada do teatro | https://myside.com.br/guia-florianopolis/saco-grande-florianopolis-sc |
+| Passarela Nego Quirido | Estrutura física da passarela (foto histórica) | https://www.portaleventos.com.br/news/Floripa-Convention-organiza-camarote-na-Passarela-Nego-Quirido |
+| Balbúrdia Florianópolis | Ambiente com letreiro da casa em site oficial | https://www.balburdiafloripa.com.br/reservas |
+| UNDR Florianópolis | Identidade visual usada pelo estabelecimento em site oficial | https://undr.com.br/ |
+
+O catálogo continua com **56 eventos**: 11 imagens históricas efetivamente apresentadas em revisão privada, uma associação histórica retida por inconsistência de título e 44 registros sem imagem específica. Portanto **45 eventos permanecem sem fotografia exibida**. Nesta fase, arquivos históricos e marcas podem estar desatualizados; identidade, correspondência exata e direitos devem ser revisados antes de uso público.
