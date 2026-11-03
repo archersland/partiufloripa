@@ -34,3 +34,8 @@ Separar **arte de evento** de **foto ilustrativa licenciada**:
 - `data/event-artist-photos.json`: 2 ativos de arquivo de artistas, com licença CC BY 4.0/CC0, evidências, créditos e hashes; associados a quatro ocorrências. A legenda explicita que não são imagens da apresentação futura.
 - `data/venue-media.json`: 14 associações de casas a fotos genéricas licenciadas, marcadas como **não** representando a casa real.
 O seletor `scripts/media-selection.js` só aprova imagens específicas quando há registro individual de direitos. A auditoria dos 56 eventos e imagens históricas permanece pendente. Não reverter a fallback de categoria para imagens sem licença.
+
+## Auditoria com Firecrawl — 03/11/2026
+Realizada pesquisa pontual de fontes abertas por Firecrawl Search/Scrape e páginas oficiais acessíveis, sem raspar Sympla, Instagram protegido ou outros serviços com restrição. Resultado e rastreabilidade dos **56 registros** estão em [VENUE-AND-EVENT-AUDIT-2026-11-03.md](../reports/VENUE-AND-EVENT-AUDIT-2026-11-03.md). Foram examinadas identidades/endereços de **14 locais existentes** e **9 novas casas** e cadastradas fontes públicas em `data/venues.json`.
+
+**Alerta de inconsistência:** o título salvo de `evt-362d49fca53d` não corresponde ao título atualmente encontrado no link público Pensa no Evento; para `evt-628f76d5f85e`, o operador Music Park identifica o setor como Indoor enquanto a bilheteria informa Stage. Permanecem pendências de horário, fonte específica e direitos de imagem. Pesquisa pontual e link HTTP acessível não conferem licença para coleta periódica, republicação de cartazes ou homologação de evento. Não alterar o status editorial em lote.
