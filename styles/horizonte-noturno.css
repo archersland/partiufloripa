@@ -512,3 +512,51 @@ body>.mast,body>.main,body>.foot{position:relative;z-index:1}
   .place-card{padding-left:139px}
   .place-card .place-art{width:126px;min-width:126px;height:auto}
 }
+
+
+/* Horizonte Noturno v0.6.4 — inline compact header and 12px venue image inset. */
+.mast .nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:clamp(12px,3vw,32px);
+  min-height:74px;
+  padding:7px 0;
+}
+.mast .nav .brand{
+  flex:0 0 auto;
+  white-space:nowrap;
+  font-size:clamp(30px,3.1vw,43px);
+  line-height:1;
+  letter-spacing:-1.8px;
+}
+.mast .nav .intro{
+  flex:0 1 auto;
+  min-width:0;
+  padding:0;
+  margin:0;
+  display:flex;
+  justify-content:flex-end;
+}
+.mast .nav .intro .hero-title{
+  margin:0;
+  color:#f8f3e8;
+  font:400 clamp(16px,1.75vw,22px)/1.2 var(--pf-serif);
+  letter-spacing:-.2px;
+  text-align:right;
+  text-wrap:balance;
+}
+.place-card{padding-left:175px}
+.place-card .place-art{inset:12px auto 12px 12px}
+@media(max-width:699px){
+ .mast .nav{min-height:63px;padding:6px 0;gap:10px}
+ .mast .nav .brand{font-size:clamp(25px,6.7vw,32px);letter-spacing:-1.2px}
+ .mast .nav .intro .hero-title{font-size:clamp(13px,3.6vw,17px);line-height:1.17}
+ .place-card{padding-left:160px}
+}
+@media(max-width:365px){
+ .mast .nav{gap:7px}
+ .mast .nav .brand{font-size:25px}
+ .mast .nav .intro .hero-title{font-size:13px}
+ .place-card{padding-left:145px}
+}
