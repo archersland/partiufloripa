@@ -1,4 +1,7 @@
-# Baseline visual aprovado — Horizonte Noturno v0.2
+# Horizonte Noturno — baseline visual v0.2 e UI Style Guide v0.4
+
+
+**Consultar o guia visual atualizado:** [PDF v0.4 (10 pranchas)](UI-STYLE-GUIDE-HORIZONTE-NOTURNO-v0.4.pdf) · [HTML navegável v0.4](UI-STYLE-GUIDE-HORIZONTE-NOTURNO.html). O PDF é um artefato de documentação na branch; não integra o site publicado.
 
 **Estado da decisão:** linha visual escolhida pelo Cliente em 02/11/2026 (“primeira variação noturna do segundo output”), preservada como referência de implementação em 03/11/2026. Não interpretar essa escolha como aceite final do beta nem das telas migradas.
 
@@ -76,6 +79,6 @@
 - O CSS da imagem foi reescrito em propriedades válidas `background-image`, `background-size`, `background-position` e `background-repeat`, evitando o shorthand de layers não interpretado pelo Chromium e mantendo o degradê de legibilidade.
 - **Fidelidade:** as pranchas 09/10 são composições de alta fidelidade com cabeçalho fotográfico e conteúdo preservado, mas não são screenshots pixel-perfect do portal atual. A aba Lugares continua proposta no conjunto visual (apesar de implementada funcionalmente em `main`) até inspeção/aprovação específica.
 
-**Verificação efetuada:** leitura de confirmação do arquivo GitHub; renderização headless em Chrome das pranchas 06, 09 e 10 com largura 1600 px; contagem de 10 pranchas, **1 SVG de localização** no card principal, **3 heroes mobile e 1 desktop** com fotografia original aplicada; erros de página zero e rolagem horizontal ausente nas três pranchas inspecionadas. Versão do navegador/projeto publicado e Android físico **não** foram homologados por esses testes. Direitos da mídia continuam sujeitos ao registro de fontes, não presumidos.
+**Verificação efetuada:** exportação do PDF v0.4 com **10 páginas**; leitura de confirmação do arquivo GitHub; renderização headless em Chrome das pranchas 06, 09 e 10 com largura 1600 px; contagem de 10 pranchas, **1 SVG de localização** no card principal, **3 heroes mobile e 1 desktop** com fotografia original aplicada; erros de página zero e rolagem horizontal ausente nas três pranchas inspecionadas. Versão do navegador/projeto publicado e Android físico **não** foram homologados por esses testes. Direitos da mídia continuam sujeitos ao registro de fontes, não presumidos.
 
 **Status:** atualização documental concluída na branch; sem alterações no HTML do portal, sem commit em `main` e sem publicação.
