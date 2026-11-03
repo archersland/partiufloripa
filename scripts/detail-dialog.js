@@ -33,17 +33,17 @@ function close(){
 }
 function findPlace(name){
  const normalized=PartiuMedia.normalizeVenue(name);
- return (venueDirectory.venues||[]).find(v=>[v.name,...(v.aliases||[])].some(n=>PartiuMedia.normalizeVenue(n)===normalized));
+ return (venueDirectory.venues||[]).find(v=>[v.name,...(v.aliases||[])].some(n=>PartiuMedia.normalizeVenue(n)===normalized)&&PartiuVenueHours.status(v.id,hoursDirectory,selectedDate(),today).status!=="unknown");
 }
 function eventDetails(e){
  if(!e||e.sourceReview==="quarantined")return;
  activeEvent=e;
  const visual=media(e);
  const day=dateFmt.format(new Date(e.date+"T12:00:00Z"));
- const when='<p><strong>'+esc(day)+'</strong> · '+esc(e.time||"Horário não confirmado")+'</p>'+
+ const when='<p><strong>'+esc(day)+'</strong> · '+esc(e.time||"Consultar horário na fonte")+'</p>'+
   (e.showTime?'<p>Início da atração: <strong>'+esc(e.showTime)+'</strong></p>':"");
  const status=e.status==="verified"?"Informação marcada como verificada"+(e.lastVerifiedAt?" em "+esc(e.lastVerifiedAt):""):"Registro experimental, ainda não homologado editorialmente";
- const warnings=!e.time?'<p class="detail-warning">Horário não confirmado. Consulte a fonte antes de sair.</p>':"";
+ const warnings=!e.time?'<p class="detail-warning">Consulte o horário atualizado diretamente no organizador.</p>':"";
  const venue=findPlace(e.venue);
  const venueLink=venue?'<button type="button" data-dialog-place="'+esc(venue.id)+'">Conhecer a casa ↗</button>':"";
  const calendar=PartiuEventUX.validTime(e.time)&&e.date>=today?'<button type="button" data-detail-action="calendar">Adicionar ao calendário</button>':"";
@@ -62,10 +62,11 @@ function eventDetails(e){
 }
 function placeDetails(venue){
  if(!venue)return;
- activeEvent=null;
  const opening=PartiuVenueHours.status(venue.id,hoursDirectory,selectedDate(),today);
+ if(opening.status==="unknown")return; // withheld for editorial schedule research
+ activeEvent=null;
  const visual=media({venue:venue.name,category:"Cultura"});
- const status=opening.status==="open"?"Costuma abrir neste dia":opening.status==="closed"?"Costuma fechar neste dia":"Horário não confirmado";
+ const status=opening.status==="open"?"Costuma abrir neste dia":"Costuma fechar neste dia";
  const source=(venue.locationEvidence||[]).find(validExternal)||"";
  const links=originLink(source,"Fonte do local ↗")+originLink(opening.sourceUrl,"Fonte dos horários ↗");
  const map=venue.address?'<a href="https://www.google.com/maps/search/?api=1&amp;query='+encodeURIComponent(venue.address)+'" target="_blank" rel="noopener noreferrer">Buscar endereço no mapa ↗</a>':"";
@@ -79,11 +80,11 @@ function placeDetails(venue){
   '<section class="detail-panel"><h3>Sobre o local</h3><p>'+esc(venue.address||"Endereço de entrada não registrado")+'</p>'+
   '<p class="detail-muted">Dados do local consultados em '+esc(venue.reviewedAt||"data não informada")+'. A localização pode ser aproximada; o ponto exato de entrada não é presumido.</p></section>'+
   '<section class="detail-panel"><h3>Funcionamento habitual</h3><p><strong>'+esc(status)+'</strong></p>'+
-  (opening.status!=="unknown"&&opening.hoursText?'<p>'+esc(opening.hoursText)+'</p>':"")+
+  (opening.hoursText?'<p>'+esc(opening.hoursText)+'</p>':"")+
   '<p class="detail-muted">Não é disponibilidade ao vivo. Feriados e eventos especiais podem alterar os horários.</p></section>'+
   '<section class="detail-panel"><h3>Eventos no portal</h3>'+eventsHtml+'</section>'+
   '<section class="detail-panel"><h3>Verificar informações</h3><div class="detail-actions">'+links+map+'</div>'+
-  '<p class="detail-muted">A imagem é ilustrativa e licenciada, não uma fotografia específica desta casa. Fotos reais dependem de direitos documentados.</p></section></article>');
+  '<p class="detail-muted">Imagem da casa ou identidade visual, quando cadastrada. A reprodução em prévia privada não significa autorização de publicação.</p></section></article>');
 }
 document.getElementById("detail-close").addEventListener("click",close);
 dialog.addEventListener("click",async ev=>{
