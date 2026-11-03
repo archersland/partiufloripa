@@ -9,7 +9,8 @@ assert(css.includes("data:image/webp;base64,"),"approved decorative header image
 assert(/data-ui-baseline="horizonte-noturno-v0\.2"/.test(html),"explicit approved UI baseline marker absent");
 assert(html.includes('href="./styles/horizonte-noturno.css"'),"approved stylesheet absent");
 assert(html.indexOf('href="./styles/horizonte-noturno.css"')>html.indexOf("</style>"),"approved styles must override legacy styles");
-assert(html.includes('class="hero-title">Seu próximo rolê<br>começa aqui.'),"approved hero typography/copy missing");
+assert(html.includes('class="hero-title">Seu próximo rolê começa aqui.')&&html.includes('class="brand">partiu<span>floripa.</span></div><div class="intro">'),"approved inline brand and slogan hierarchy missing");
+assert(css.includes("Horizonte Noturno v0.6.4")&&css.includes("inset:12px auto 12px 12px"),"approved inline header and 12px venue image padding missing");
 assert(html.includes('<h2 id="featured-title">Destaque do dia'),"featured editorial hierarchy missing");
 assert(html.includes('<h2>Nos próximos dias</h2>'),"upcoming editorial hierarchy missing");
 for(const id of ["tab-list","tab-places","tab-map","featured","agenda","map-panel","places-panel","global-date","place-status","place-region","night-date","search"]){
