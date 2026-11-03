@@ -64,3 +64,18 @@
 **Elementos demonstrativos, não tokens de produção:** `#041b21bb` no campo ilustrativo do guia e `#041b21d5` no quadro explicativo; ambos são recursos da prancha, distintos da busca real. `transparent` em botões, links, linhas e backgrounds herdados, assim como as transições de opacity internas do Leaflet, permanecem sujeitos ao CSS original, não a um “alfa global” da marca.
 
 **Verificação documental:** estrutura de 10 pranchas e fotografia reaproveitada do stylesheet validada por inspeção do HTML; este procedimento não valida contraste/pixel-perfect no navegador, PDF v0.3, permissões da imagem ou Android físico. **Status:** documentação atualizada na branch `docs/ui-style-guide-horizonte-noturno-v03`; sem deploy do portal e sem aceite final.
+
+
+## Revisão v0.4 — iconografia do local e fidelidade dos exemplos (03/11/2026)
+
+**Solicitação do Cliente:** na prancha 06, substituir o glifo `⌖` (visual de asterisco/diamante) por um pin de localização convencional junto ao nome da casa; nas pranchas 09 (mobile) e 10 (desktop), substituir a representação vetorial da ponte por **fotografia de referência já usada no site**.
+
+**Implementação documental (branch `docs/ui-style-guide-horizonte-noturno-v03`):**
+- `docs/UI-STYLE-GUIDE-HORIZONTE-NOTURNO.html`, **v0.4**: prancha 06 utiliza ícone SVG inline no estilo `map-pin`, traço 1,9, tamanho 22 px, cor menta `#8FE5CC`, acessibilidade via rótulo `Local do evento` e SVG decorativo oculto ao leitor de tela. O ícone indica a casa/venue, não localização precisa de GPS.
+- Pranchas 09 e 10: componentes visuais de hero nas miniaturas das telas **Eventos, Lugares e Mapa**, mais o exemplo desktop, utilizam **o mesmo WebP da Ponte Hercílio Luz que consta em `styles/horizonte-noturno.css`**, sem nova imagem gerada ou busca externa. O WebP está embutido **uma única vez** como recurso CSS reutilizado, com enquadramento `center 44%`. As imagens ilustrativas dos eventos continuam representativas, não cartazes reais licenciados.
+- O CSS da imagem foi reescrito em propriedades válidas `background-image`, `background-size`, `background-position` e `background-repeat`, evitando o shorthand de layers não interpretado pelo Chromium e mantendo o degradê de legibilidade.
+- **Fidelidade:** as pranchas 09/10 são composições de alta fidelidade com cabeçalho fotográfico e conteúdo preservado, mas não são screenshots pixel-perfect do portal atual. A aba Lugares continua proposta no conjunto visual (apesar de implementada funcionalmente em `main`) até inspeção/aprovação específica.
+
+**Verificação efetuada:** leitura de confirmação do arquivo GitHub; renderização headless em Chrome das pranchas 06, 09 e 10 com largura 1600 px; contagem de 10 pranchas, **1 SVG de localização** no card principal, **3 heroes mobile e 1 desktop** com fotografia original aplicada; erros de página zero e rolagem horizontal ausente nas três pranchas inspecionadas. Versão do navegador/projeto publicado e Android físico **não** foram homologados por esses testes. Direitos da mídia continuam sujeitos ao registro de fontes, não presumidos.
+
+**Status:** atualização documental concluída na branch; sem alterações no HTML do portal, sem commit em `main` e sem publicação.
