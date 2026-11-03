@@ -232,6 +232,7 @@ function renderPlaces(){
  results.innerHTML=sections||'<div class="empty">Nenhum lugar corresponde aos filtros. Experimente outro bairro ou funcionamento.</div>';
 }
 function setView(view){
+ if(activeView!==view)$("search").value="";
  activeView=view;
  for(const [id,panel] of [["list","list-panel"],["places","places-panel"],["map","map-panel"]]){
   const active=id===view;
@@ -323,21 +324,30 @@ $("night-date").addEventListener("change",()=>{const value=$("night-date").value
 $("map-retry").addEventListener("click",showMap);
 ["place-region","place-status"].forEach(id=>$(id).addEventListener("change",renderPlaces));
 const fetchJson=url=>fetch(url).then(r=>{if(!r.ok)throw Error("Falha "+url);return r.json()});
-Promise.all([fetchJson("./events.json"),Promise.allSettled(["./data/venues.json","./data/image-rights.json","./data/licensed-category-photos.json","./data/venue-media.json","./data/event-artist-photos.json","./data/venue-capacities.json"].map(fetchJson))])
-.then(([d,results])=>{
- const fallback=[{venues:[]},{assets:[]},{items:[]},{items:[]},{assets:[]},{venues:[]}];
- const [venues,rights,photos,venuePics,artistPics,capacities]=results.map((r,i)=>r.status==="fulfilled"?r.value:fallback[i]);
- const failed=results.filter(r=>r.status==="rejected").length;
- if(failed)$("data-status").textContent="Alguns dados complementares não carregaram; a agenda continua disponível com informações e imagens de reserva.";
- capacityDirectory=capacities;venueDirectory=venues;imageRights=rights;categoryPhotos=photos;venueMedia=venuePics;eventPhotos=artistPics;
- events=d.events.filter(e=>PartiuEventUX.validDate(e.date)&&/^https:\/\//.test(e.source)&&e.sourceReview!=="quarantined");
+Promise.allSettled(["./events.json","./data/venues.json","./data/image-rights.json","./data/licensed-category-photos.json","./data/venue-media.json","./data/event-artist-photos.json","./data/venue-capacities.json","./data/venue-hours.json"].map(fetchJson))
+.then(results=>{
+ const defaults=[{events:[]},{venues:[]},{assets:[]},{items:[]},{items:[]},{assets:[]},{venues:[]},{venues:[]}];
+ const [d,venues,rights,photos,venuePics,artistPics,capacities,hours]=results.map((r,i)=>r.status==="fulfilled"?r.value:defaults[i]);
+ venuesUnavailable=results[1].status==="rejected";
+ const eventsUnavailable=results[0].status==="rejected";
+ const failures=results.filter(r=>r.status==="rejected").length;
+ if(failures)$("data-status").textContent="Alguns dados não carregaram. Horários ausentes nunca são considerados fechados; confira as informações na origem.";
+ capacityDirectory=capacities;venueDirectory=venues;hoursDirectory=hours;imageRights=rights;categoryPhotos=photos;venueMedia=venuePics;eventPhotos=artistPics;
+ events=(Array.isArray(d.events)?d.events:[]).filter(e=>PartiuEventUX.validDate(e.date)&&/^https:\/\//.test(e.source)&&e.sourceReview!=="quarantined");
  month=PartiuEventUX.initialMonth(events.filter(e=>e.date>=today),today);renderMonthButtons();
  for(const [id,key] of [["category","category"],["region","region"]]){
   for(const v of [...new Set(events.map(e=>key==="region"?displayRegion(e):e[key]))].filter(Boolean).sort((a,b)=>a.localeCompare(b,"pt-BR"))){
    const o=document.createElement("option");o.value=v;o.textContent=id==="category"?(categoryIcons[v]||"📅")+" "+v:v;$(id).append(o)
   }
  }
- render();
+ if(!eventsUnavailable)render();
+ else {$("agenda").innerHTML='<div class="empty">A agenda não pôde ser carregada. Lugares continuam disponíveis se os dados de locais foram carregados.</div>';$("featured").innerHTML="";$("count").textContent="Agenda indisponível";}
+ $("place-region").innerHTML='<option value="">Todos os bairros</option>';
+ for(const region of [...new Set((venueDirectory.venues||[]).map(v=>v.region).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"pt-BR"))){
+  const option=document.createElement("option");option.value=region;option.textContent=region;$("place-region").append(option);
+ }
+ renderPlaces();
+ if(previewParams.get("view")==="places")setView("places");
  if(previewParams.get("view")==="map")showMap();
  else if(activeView==="map"){availableNights();paintNightMap()}
 }).catch(()=>{$("agenda").innerHTML='<div class="empty">Não foi possível carregar a agenda.</div>';$("featured").innerHTML=''});["search","category","region","period"].forEach(id=>$(id).addEventListener("input",()=>{if(activeView==="places")renderPlaces();else if(activeView==="list")render()}));$("month-switcher").addEventListener("click",e=>{const b=e.target.closest("[data-month]");if(!b)return;month=b.dataset.month;dateFilter="";render()});
