@@ -9,3 +9,7 @@ tile-headers.txt
 
 # Generated event routes (created during GitHub Pages deployment)
 /evento/
+
+# Private-only image/legal review overlays; never commit unlicensed logos or posters.
+data/media-review.local.json
+assets/venue-review/
