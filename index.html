@@ -197,7 +197,7 @@ function placeCard(venue,opening){
  const external=' target="_blank" rel="noopener noreferrer"';
  const addressLink=address?'<a href="https://www.google.com/maps/search/?api=1&amp;query='+encodeURIComponent(address)+'"'+external+'>Buscar endereço no mapa</a>':"";
  const sourceLink=source?'<a href="'+esc(source)+'"'+external+'>Fonte dos horários</a>':evidence?'<a href="'+esc(evidence)+'"'+external+'>Fonte do local</a>':"";
- const timeText=state!=="unknown"&&opening.hoursText?'<p class="place-hours">'+esc(opening.hoursText)+'</p>':"";
+ const timeText=state!=="unknown"&&opening.hoursText?'<span class="place-hours">'+esc(opening.hoursText)+'</span>':"";
  const check=state!=="unknown"&&opening.reviewedAt?'<span class="place-region"> · Consultado em '+esc(opening.reviewedAt.split("-").reverse().join("/"))+'</span>':"";
  const image=PartiuMedia.select({venue:venue.name,category:"Cultura"},{categoryPhotos,venueMedia,eventPhotos,imageRights});
  const hint=image.kind==="illustrative"?"Foto ilustrativa":image.kind==="cover"?"Arte ilustrativa":"Foto de arquivo";
