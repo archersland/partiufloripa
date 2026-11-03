@@ -16,7 +16,7 @@ assert.equal(status('chopp-do-gus-corrego-grande',dates.mon).status,'closed');
 assert.equal(status('scuna-bar-club',dates.fri).status,'open');
 assert.equal(status('scuna-bar-club',dates.tue).status,'closed');
 assert.equal(status('berlin-floripa',dates.tue).status,'open');
-assert.equal(status('no-class',dates.wed).status,'closed');
+assert.equal(status('no-class',dates.wed).status,'unknown','special-event nights outside regular schedule cannot be labelled closed');
 assert.equal(status('unknown-venue',dates.tue).status,'unknown');
 assert.equal(status('bugio-centro',dates.tue).status,'unknown');
 assert.equal(status('scuna-bar-club','invalid').status,'unknown');
