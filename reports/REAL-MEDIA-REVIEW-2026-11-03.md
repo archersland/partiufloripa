@@ -81,3 +81,21 @@
 5. Reavaliar performance de imagens, altura da hero desktop e legibilidade dos estados sem foto em navegador/Android. CI e URL da prévia não representam homologação.
 
 **Portas:** implementado em branch ≠ testado ≠ publicado ≠ homologado. Nada de novas imagens potencialmente protegidas deve ir para `main` sem evidência de direitos e aceite do Cliente.
+
+## Atualização da prévia local — conciliação de mídia, 03/11/2026
+
+Uma segunda revisão de material visual ampliou a **prévia privada** para **13 casas com imagem candidata** e **26 casas sem imagem selecionada**. O número inicial de oito imagens acima é preservado como fotografia da primeira etapa, não como situação final. A atualização foi conciliada sem apagar entradas que haviam sido acrescentadas paralelamente na prévia. O registro local e arquivos continuam excluídos do Git público.
+
+Adições desde a primeira revisão:
+
+| Casa | Material de revisão | Referência |
+|---|---|---|
+| Teatro Ademir Rosa | Foto da entrada/identificação do teatro | https://www.guiadasemana.com.br/florianopolis/arte/estabelecimento/teatro-ademir-rosa-cic |
+| Galeria Lama | Foto de ambiente/fachada com identificação | https://restaurantguru.com.br/Galeria-Lama-Florianopolis |
+| Berlin Floripa | Foto com letreiro do estabelecimento | https://restaurantguru.com.br/Berlin-by-Cite-Florianopolis |
+| Terraza Music Park | Imagem encontrada em material de divulgação | https://d2hnilqqbw3vnf.cloudfront.net/images/imagens/full/MJ1qtEPSxQ3Z1MrOa5WoLJP0iOn1uIVYeJ6xHZfU.jpeg |
+| Stage Music Park | Mídia encontrada em fonte de ingressos; correspondência ainda a revisar | https://www.gbingressos.com.br/ |
+
+**Eventos:** 12 arquivos históricos com associação registrada no Git, porém apenas **11 imagens ativadas na prévia privada**. A associação do evento `evt-362d49fca53d` não foi ativada porque o registro já apresentava divergência entre título catalogado e fonte. Assim, **45 eventos não recebem imagem** na prévia (44 sem arquivo associado e um bloqueado para revisão).
+
+**Escopo da evidência:** associação e aparência específicas devem ser confirmadas individualmente. Acessibilidade do link não é licença; fotos históricas podem não refletir o estado atual da casa. Todos os treze materiais continuam com status jurídico **pending**. Nenhum dos conteúdos de terceiros nem as imagens fornecidas pelo Cliente foram incorporados à distribuição pública do repositório.
