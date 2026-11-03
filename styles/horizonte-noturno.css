@@ -362,3 +362,9 @@ body>.mast,body>.main,body>.foot{position:relative;z-index:1}
 .place-card .place-art-caption{font-size:9px}
 .detail-sheet .detail-media--empty{display:grid;place-items:center;text-align:center;color:#bfd4cf;font:400 23px var(--pf-serif);padding:20px}
 .detail-sheet .detail-media img[data-kind="event-review"],.detail-sheet .detail-media img[data-kind="venue-review"]{object-fit:contain;background:#081d22}
+
+/* Genuine media only: remove overlay labels, and collapse empty thumbnail slots. */
+@media(min-width:1024px){#featured .event-featured.event-card--text-only{display:flex;max-height:none;min-height:0}#featured .event-featured.event-card--text-only .event-info{width:100%}}
+.event-card--text-only .event-info{flex:1;min-width:0}
+.place-card--text-only .place-links{padding-left:12px}
+.place-art-caption,.review-media-caption{display:none!important}
