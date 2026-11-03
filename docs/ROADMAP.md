@@ -72,8 +72,8 @@ Revisão detalhada: [OPT-01 a OPT-14](../reports/BUILD-WEB-APPS-REVIEW-2026-11-0
 - [x] Acrescentar 16 bares/casas com endereços e fontes ao `data/venues.json`: No Class, Bohô, Vodu, Boteco do Maicão Centro, Teodoro, SELVA, Opium, Ateliê 389, Desgosto, ORI Centro, Botequim Floripa, Scuna, Bar do Noel, Boteco do Alemão, Kibelândia e Barra Cô. **Total: 39 locais no registro.**
 - [x] Adicionar asserções para as 16 novas casas e não existência de coordenadas inventadas em `scripts/test-venue-location.cjs`.
 - [x] Registrar [proposta “Lugares”](PLACES-DISCOVERY-PROPOSAL.md) para exibir bares sem atrações, preservando agenda e heatmap.
-- [ ] **Decisão de produto aberta:** aceitar ou ajustar a terceira aba “Lugares” e seu escopo antes de implementar a UI.
-- [ ] Caso aprovada, modelar tipos de experiências, fontes/perfis, vínculo `event.venue`↔`venue.id`, estados sem eventos e filtros acessíveis; executar QA e CI.
+- [x] **Decisão de produto:** implementar a terceira aba “Lugares” autorizada em 03/11/2026 (ADR-033); aceite visual final ainda pendente.
+- [ ] Completar tipos editoriais de experiência, fontes/perfis, vínculo formal `event.venue`↔`venue.id` e QA E2E; filtros iniciais e estados sem eventos já implementados.
 - [ ] Revalidar situação de casas com sinais de fechamento; **Haôma Baixo Centro excluído** por anúncio de despedida em maio de 2026.
 
 ## Execução da aba Lugares — 03/11/2026
@@ -84,3 +84,12 @@ Revisão detalhada: [OPT-01 a OPT-14](../reports/BUILD-WEB-APPS-REVIEW-2026-11-0
 - [ ] Ampliar horários com fontes estáveis e comprovar exceções/feriados; atualmente sem medição de “aberto agora”.
 - [ ] Fazer QA visual e funcional de Lugares/Mapa/Agenda em mobile/desktop, conferir deployment e aceitar layout com o Cliente.
 - [ ] Revalidar calendários externos e qualidade de eventos (gates editoriais antigos).
+
+## Correção de regressão visual — 03/11/2026
+- [x] Recuperar prévia **Horizonte Noturno** selecionada e documentar identidade canônica sem usar o bundle demonstrativo React como fonte de dados.
+- [x] Restaurar hero, busca, destaque principal e próximos eventos horizontais, preservando Agenda/Lugares/Mapa e horários.
+- [x] Unificar tema dos detalhes e créditos com a identidade noturna e manter URLs/SEO/.ics.
+- [x] Acrescentar gates automáticos **além da UI**: invariantes de Eventos/Lugares/Mapa, projeção editorial, páginas geradas, checks HTTP pós-deploy.
+- [ ] Verificar CI final e site efetivamente servido; registrar URL/commit/run e evidência.
+- [ ] QA visual mobile/desktop e aparelho Android + aceite final do Cliente.
+- [ ] Atualizar a cobertura de horários/locais sem inventar abertura ao vivo.
