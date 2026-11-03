@@ -1,6 +1,6 @@
 # Proposta de produto — aba “Lugares” (Discovery, 03/11/2026)
 
-**Estado:** proposta aberta do Cliente; **não é decisão aceita nem UI implementada**. A origem é a percepção de que muitos bares, pubs e casas culturais são destinos relevantes mesmo quando não têm um evento específico cadastrado. Preservar o web MVP estático, sem pagamentos, recursos sociais, login, GPS de pessoas ou heatmap de ocupação real.
+**Estado atualizado (03/11/2026):** o Cliente autorizou e a implementação técnica da aba Lugares foi realizada na main; a proposta original abaixo permanece como contexto de design. QA mobile/visual, horário das demais casas e aceite do Cliente continuam pendentes. ADR-033 documenta a semântica aprovada para implementação. A origem é a percepção de que muitos bares, pubs e casas culturais são destinos relevantes mesmo quando não têm um evento específico cadastrado. Preservar o web MVP estático, sem pagamentos, recursos sociais, login, GPS de pessoas ou heatmap de ocupação real.
 
 ## Problema e solução
 Hoje o portal responde “o que acontece em tal data?”. Uma casa como o Chopp do Gus, ORI Boteco ou Kibelândia pode ter valor na descoberta independentemente de show. Se o portal só listar ocorrências, esses lugares somem da navegação em dias sem atrações confirmadas.
@@ -36,4 +36,4 @@ Acrescentados **16 registros** em `data/venues.json`, com fonte e endereço text
 
 **Exclusão cautelosa:** Haôma Baixo Centro não foi incluído como ativo porque sua despedida no dia 10/05/2026 foi noticiada em https://underfloripa.com.br/musica/haoma-baixo-centro-ultimo-ato-show-gratuito-florianopolis/ . Poderá constar em registro histórico, ou ter nova situação apenas após verificação.
 
-**Status de execução:** novos dados de lugares persistidos e relidos no GitHub; proposta de aba documentada sem alteração da UI e sem novos registros no `events.json`. O Cliente decide o aceite da nova navegação antes de implementação.
+**Atualização:** UI Agenda/Lugares/Mapa implementada, com calendário comum e listagem em três estados; a existência de 39 casas não implica que horário ou funcionamento tenham sido verificados para todas. O Cliente mantém aceite visual e editorial. Não houve novos eventos adicionados.
