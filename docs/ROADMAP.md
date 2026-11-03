@@ -93,3 +93,18 @@ Revisão detalhada: [OPT-01 a OPT-14](../reports/BUILD-WEB-APPS-REVIEW-2026-11-0
 - [x] CI e publicação com conferência HTTP realizados: [run 41712665456](https://github.com/archersland/partiufloripa/actions/runs/41712665456) terminou success e o verificador pós-deploy confirmou UI noturna, scripts, contratos de dados e páginas profundas; [RCA com evidências](../reports/UI-REGRESSION-RCA-2026-11-03.md).
 - [ ] QA visual mobile/desktop e aparelho Android + aceite final do Cliente.
 - [ ] Atualizar a cobertura de horários/locais sem inventar abertura ao vivo.
+
+## Ciclo documentado — Medição de saída e reconhecimento de origem (03/11/2026)
+
+**Objetivo autorizado:** desenvolver critérios e estudar a possibilidade de tornar o PartiuFloripa identificável como origem de tráfego, demonstrando valor antes de qualquer cobrança. **Somente documentação e investigação passiva nesta etapa.** Contrato completo: [Métricas e auditoria de URLs](OUTBOUND-ATTRIBUTION-AND-CLICK-METRICS.md).
+
+- [x] Formalizar indicadores de cliques brutos, elegíveis, deduplicados, por evento/casa, por superfície, sessões clicadoras e janelas 7/30 dias, sem confundir sessões com pessoas.
+- [x] Especificar filtros técnicos, idempotência, janelas iniciais de deduplicação, casos positivos/negativos e retenção **proposta**.
+- [x] Pesquisar documentação oficial de GA4/UTM, Evvnt, Eventbrite, Sympla e HTTP Referer; identificar limitações do CTA atual com `noreferrer`. Isso **não** comprova compatibilidade das casas reais.
+- [ ] Inventariar e classificar domínios/links efetivos de `events.json` e `data/venues.json` em matriz datada por provedor/casa, sem scraping.
+- [ ] Escolher mecanismo mínimo de coleta compatível com web estática e rever custos, privacidade, retenção e base legal.
+- [ ] Prototipar filtros/deduplicação e construtor de URL sem alterar os links públicos; testar cenários permitidos e proibidos no CI existente.
+- [ ] Validar amostras de URLs por plataforma apenas em experimento manual, seguro e autorizado, com rollback; distinguir URL navegável de atribuição reconhecida.
+- [ ] Testar fluxo real em mobile/desktop/teclado e integração; obter autorização para eventual publicação e medir baseline real antes de estabelecer metas.
+
+**Dependências:** RF-12 e RF-41–45; ADR-005/036. Divulgação patrocinada, afiliados, contatos com casas e publicação permanecem fora desta autorização.
