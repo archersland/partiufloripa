@@ -159,3 +159,29 @@ Todos os 14 estão agora identificáveis pelo nome no registro, mas isso **não*
 - O inventário `data/venues.json` (23 entradas), as asserções em `scripts/test-venue-location.cjs` e este relatório foram gravados e **relidos** na `main`.
 - GitHub Actions [run 41580131613](https://github.com/archersland/partiufloripa/actions/runs/41580131613), commit `6a17575af0ad9d7e40f91508193207ccd268cbf0`: `completed/success` após a inclusão de locais, relatório e documentação de origem. Isso demonstra a execução dos checks técnicos e do workflow, **não** valida endereço de entrada, realidade de eventos, permissão de coleta nem aceite de beta.
 - Ainda não foram coletados pontos de entrada geográfica exatos, nem feitas revisões editoriais humanas individuais dos 56 eventos. Não realizar migração ou publicação de cartazes sem evidência de direitos.
+
+## 9. Complemento — Centro-Leste e eixo Ponte Hercílio Luz (03/11/2026)
+Este complemento **não altera o snapshot anterior de 23 casas** documentadas acima. Uma segunda rodada de pesquisa pontual (Firecrawl Search/Scrape, fontes públicas oficiais, guias e busca de estabelecimentos) acrescentou **16 locais** ao `data/venues.json`, que agora totaliza **39 registros**. Nenhum novo evento foi inserido e nenhuma coordenada de entrada foi inferida.
+
+| Local / área | Endereço | Fonte representativa |
+|---|---|---|
+| No Class — Victor Meirelles | Rua Victor Meirelles, 184 | https://www.pensanoevento.com.br/locais/394/no-class |
+| Bohô Bar & Pista — Victor Meirelles | Rua Victor Meirelles, 226 | https://tocaonde.com.br/events/190239-polly-jinx-sur-boho-bar-pista-florianopolis |
+| Vodu Arte Bar — Victor Meirelles | Rua Victor Meirelles, 154 | https://www.instagram.com/p/DesNiKajwaL/ |
+| Boteco do Maicão Centro — Victor Meirelles | Rua Victor Meirelles, 230 | https://andapride.com.br/maps/lugares/boteco-do-maicao-centro/ |
+| Kibelândia — Victor Meirelles | Rua Victor Meirelles, 98 | https://www.instagram.com/kibelandiafloripa/ |
+| Teodoro Bar — João Pinto | Rua João Pinto, 132, loja 02 | https://www.instagram.com/p/DTbjlsfkUkD/ |
+| Barra Cô — Tiradentes | Rua Tiradentes, 164 | https://floripa.lgbt/vida-noturna/bares-lgbt-em-florianopolis/ |
+| Bar do Noel — Tiradentes | Rua Tiradentes, 186 | https://tocaonde.com.br/venues/1007441-bar-do-noel-florianopolis |
+| SELVA — Hercílio Luz | Av. Hercílio Luz, 449 | https://www.instagram.com/selvafloripa/ |
+| Opium Bar — Hercílio Luz | Av. Hercílio Luz, 892 | https://floripa.lgbt/cultura/arte-drag/quarta-edicao-do-drag-battle-promete-espetaculos-imperdiveis-no-opium-bar/ |
+| Ateliê 389 — Hercílio Luz | Av. Hercílio Luz, 389 | https://www.pensanoevento.com.br/locais/2550/atelie-389 |
+| Boteco do Alemão — Hercílio Luz | Av. Hercílio Luz, 692 | https://www.instagram.com/bardoalemaofloripa/ |
+| Desgosto Bar — Padre Roma | Rua Padre Roma, 174 | https://underfloripa.com.br/agenda/ploho/ |
+| ORI Boteco Centro — ponte / Henrique Valgas | Rua Henrique Valgas, 318 | https://www.oriboteco.com.br/ |
+| Botequim Floripa — Rio Branco | Av. Rio Branco, 632 | https://ilovefloripa.com.br/lugar/botequim-floripa |
+| Scuna Bar Club — ponte / Osvaldo Rodrigues Cabral | Av. Osvaldo Rodrigues Cabral, 1251 | https://scunabar.com.br/ |
+
+**Casa não adicionada como ativa:** Haôma Baixo Centro (Av. Hercílio Luz, 455) divulgou festa de despedida em 10/05/2026. Fonte: https://underfloripa.com.br/musica/haoma-baixo-centro-ultimo-ato-show-gratuito-florianopolis/ . Até confirmação de eventual reabertura, não incluir como opção atual de passeio.
+
+**Interpretação de produto:** a nova pesquisa evidencia diferença entre existência de uma casa e evento confirmado. Especificação preliminar [Lugares](../docs/PLACES-DISCOVERY-PROPOSAL.md), não aprovada nem implementada. Não publicar funcionamento em tempo real, programação, cartazes ou público estimado sem evidência específica.
