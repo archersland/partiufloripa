@@ -66,4 +66,4 @@ Revisão detalhada: [OPT-01 a OPT-14](../reports/BUILD-WEB-APPS-REVIEW-2026-11-0
 - [ ] Resolver os conflitos **BACKWASH/NA ONDA** e **MUNDO M: Stage/Indoor**; conferir horários de Folianópolis e vínculos genéricos de bilheteria.
 - [ ] Concluir revisão editorial individual, fonte primária por sessão, direitos de cartaz e acesso; não publicar novos eventos ou declarar `verified` automaticamente.
 - [ ] Geocodificar entradas de casas somente mediante evidência verificável; endereços textuais não são coordenadas nem marcam automaticamente no mapa.
-- [ ] Validar CI e experiência de localização após alterações; separar verificação técnica de aceite do beta.
+- [x] Validar CI de integridade do diretório: Actions run [41580131613](https://github.com/archersland/partiufloripa/actions/runs/41580131613) no commit `6a17575` terminou `success`; validação visual de novos locais sem eventos permanece fora do escopo (não há novos pins).
