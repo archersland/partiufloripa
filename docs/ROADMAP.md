@@ -101,7 +101,8 @@ Revisão detalhada: [OPT-01 a OPT-14](../reports/BUILD-WEB-APPS-REVIEW-2026-11-0
 - [x] Formalizar indicadores de cliques brutos, elegíveis, deduplicados, por evento/casa, por superfície, sessões clicadoras e janelas 7/30 dias, sem confundir sessões com pessoas.
 - [x] Especificar filtros técnicos, idempotência, janelas iniciais de deduplicação, casos positivos/negativos e retenção **proposta**.
 - [x] Pesquisar documentação oficial de GA4/UTM, Evvnt, Eventbrite, Sympla e HTTP Referer; identificar limitações do CTA atual com `noreferrer`. Isso **não** comprova compatibilidade das casas reais.
-- [ ] Inventariar e classificar domínios/links efetivos de `events.json` e `data/venues.json` em matriz datada por provedor/casa, sem scraping.
+- [x] Inventariar passivamente os domínios do campo `source` de `events.json`: 56 ocorrências, 35 URLs distintas e 8 domínios; verificar a ausência de campos de site oficial no diretório de 39 lugares. Evidência no documento de métricas.
+- [ ] Classificar cada link como fonte editorial, site do organizador, bilheteria específica ou agenda genérica; verificar redirects, compatibilidade e proveniência sem scraping.
 - [ ] Escolher mecanismo mínimo de coleta compatível com web estática e rever custos, privacidade, retenção e base legal.
 - [ ] Prototipar filtros/deduplicação e construtor de URL sem alterar os links públicos; testar cenários permitidos e proibidos no CI existente.
 - [ ] Validar amostras de URLs por plataforma apenas em experimento manual, seguro e autorizado, com rollback; distinguir URL navegável de atribuição reconhecida.
