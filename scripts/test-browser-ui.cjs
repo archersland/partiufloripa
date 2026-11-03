@@ -61,7 +61,7 @@ async function main(){
    await send("Emulation.setDeviceMetricsOverride",{width,height:844,deviceScaleFactor:1,mobile:width<500});
    await send("Page.navigate",{url:site+"?qa="+width});
    await until(()=>evaluate("Boolean(document.querySelector('#featured a.event-card')&&document.querySelector('#agenda .event-search'))"));
-   if(width===1280){const layout=await evaluate("(()=>({wrap:document.querySelector('.main.wrap').getBoundingClientRect().width,cols:getComputedStyle(document.querySelector('#agenda .cards')).gridTemplateColumns.split(' ').length}))()");assert(layout.wrap>1000&&layout.cols===2,"Desktop needs widened two-column editorial grid: "+JSON.stringify(layout));}
+   if(width===1280){const layout=await evaluate("(()=>({wrap:document.querySelector('.main.wrap').getBoundingClientRect().width,cols:getComputedStyle(document.querySelector('#agenda .cards')).gridTemplateColumns.split(' ').length}))()");assert(layout.wrap>1000&&layout.cols===1,"Desktop agenda must be one continuous list: "+JSON.stringify(layout));}
    const hero=await evaluate("(()=>{const el=getComputedStyle(document.body,'::before');const s=el.backgroundImage;return {hasBridge:s.includes('data:image/webp;base64'),hasGradient:s.includes('linear-gradient'),fixed:el.position==='fixed',height:el.height,width:document.documentElement.scrollWidth,viewport:document.documentElement.clientWidth}})()");
    assert(hero.hasBridge&&hero.hasGradient&&hero.fixed,"Ponte must be fixed across the entire viewport");
    assert(hero.width<=hero.viewport+2,"Mobile/desktop page must not overflow horizontally: "+JSON.stringify(hero));
@@ -95,13 +95,12 @@ async function main(){
    assert.equal(await evaluate("document.getElementById('detail-dialog').open"),false,"Event dialog must close");
    await evaluate("document.getElementById('tab-places').click()");
    await until(()=>evaluate("Boolean(document.querySelector('.place-open'))"));
-   const places=await evaluate("(()=>({count:document.querySelectorAll('.place-open').length,empty:document.querySelectorAll('.place-open .place-empty').length,images:document.querySelectorAll('.place-open img').length,illustrative:document.querySelectorAll('.place-open img[src*=\"/photos/\"]').length,privateReview:reviewMedia.scope==='private-preview'}))()");
-   assert(places.count>=30&&places.empty===0&&places.images<=places.count&&places.illustrative===0,"Venue imagery must be authentic without stock or placeholders");
-   if(places.privateReview){
-    assert(places.images>=3,"Private review must include supplied venue identity visuals");
-    const uploaded=await evaluate("['Bar do Espartano','Floripa Comedy Club','ETC. Casa de Vinhos e Artes'].every(name=>[...document.querySelectorAll('.place-open')].some(b=>b.textContent.includes(name)&&b.querySelector('img')))");
-    assert(uploaded,"User-supplied logos must be displayed in private review");
-   }else assert(places.images===0,"Public/CI should not include unlicensed venue visuals");
+   const places=await evaluate("(()=>{const groups=[...document.querySelectorAll('#places-results .places-group')];const placeButtons=[...document.querySelectorAll('.place-open')];const letters=[...document.querySelectorAll('.places-letter-group')];const grid=document.querySelector('#places-results .places-grid');return {count:placeButtons.length,images:document.querySelectorAll('.place-open img').length,illustrative:document.querySelectorAll('.place-open img[src*=\\\"/photos/\\\"]').length,columns:grid?getComputedStyle(grid).gridTemplateColumns.split(' ').length:0,groupTitles:groups.map(g=>g.querySelector('h3')?.textContent),letterCount:letters.length,lettersValid:letters.every(g=>{const names=[...g.querySelectorAll('.place-title')].map(n=>n.textContent);return !!g.querySelector('h4')&&names.every((n,i)=>i===0||names[i-1].localeCompare(n,'pt-BR')<=0)}),privateReview:reviewMedia.scope==='private-preview',unknownText:document.querySelector('#places-results').textContent.toLowerCase().includes('horário não confirmado')}})()");
+   assert(places.count>=1&&places.count<=hoursDirectory.venues.length&&places.images<=places.count&&places.illustrative===0,"Only documented venue schedules may appear");
+   assert(!places.unknownText&&places.groupTitles.length<=2&&places.lettersValid,"Unknown schedules excluded and closed venues alphabetically grouped");
+   assert(places.columns===(width>=1024?2:1),"Venue grid columns must be exactly two desktop / one mobile: "+JSON.stringify(places));
+   if(places.privateReview){assert(places.images>=1,"Private review should show verified venue media where available");}
+   else assert(places.images===0,"Public/CI must not show unlicensed venue media");
    await evaluate("document.querySelector('.place-open').click()");
    const place=await evaluate("(()=>{const d=document.getElementById('detail-dialog');return {open:d.open,title:!!d.querySelector('#detail-title'),hours:d.textContent.includes('Funcionamento habitual'),events:d.textContent.includes('Eventos no portal'),pathname:location.pathname}})()");
    assert(place.open&&place.title&&place.hours&&place.events&&place.pathname===before,"Venue click must open its own dialog without navigation");
