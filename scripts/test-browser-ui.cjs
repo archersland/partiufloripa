@@ -65,7 +65,7 @@ async function main(){
    const hero=await evaluate("(()=>{const el=getComputedStyle(document.body,'::before');const s=el.backgroundImage;return {hasBridge:s.includes('data:image/webp;base64'),hasGradient:s.includes('linear-gradient'),fixed:el.position==='fixed',height:el.height,width:document.documentElement.scrollWidth,viewport:document.documentElement.clientWidth}})()");
    assert(hero.hasBridge&&hero.hasGradient&&hero.fixed,"Ponte must be fixed across the entire viewport");
    assert(hero.width<=hero.viewport+2,"Mobile/desktop page must not overflow horizontally: "+JSON.stringify(hero));
-   const list=await evaluate("(()=>{const c=document.querySelector('#agenda .event-search');const img=c.querySelector('.event-media');return {horizontal:getComputedStyle(c).flexDirection==='row',width:img?.getBoundingClientRect().width??0,textOnly:c.classList.contains("event-card--text-only"),overlays:c.querySelector('.event-art')?getComputedStyle(c.querySelector('.event-art')).display:'none'}})()");
+   const list=await evaluate("(()=>{const c=document.querySelector('#agenda .event-search');const img=c.querySelector('.event-media');return {horizontal:getComputedStyle(c).flexDirection==='row',width:img?.getBoundingClientRect().width??0,textOnly:c.classList.contains('event-card--text-only'),overlays:c.querySelector('.event-art')?getComputedStyle(c.querySelector('.event-art')).display:'none'}})()");
    assert(list.horizontal&&list.width<=115&&list.overlays==="none"&&(list.width>0||list.textOnly),"Next-event cards must have unobstructed thumbnails: "+JSON.stringify(list));
    
    // The background should remain a fixed full-screen layer when the document scrolls.
