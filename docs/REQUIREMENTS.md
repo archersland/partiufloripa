@@ -51,3 +51,14 @@ Status: protÃ³tipo tÃ©cnico, nÃ£o catÃ¡logo auditado.
 Os testes Node existentes e novos passaram em clone temporário; smoke de Chromium headless cobriu mobile 390×844, desktop 1280×800, 33 cards futuros, datas rápidas, detalhe, exportação real de .ics, mapa com evento e falha isolada de JSON auxiliar sem perder agenda. GitHub Actions do commit 3ed4c2d concluiu com sucesso; versão final e páginas geradas devem ser verificadas após a correção de canonical. **QA de share nativo/clipboard, retry de CDN, inspeção visual e aparelho Android físico pendentes**, portanto manter RF-18 a RF-28 sem aceite visual final. A URL de Pages confirmada é `https://archersland.github.io/partiufloripa/`.
 
 **Complemento de QA (02/11/2026):** Chromium headless confirmou retry do mapa após bloqueio do arquivo Leaflet; Actions [41441095877](https://github.com/archersland/partiufloripa/actions/runs/41441095877) no commit dc30e879 teve conclusão `success`; página de evento publicada teve HTTP 200 e canonical correto no host `archersland.github.io`. A conclusão do compartilhamento nativo continuou bloqueada pela UI headless (não é reprovação do fluxo no Android). Aceite visual/físico, licenças, editorial e beta permanecem pendentes.
+
+## Nova descoberta por locais — 03/11/2026 (implementação técnica, aceite visual pendente)
+| ID | Requisito | Implementação | Critério verificável |
+|---|---|---|---|
+| RF-29 | Navegação de Lugares independente de eventos | Código implementado | Agenda/Lugares/Mapa trocam painéis sem reintroduzir eventos fictícios |
+| RF-30 | Data comum às visualizações | Código implementado | Hoje/Amanhã/Fim de semana/data específica são compartilhados; no mapa e Lugares fim de semana usa sábado com aviso de que a agenda cobre sábado e domingo; map-date sincroniza |
+| RF-31 | Funcionamento habitual, três estados | Código implementado; dados parciais | Abre/fecha/desconhecido conforme fonte e dia da semana; sem fonte ou fonte vencida → desconhecido; nunca “aberto agora” |
+| RF-32 | Listas priorizadas e filtros | Código implementado | Costumam abrir primeiro; costumam fechar abaixo, atenuados; desconhecidos separados; filtro Todos/Abrir/Fechar/Desconhecido, bairro e busca |
+| RF-33 | Fontes, direitos e exceções | Código implementado; revisão editorial pendente | Link, data de consulta, aviso de horários excepcionais; sem cartazes/horários/coordenadas inventados |
+| RF-34 | Resiliência, CI e acessibilidade | Testes adicionados; QA visual pendente | Testes de datas, validação de horários, mudança de aba via teclado, fallback quando JSON opcional falha e mobile/desktop |
+| RF-35 | Histórico de revisão de horários | 5 locais com fonte documentada; cobertura pendente | Atualizar fontes e horários regularmente; após 90 dias sem revisão o status degrada para desconhecido |
