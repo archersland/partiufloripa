@@ -7,7 +7,7 @@ Status: protÃ³tipo tÃ©cnico, nÃ£o catÃ¡logo auditado.
 | RF-01 | Agenda | Implementado | Data, horÃ¡rio, tÃ­tulo, casa, categoria, fonte legÃ­veis |
 | RF-02 | Busca e filtros | Implementado; QA pendente | CombinaÃ§Ãµes funcionam e reset recupera agenda |
 | RF-03 | Carrossel touch | Implementado; QA pendente | Desliza no mobile sem setas |
-| RF-04 | Tema do sistema | Implementado; QA pendente | Claro/escuro respeitam preferÃªncia |
+| RF-04 | Identidade Horizonte Noturno | Implementado; aceite visual pendente | Paleta noturna fixa escolhida pelo Cliente, sem alternância dependente do sistema; conferir mobile/desktop e baseline versionado |
 | RF-05 | Casa em destaque | Implementado | Casa precede tÃ­tulo nos cards |
 | RF-06 | Mapa com layer Esri | Implementado; QA pendente | Tiles carregam, atribuicao/licenca verificada, agenda acessivel se o mapa falhar |
 | RF-07 | Heatmap de eventos noturnos | Implementado; QA pendente | Halo discreto com um evento mapeado, marcador clicavel e sem calor com zero eventos; nao representa pessoas |
@@ -62,3 +62,14 @@ Os testes Node existentes e novos passaram em clone temporário; smoke de Chromi
 | RF-33 | Fontes, direitos e exceções | Código implementado; revisão editorial pendente | Link, data de consulta, aviso de horários excepcionais; sem cartazes/horários/coordenadas inventados |
 | RF-34 | Resiliência, CI e acessibilidade | Testes adicionados; QA visual pendente | Testes de datas, validação de horários, mudança de aba via teclado, fallback quando JSON opcional falha e mobile/desktop |
 | RF-35 | Histórico de revisão de horários | 5 locais com fonte documentada; cobertura pendente | Atualizar fontes e horários regularmente; após 90 dias sem revisão o status degrada para desconhecido |
+
+## RF-36 a RF-40 — Controle de regressões multidomínio (03/11/2026)
+| ID | Exigência | Gate automatizado | Aceite |
+|---|---|---|---|
+| RF-36 | Preservar identidade visual aprovada | `test-ui-baseline.cjs` | Cabeçalho ilustrado, paleta/typografia DM, destaque + próximos horizontais, 3 abas, detalhes/creditos |
+| RF-37 | Preservar separação editorial da home | `test-home-layout.cjs` | Evento em destaque uma vez; outros futuros/filtrados sem duplicações, estados vazios e semana |
+| RF-38 | Preservar semântica de produto e fonte | `test-product-regressions.cjs`, testes existentes | Nenhum local convertido em evento; horários desconhecidos não fechados; proveniência; quarentena; mapas sem lotação fictícia |
+| RF-39 | Preservar deep links SEO e utilidades | `test-generated-details.cjs` | URLs geradas com base/canonical/robots corretos, estilo noturno e `.ics`/share existentes |
+| RF-40 | Detectar divergência da versão realmente publicada | `verify-deployed-site.cjs` após `deploy-pages` | Site efetivo disponibiliza CSS, JS, dados e detalhe do baseline escolhido; sucesso de commit ou validação pré-deploy não basta |
+
+QA visual mobile/desktop, falhas de rede interativas e aceite do Cliente continuam verificação distinta da suíte de contratos.
