@@ -21,3 +21,8 @@ A data rápida modifica a listagem e funciona em conjunto com categoria/região/
 
 ## Proposta em análise — “Lugares” (03/11/2026)
 O Cliente sugeriu que bares, botecos, baladas e espaços culturais possam ser descobertos mesmo quando não há atração específica cadastrada. A separação **Agenda (eventos datados) / Lugares (casas independentes de eventos) / Mapa (visão com semântica explícita)** é uma **proposta de UX ainda não aceita nem implementada**. A lista editorial foi enriquecida para 39 locais no `data/venues.json`, mas nenhuma casa sem evento é criada automaticamente na agenda ou calor. Consultar [especificação e critérios abertos](PLACES-DISCOVERY-PROPOSAL.md).
+
+## Atualização do escopo implementado — 03/11/2026
+O Cliente autorizou a implementação da **aba Lugares**, agora disponível como terceira visualização com **Agenda / Lugares / Mapa** e seleção de datas acima das abas. O portal mantém dois conjuntos distintos: 56 ocorrências de evento em `events.json` e 39 casas/locais em `data/venues.json`. Lugar sem show continua visível em Lugares, mas não gera evento nem potencial de público no mapa.
+
+O funcionamento por data é **habitual e documentado**, não “aberto agora”. Há três situações: costuma abrir, costuma fechar ou horário não confirmado. A UI separa as listas, deixa o grupo de horários fechados visualmente secundário e disponibiliza filtros de status e bairro. Fontes e datas ficam acessíveis. Horários somente de 5 casas pesquisadas até agora; outras 34 permanecem honestamente como desconhecidas até nova auditoria, sem serem classificadas como fechadas. A implementação segue sujeita a QA visual, verificação do deploy e aceite do Cliente.
