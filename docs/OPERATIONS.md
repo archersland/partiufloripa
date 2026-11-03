@@ -45,3 +45,11 @@ O modo experimental do validador acusa integridade inválida como erro e dados i
 **QA manual obrigatório antes de aceitar:** viewport móvel e desktop, teclado, tema claro/escuro, hoje/amanhã/fim de semana (inclusive mudança de mês), mês futuro, zero resultados, retorno à agenda e ao mapa, .ics importado, share API/cópia, CDN indisponível/retry, arquivo auxiliar JSON ausente, mapa com 0/1/muitos eventos e legenda sem inferir fluxo humano. Quando não houver navegador disponível, reportar QA pendente, mesmo com teste Node e CI verdes.
 
 **Publicação:** commit no `main` pode iniciar deploy automático; verificar Actions e site real separadamente. Versão do código, deploy concluído, dados auditados e aceite do Cliente são estados distintos. Em 02/11/2026 a origem antiga `wagarcdev.github.io/partiufloripa/` respondeu HTTP 404 e a nova `archersland.github.io/partiufloripa/` respondeu HTTP 200; gerador de URLs canônicas corrigido para a nova origem. Verificar pós-deploy também o HTML das páginas geradas.
+
+## QA da aba Lugares e datas compartilhadas — 03/11/2026
+- Rodar o CI já existente (inclui `node scripts/test-venue-hours.cjs`, `node scripts/test-event-ux.cjs` e `node scripts/check-site.cjs`).
+- Smoke em viewport 390×844 e desktop: alternar Agenda→Lugares→Mapa, verificar que filtros e painel oculto não vazam para outra aba, alternar Hoje/Amanhã/Fim de semana/data ISO; no mapa, mudar calendário e voltar a Lugares conservando a data.
+- Testar filtro por bairro, funcionamento (Todos/Costuma abrir/Costuma fechar/Não confirmado) e busca sem acentos; preservar ordenação dos grupos e baixa ênfase em fechados com contraste legível.
+- Simular ausência de `venue-hours.json`: todos os lugares devem virar horário não confirmado; ausência de `events.json` não deve bloquear Lugares; ausência de `venues.json` deve mostrar indisponibilidade sem dizer que não existem casas.
+- Não validar horário em fonte genérica ou com mais de 90 dias de revisão; não alegar aberto agora, feriado normal ou atividade em casa sem evento. Conferir que `events.json` e potencial de público continuam independentes.
+- A nova URL pode aceitar `?view=places&date=YYYY-MM-DD` para inspeção de data sem redefinir o mês da Agenda; conferir comportamento visual após deploy. QA no Android físico e aceite humano continuam pendentes.
