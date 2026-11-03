@@ -24,3 +24,43 @@
 - `scripts/verify-deployed-site.cjs` verifica após deploy **o HTML e os assets realmente servidos**, inclusive detalhes, esquemas de dados e tokens. Não confundir CI com aceite visual: inspeção em browser/Android continua como gate humano.
 
 **Mudanças materiais nesta referência:** exigir revisão do Cliente ou ADR explícito e atualização conjunta dos testes. Não “resolver” um teste retirando a asserção do baseline.
+
+
+## Complemento visual v0.3 — fotografia do hero e especificação de transparências (03/11/2026)
+
+**Artefato do guia:** [UI Style Guide Horizonte Noturno — 10 pranchas de alta fidelidade](UI-STYLE-GUIDE-HORIZONTE-NOTURNO.html). Este complemento **não altera** as escolhas aprovadas acima, o código ou a definição de aceite beta.
+
+**Correção visual da prancha 01:** o guia não utiliza mais a ponte SVG esquemática. Reaproveita o **mesmo WebP incorporado ao seletor `.mast` de `styles/horizonte-noturno.css`**, com o enquadramento original `center 44%`, o gradiente do tema e a amostra da marca/título/busca. Isso melhora a fidelidade visual sem adquirir outra imagem. Não se assume origem, titularidade ou licença da arte; confirmar em `SOURCES-AND-RIGHTS.md` antes de ampliar usos.
+
+**Referências de opacidade:** CSS `#RRGGBBAA`, em que `AA` é o canal alfa. Percentuais arredondados, não brilho. Os registros distinguem **estilo público atual**, **prévia privada original** e **composição específica do guia**; não combinar dois overlays de versões distintas.
+
+| Fonte / elemento | Valor observado | Alfa e função |
+| --- | --- | --- |
+| Tema público `.mast` | `linear-gradient(90deg,#041b216b,#041b2155)` + WebP | 42% → 33%; tonalização da fotografia |
+| Prévia privada `.hero:before` | `#021b2260` | 38%; overlay da versão React, não adicional automático no site estático |
+| Tema público `.search` | `#031a20ee` | 93%; superfície da busca |
+| Prévia privada `.search` | `#031a20ec` | ~92,5%; ligeira divergência |
+| Prévia privada `.picture span` | `#041b21b8` | 72%; selo “imagem ilustrativa” |
+| Tema público `.event-date` | `#0c2930d9` | 85%; data sobre a arte |
+| Tema público `#agenda .event-search:hover` | `#0a2c3360` | 38%; hover (manter foco visível à parte) |
+| Tema público `#agenda .event-search .event-art` | `linear-gradient(0deg,#041820aa,transparent)` | 67% → 0%; contraste da miniatura |
+| Prévia privada `dialog::backdrop` | `#001016c9` e `backdrop-filter:blur(5px)` | 79%; escurecimento/desfoque do modal |
+| Prévia privada `.datebar input` | `opacity:0`, fundo `transparent` | 0% visível; seletor nativo **não é desativado**, revisar foco/teclado |
+| `index.html` `.event-overlays` | `linear-gradient(#0008,transparent)` | 53% → 0%; legenda sobre arte |
+| `index.html` `.event-art` | `rgba(5,15,23,.63)` → transparente | 63% → 0%; arte herdada |
+| `index.html` `.event-media.has-stock-photo .event-art` | `rgba(3,12,19,.73)` → transparente | 73% → 0%; foto ilustrativa |
+| `index.html` `.event-art-venue` | `#0c202b99` | 60%; tarja da casa |
+| `index.html` `.cover .cat` | `#08151ad9` | 85%; badge herdado |
+| `index.html` `.stock-notice` | `#0b1d2bdb` | 86%; aviso sobre mídia |
+| `index.html` `.leaflet-control-attribution` | `opacity:.72`, `#152127cc` | 72% + 80%; crédito cartográfico |
+| `index.html` `.pf-map-popup` | sombra `#0b1c26ab` | 67%; sombra, não opacidade do conteúdo |
+| `index.html` `.leaflet-popup-close-button` | `#17282fdc` | 86%; botão de fechar popup |
+| `index.html` `.pf-map-image-hint` | `#101e2acb` | 80%; aviso na miniatura |
+| Prévia privada `.pf-event-halo` | amarelo com `.65/.38/.14/0` | 65% → 38% → 14% → 0%; halo sem número inventado |
+| Prévia privada `.pf-event-halo--weighted` | menta com `.78/.37/.12/0` | 78% → 37% → 12% → 0% |
+| Prévia privada `.pf-event-halo--warm` | amarelo com `.85/.40/.12/0` | 85% → 40% → 12% → 0% |
+| Prévia privada `.pf-event-halo--hot` | coral com `.86/.42/.14/0` | 86% → 42% → 14% → 0% |
+
+**Elementos demonstrativos, não tokens de produção:** `#041b21bb` no campo ilustrativo do guia e `#041b21d5` no quadro explicativo; ambos são recursos da prancha, distintos da busca real. `transparent` em botões, links, linhas e backgrounds herdados, assim como as transições de opacity internas do Leaflet, permanecem sujeitos ao CSS original, não a um “alfa global” da marca.
+
+**Verificação documental:** estrutura de 10 pranchas e fotografia reaproveitada do stylesheet validada por inspeção do HTML; este procedimento não valida contraste/pixel-perfect no navegador, PDF v0.3, permissões da imagem ou Android físico. **Status:** documentação atualizada na branch `docs/ui-style-guide-horizonte-noturno-v03`; sem deploy do portal e sem aceite final.
