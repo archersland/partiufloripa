@@ -13,3 +13,5 @@ tile-headers.txt
 # Private-only image/legal review overlays; never commit unlicensed logos or posters.
 data/media-review.local.json
 assets/venue-review/
+
+assets/event-review/
