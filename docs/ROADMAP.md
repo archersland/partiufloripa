@@ -93,3 +93,32 @@ Revisão detalhada: [OPT-01 a OPT-14](../reports/BUILD-WEB-APPS-REVIEW-2026-11-0
 - [x] CI e publicação com conferência HTTP realizados: [run 41712665456](https://github.com/archersland/partiufloripa/actions/runs/41712665456) terminou success e o verificador pós-deploy confirmou UI noturna, scripts, contratos de dados e páginas profundas; [RCA com evidências](../reports/UI-REGRESSION-RCA-2026-11-03.md).
 - [ ] QA visual mobile/desktop e aparelho Android + aceite final do Cliente.
 - [ ] Atualizar a cobertura de horários/locais sem inventar abertura ao vivo.
+
+## Ciclo documentado — Medição de saída e reconhecimento de origem (03/11/2026)
+
+**Objetivo autorizado:** desenvolver critérios e estudar a possibilidade de tornar o PartiuFloripa identificável como origem de tráfego, demonstrando valor antes de qualquer cobrança. **Somente documentação e investigação passiva nesta etapa.** Contrato completo: [Métricas e auditoria de URLs](OUTBOUND-ATTRIBUTION-AND-CLICK-METRICS.md).
+
+- [x] Formalizar indicadores de cliques brutos, elegíveis, deduplicados, por evento/casa, por superfície, sessões clicadoras e janelas 7/30 dias, sem confundir sessões com pessoas.
+- [x] Especificar filtros técnicos, idempotência, janelas iniciais de deduplicação, casos positivos/negativos e retenção **proposta**.
+- [x] Pesquisar documentação oficial de GA4/UTM, Evvnt, Eventbrite, Sympla e HTTP Referer; identificar limitações do CTA atual com `noreferrer`. Isso **não** comprova compatibilidade das casas reais.
+- [x] Inventariar passivamente os domínios do campo `source` de `events.json`: 56 ocorrências, 35 URLs distintas e 8 domínios; verificar a ausência de campos de site oficial no diretório de 39 lugares. Evidência no documento de métricas.
+- [ ] Classificar cada link como fonte editorial, site do organizador, bilheteria específica ou agenda genérica; verificar redirects, compatibilidade e proveniência sem scraping.
+- [ ] Escolher mecanismo mínimo de coleta compatível com web estática e rever custos, privacidade, retenção e base legal.
+- [ ] Prototipar filtros/deduplicação e construtor de URL sem alterar os links públicos; testar cenários permitidos e proibidos no CI existente.
+- [ ] Validar amostras de URLs por plataforma apenas em experimento manual, seguro e autorizado, com rollback; distinguir URL navegável de atribuição reconhecida.
+- [ ] Testar fluxo real em mobile/desktop/teclado e integração; obter autorização para eventual publicação e medir baseline real antes de estabelecer metas.
+
+**Dependências:** RF-12 e RF-41–45; ADR-005/036. Divulgação patrocinada, afiliados, contatos com casas e publicação permanecem fora desta autorização.
+
+## F1 — Growth B2B: estudo homologado, implementação condicionada (03/11/2026)
+
+- [x] Homologar como capacidade transversal planejada (ADR-037), preservando o adiamento comercial (ADR-005).
+- [x] Concluir pesquisa documental v0.2 de UTM/ref/afiliados, obstáculos do `noreferrer`, opções de analítica (GA4, Umami, Cloudflare Web Analytics, Worker, Plausible) e privacy gate.
+- [x] Inventariar **35 URLs de fonte** presentes em 56 ocorrências e registrar classificação **provisória** individual em [matriz](OUTBOUND-LINK-INVENTORY-2026-11-03.md); conferir 39 locais sem campo oficial de website.
+- [ ] Auditar individualmente página final, URL de bilheteria oficial, redirects/compatibilidade de parâmetro e proveniência editorial. **Pesquisa documental pronta não significa compatibilidade operacional comprovada.**
+- [ ] Escolher e testar o coletor mais simples com requisitos de privacidade/custo; Cloudflare Web Analytics isolado não suporta eventos customizados no momento desta pesquisa.
+- [ ] Implementar **apenas após avaliação técnica** instrumentação de CTA não bloqueante e métrica deduplicada com testes no CI existente, separando fonte editorial e destino oficial.
+- [ ] Definir política de retenção/base legal e testar falha/limites/abuso/teclado/Android; obter autorização de publicação antes de mudar o portal.
+- [ ] Medir baseline real antes de estabelecer metas/relatórios externos. Contatos, afiliados, anúncios, destaques pagos e patrocínios permanecem F3 e exigem nova autorização.
+
+**Homologação atual:** pesquisa e escopo funcional, **não** software implementado, links alterados, coleta ativa, conversão comercial ou beta.

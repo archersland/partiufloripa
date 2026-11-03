@@ -73,3 +73,21 @@ Os testes Node existentes e novos passaram em clone temporário; smoke de Chromi
 | RF-40 | Detectar divergência da versão realmente publicada | `verify-deployed-site.cjs` após `deploy-pages` | Site efetivo disponibiliza CSS, JS, dados e detalhe do baseline escolhido; sucesso de commit ou validação pré-deploy não basta |
 
 QA visual mobile/desktop, falhas de rede interativas e aceite do Cliente continuam verificação distinta da suíte de contratos.
+
+## RF-41 a RF-45 — Medição de cliques externos e atribuição (03/11/2026)
+
+**Estado comum:** escopo documentado e pesquisa inicial realizada; implementação, tratamento de dados, QA, autorização de publicação e aceite técnico **pendentes**. Contrato: [Métricas e auditoria de URLs](OUTBOUND-ATTRIBUTION-AND-CLICK-METRICS.md). Não iniciar comercial/prospecção (ADR-005).
+
+| ID | Requisito | Critério verificável |
+| --- | --- | --- |
+| RF-41 | Medir cliques de saída por evento/casa e superfície | Registrar apenas ativações legítimas observáveis do usuário e diferenciar bruto, elegível e deduplicado; falha da coleta nunca impede navegação |
+| RF-42 | Aplicar regras antifalsos cliques e deduplicação | Rejeitar evento sintético/bot conhecido, URL inválida, entidade não elegível e eventos sem ação real; idempotência por `interaction_id`; janela inicial de 30 s por sessão + entidade + destino; testes de fronteira |
+| RF-43 | Relatar tração por janela temporal | Série diária e 7/30 dias, cliques por evento/casa, sessões clicadoras distintas e sessões por evento; jamais chamar sessões de «pessoas únicas» ou cliques de vendas |
+| RF-44 | Avaliar compatibilidade dos links de destino | Matriz de plataformas/domínios com documentação, parâmetros/redirect, permissão e prova; distinguir `event.source` editorial de eventual URL oficial de saída, sem inventar destino nem reivindicar atribuição por HTTP 200 |
+| RF-45 | Privacidade, resiliência e confiança da contagem | Definir base legal/transparência/retenção/coletor antes de ativar, nenhum fingerprint/cookie persistente por padrão, métricas com definições versionadas, CTA funcional sob falha e regressão mobile/teclado |
+
+**Portas de aceite:** auditoria editorial de destinos, revisão de privacidade e custos, testes com dados controlados, verificação de publicação somente após autorização separada. A configuração `rel="noopener noreferrer"` do CTA atual inibe `Referer`; não a remover sem revisão explícita.
+
+## Homologação de pesquisa Growth B2B — 03/11/2026
+
+**RF-41 a RF-45 ficam aprovados como requisitos planejados na F1**, com pesquisa documental **homologada** conforme ADR-037. Seus critérios quantitativos, intervalos de deduplicação (30 s / 30 min / 24 h) e retenção ainda são **hipóteses técnicas para QA**, não parâmetros de produção aceitos. **Nenhum RF foi marcado implementado.** A comprovação operacional futura inclui tráfego sintético de teste, idempotência, cliques positivos/negativos, reenvio, falha de coletor, navegação e auditoria de consentimento/base legal. Relatórios de sessões não poderão ser divulgados como pessoas únicas, visitas ao destino ou vendas.

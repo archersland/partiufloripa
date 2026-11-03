@@ -29,3 +29,13 @@ O funcionamento por data é **habitual e documentado**, não “aberto agora”.
 
 ## Retificação da referência visual e testes — 03/11/2026
 A identidade selecionada para a web é **Horizonte Noturno** (prévia privada escolhida pelo Cliente em 02/11). O layout público anterior era legado e não deveria ter sido reutilizado para implementar Lugares; sua identificação como fonte canônica causou regressão. A implementação agora usa hierarquia editorial “Destaque do dia” → “Nos próximos dias”, cabeçalho ilustrado, busca proeminente e abas Agenda/Lugares/Mapa no mesmo sistema noturno. O mapa permanece vinculado a **eventos**, nunca calor de público de bares sem atração. O registro de [baseline](UI-BASELINE-HORIZONTE-NOTURNO.md) e a [RCA](../reports/UI-REGRESSION-RCA-2026-11-03.md) são fontes de manutenção. Aceite visual e editorial pendentes.
+
+## Capacidade transversal planejada — Growth B2B (pesquisa homologada em 03/11/2026)
+
+Atribuição de Tráfego e Demonstração de Valor é uma **capacidade de produto** do PartiuFloripa, não uma aba, um mecanismo de pagamento ou uma campanha lançada. Durante a F1, a proposta é medir cliques externos brutos/elegíveis/deduplicados por evento, casa, origem na UI e janelas 7/30 dias, com contagem separada de **sessões clicadoras**, nunca intituladas “pessoas únicas”. Relatórios serão **internos**; a falha de medição não pode impedir a navegação.
+
+Além disso, estudar e, só após validação, identificar a origem `partiufloripa` em links externos compatíveis (UTM/`ref`/equivalentes documentados), preservando páginas oficiais e códigos de parceiros. O fato de o destino abrir não demonstra que seu analytics registrou a marca, e clique não equivale a venda/visita confirmada.
+
+**Separação de dados necessária:** `event.source` continua como **fonte editorial**; eventual URL oficial de saída/ingressos será entidade distinta com evidência e revisão, nunca inferida de matérias, agendas agregadas ou perfis. A F3 futura poderá aproveitar sinais reais de valor em negociações, **somente mediante nova autorização**, conforme ADR-005.
+
+Estado: estudo v0.2 homologado, matrizes e RF-41–45 versionados; **implementação, plataforma analítica, links parametrizados, qualidade de dados em runtime e publicação não aprovados**. Detalhes: [especificação de métricas e pesquisa](OUTBOUND-ATTRIBUTION-AND-CLICK-METRICS.md), [inventário de links](OUTBOUND-LINK-INVENTORY-2026-11-03.md) e ADR-037.
