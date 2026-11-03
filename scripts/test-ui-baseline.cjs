@@ -24,4 +24,12 @@ assert(html.includes('PartiuVenueHours.status('),"places must use source-backed 
 assert(html.includes('sourceReview!=="quarantined"'),"quarantined entries must stay off agenda");
 assert(html.includes('PartiuAudience.aggregate(items,capacityDirectory)'),"map heat must use audience evidence, not venue counts");
 assert(!html.includes('document.querySelector(".quick-dates").addEventListener("click",e=>{const b=e.target.closest("[data-quick-date]");if(!b)return;dateFilter=b.dataset.quickDate;render()}'),"legacy date handler restored");
+const detail=fs.readFileSync(path.join(root,"evento.html"),"utf8");
+const credits=fs.readFileSync(path.join(root,"creditos.html"),"utf8");
+const detailCss=fs.readFileSync(path.join(root,"styles/horizonte-detalhe.css"),"utf8");
+assert(detail.includes('data-ui-baseline="horizonte-noturno-v0.2"'),"detail baseline missing");
+assert(detail.includes('href="./styles/horizonte-detalhe.css"'),"detail night stylesheet not linked");
+assert(credits.includes('data-ui-baseline="horizonte-noturno-v0.2"'),"credits must retain night identity");
+assert(detailCss.includes("--pf-peach:#ffaf78")&&detailCss.includes("--pf-mint:#8fe5cc"),"detail editorial palette is inconsistent");
+assert(detail.includes('src="./scripts/event-ux.js"')&&detail.includes("calendarFile("),"detail .ics flow lost");
 console.log("Approved Horizonte Noturno UI baseline passed: source markers, colors, editorial hierarchy, three tabs, data hooks, dates and heat separation");
