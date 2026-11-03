@@ -256,7 +256,7 @@ const previewCenter=previewParams.has("lat")&&previewParams.has("lng")&&previewL
 let previewScroll=/^\d{1,5}$/.test(previewParams.get("scroll")||"")?Math.min(Number(previewParams.get("scroll")),10000):null;
 
 const nightEvents=()=>events.filter(e=>e.time&&e.time>="18:00");
-function availableNights(){const all=[...new Set(nightEvents().map(e=>e.date))].sort();const sel=$("night-date"),prev=sel.value;sel.min=all[0]||today;sel.max=all.at(-1)||today;sel.value=prev&&prev>=sel.min&&prev<=sel.max?prev:(all.find(d=>d>=today)||all[0]||"")}
+function availableNights(){const sel=$("night-date"),all=[...new Set(nightEvents().map(e=>e.date))].sort(),pick=selectedDate();sel.min=all[0]&&all[0]<today?all[0]:today;sel.max=PartiuEventUX.shiftDate(today,365);sel.value=pick>=sel.min&&pick<=sel.max?pick:today}
 function loadMapSdk(){if(mapReady)return mapReady;mapReady=new Promise((resolve,reject)=>{const link=document.createElement("link");link.rel="stylesheet";link.href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";document.head.append(link);const script=document.createElement("script");script.src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";script.onload=()=>{const heat=document.createElement("script");heat.src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js";heat.onload=resolve;heat.onerror=()=>resolve();document.head.append(heat)};script.onerror=()=>reject(new Error("Não foi possível carregar o mapa"));document.head.append(script)}).catch(err=>{mapReady=null;throw err});return mapReady}
 function paintNightMap(){
  if(!mapInstance)return;
@@ -296,7 +296,7 @@ function paintNightMap(){
   :"Nenhum evento noturno nesta data.";
 }
 let baseLayer=null;function setMinimalBasemap(){if(!mapInstance)return;if(baseLayer)mapInstance.removeLayer(baseLayer);baseLayer=L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",{maxZoom:16,attribution:'Tiles &copy; Esri, HERE, Garmin, OpenStreetMap contributors, and the GIS user community'}).addTo(mapInstance)}
-async function showMap(){$("map-retry").hidden=true;activeView="map";$("tab-map").classList.add("active");$("tab-list").classList.remove("active");$("tab-map").setAttribute("aria-selected","true");$("tab-list").setAttribute("aria-selected","false");$("list-panel").hidden=true;$("map-panel").hidden=false;availableNights();if(previewDate){const field=$("night-date");if(previewDate>=field.min&&previewDate<=field.max)field.value=previewDate;previewDate=null}$("map-status").textContent="Carregando mapa...";try{await loadMapSdk();if(activeView!=="map")return;if(!mapInstance){mapInstance=L.map("night-map",{scrollWheelZoom:false,zoomControl:false}).setView([-27.59,-48.52],11);L.control.zoom({position:"bottomright"}).addTo(mapInstance);setMinimalBasemap()}setTimeout(()=>mapInstance.invalidateSize(),60);paintNightMap()}catch(err){$("map-status").textContent="Mapa indisponível no momento. Verifique a conexão e tente novamente.";$("map-retry").hidden=false;console.error(err)}}
+async function showMap(){$("map-retry").hidden=true;setView("map");availableNights();if(previewDate){const field=$("night-date");if(previewDate>=field.min&&previewDate<=field.max)field.value=previewDate;previewDate=null}$("map-status").textContent="Carregando mapa...";try{await loadMapSdk();if(activeView!=="map")return;if(!mapInstance){mapInstance=L.map("night-map",{scrollWheelZoom:false,zoomControl:false}).setView([-27.59,-48.52],11);L.control.zoom({position:"bottomright"}).addTo(mapInstance);setMinimalBasemap()}setTimeout(()=>mapInstance.invalidateSize(),60);paintNightMap()}catch(err){$("map-status").textContent="Mapa indisponível no momento. Verifique a conexão e tente novamente.";$("map-retry").hidden=false;console.error(err)}}
 document.addEventListener("click",event=>{
  const link=event.target.closest(".pf-map-popup .pf-map-event-link");
  if(!link||!mapInstance||activeView!=="map")return;
@@ -315,7 +315,13 @@ document.addEventListener("click",event=>{
  target.searchParams.set("scroll",String(Math.max(0,Math.round(window.scrollY))));
  link.href=target.href;
 },true);
-$("tab-map").addEventListener("click",showMap);$("tab-list").addEventListener("click",()=>{activeView="list";$("tab-list").classList.add("active");$("tab-map").classList.remove("active");$("tab-list").setAttribute("aria-selected","true");$("tab-map").setAttribute("aria-selected","false");$("list-panel").hidden=false;$("map-panel").hidden=true});$("night-date").addEventListener("change",paintNightMap);$("map-retry").addEventListener("click",showMap);
+$("tab-map").addEventListener("click",showMap);
+$("tab-list").addEventListener("click",()=>setView("list"));
+$("tab-places").addEventListener("click",()=>setView("places"));
+document.querySelector(".view-tabs").addEventListener("keydown",e=>{if(!["ArrowLeft","ArrowRight"].includes(e.key))return;const tabs=[...document.querySelectorAll(".view-tab")],index=tabs.indexOf(document.activeElement);if(index<0)return;e.preventDefault();const next=tabs[(index+(e.key==="ArrowRight"?1:tabs.length-1))%tabs.length];next.focus();next.click()});
+$("night-date").addEventListener("change",()=>{const value=$("night-date").value;if(PartiuEventUX.validDate(value)){dateFilter=value;updateDateControls()}paintNightMap()});
+$("map-retry").addEventListener("click",showMap);
+["place-region","place-status"].forEach(id=>$(id).addEventListener("change",renderPlaces));
 const fetchJson=url=>fetch(url).then(r=>{if(!r.ok)throw Error("Falha "+url);return r.json()});
 Promise.all([fetchJson("./events.json"),Promise.allSettled(["./data/venues.json","./data/image-rights.json","./data/licensed-category-photos.json","./data/venue-media.json","./data/event-artist-photos.json","./data/venue-capacities.json"].map(fetchJson))])
 .then(([d,results])=>{
@@ -334,6 +340,15 @@ Promise.all([fetchJson("./events.json"),Promise.allSettled(["./data/venues.json"
  render();
  if(previewParams.get("view")==="map")showMap();
  else if(activeView==="map"){availableNights();paintNightMap()}
-}).catch(()=>{$("agenda").innerHTML='<div class="empty">Não foi possível carregar a agenda.</div>';$("featured").innerHTML=''});["search","category","region","period"].forEach(id=>$(id).addEventListener("input",render));$("month-switcher").addEventListener("click",e=>{const b=e.target.closest("[data-month]");if(!b)return;month=b.dataset.month;dateFilter="";render()});
-document.querySelector(".quick-dates").addEventListener("click",e=>{const b=e.target.closest("[data-quick-date]");if(!b)return;dateFilter=b.dataset.quickDate;render()});
+}).catch(()=>{$("agenda").innerHTML='<div class="empty">Não foi possível carregar a agenda.</div>';$("featured").innerHTML=''});["search","category","region","period"].forEach(id=>$(id).addEventListener("input",()=>{if(activeView==="places")renderPlaces();else if(activeView==="list")render()}));$("month-switcher").addEventListener("click",e=>{const b=e.target.closest("[data-month]");if(!b)return;month=b.dataset.month;dateFilter="";render()});
+function applyDateSelection(value){
+ dateFilter=value;
+ if(activeView==="places")renderPlaces();
+ else if(activeView==="map"){availableNights();paintNightMap()}
+ else render();
+ updateDateControls();
+}
+document.querySelector(".quick-dates").addEventListener("click",e=>{const b=e.target.closest("[data-quick-date]");if(!b)return;applyDateSelection(b.dataset.quickDate)});
+$("global-date").addEventListener("change",e=>{const v=e.target.value;if(!v)return applyDateSelection("");if(PartiuEventUX.validDate(v))applyDateSelection(v)});
+
 </script></body></html>
