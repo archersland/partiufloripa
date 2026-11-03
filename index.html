@@ -250,6 +250,7 @@ function setView(view){
 let mapInstance=null,heatLayer=null,venueMarkers=null,mapReady=null,activeView="list";
 const previewParams=new URLSearchParams(location.search);
 let previewDate=/^\d{4}-\d{2}-\d{2}$/.test(previewParams.get("date")||"")?previewParams.get("date"):null;
+if(previewDate&&PartiuEventUX.validDate(previewDate)&&["map","places"].includes(previewParams.get("view")))dateFilter=previewDate;
 let previewPopup=/^[a-z0-9:_ -]{1,128}$/.test(previewParams.get("popup")||"")?previewParams.get("popup"):null;
 const previewZoom=/^\d{1,2}$/.test(previewParams.get("zoom")||"")?Number(previewParams.get("zoom")):null;
 const previewLat=Number(previewParams.get("lat")),previewLng=Number(previewParams.get("lng"));
