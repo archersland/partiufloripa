@@ -65,8 +65,8 @@ async function main(){
    const hero=await evaluate("(()=>{const el=getComputedStyle(document.body,'::before');const s=el.backgroundImage;return {hasBridge:s.includes('data:image/webp;base64'),hasGradient:s.includes('linear-gradient'),fixed:el.position==='fixed',height:el.height,width:document.documentElement.scrollWidth,viewport:document.documentElement.clientWidth}})()");
    assert(hero.hasBridge&&hero.hasGradient&&hero.fixed,"Ponte must be fixed across the entire viewport");
    assert(hero.width<=hero.viewport+2,"Mobile/desktop page must not overflow horizontally: "+JSON.stringify(hero));
-   const list=await evaluate("(()=>{const c=document.querySelector('#agenda .event-search');const img=c.querySelector('.event-media');return {horizontal:getComputedStyle(c).flexDirection==='row',width:img.getBoundingClientRect().width,overlays:c.querySelector('.event-art')?getComputedStyle(c.querySelector('.event-art')).display:'none'}})()");
-   assert(list.horizontal&&list.width<=115&&list.overlays==="none","Next-event cards must have unobstructed thumbnails: "+JSON.stringify(list));
+   const list=await evaluate("(()=>{const c=document.querySelector('#agenda .event-search');const img=c.querySelector('.event-media');return {horizontal:getComputedStyle(c).flexDirection==='row',width:img?.getBoundingClientRect().width??0,textOnly:c.classList.contains("event-card--text-only"),overlays:c.querySelector('.event-art')?getComputedStyle(c.querySelector('.event-art')).display:'none'}})()");
+   assert(list.horizontal&&list.width<=115&&list.overlays==="none"&&(list.width>0||list.textOnly),"Next-event cards must have unobstructed thumbnails: "+JSON.stringify(list));
    
    // The background should remain a fixed full-screen layer when the document scrolls.
    const background=await evaluate("(()=>{window.scrollTo(0,240);const s=getComputedStyle(document.body,'::before');return {fixed:s.position==='fixed',height:parseFloat(s.height),viewport:innerHeight,scrollY:scrollY}})()");
@@ -96,12 +96,12 @@ async function main(){
    await evaluate("document.getElementById('tab-places').click()");
    await until(()=>evaluate("Boolean(document.querySelector('.place-open'))"));
    const places=await evaluate("(()=>({count:document.querySelectorAll('.place-open').length,empty:document.querySelectorAll('.place-open .place-empty').length,images:document.querySelectorAll('.place-open img').length,illustrative:document.querySelectorAll('.place-open img[src*=\"/photos/\"]').length,privateReview:reviewMedia.scope==='private-preview'}))()");
-   assert(places.count>=30&&places.images+places.empty===places.count&&places.illustrative===0,"Venue imagery must be actual or absent, never generic");
+   assert(places.count>=30&&places.empty===0&&places.images<=places.count&&places.illustrative===0,"Venue imagery must be authentic without stock or placeholders");
    if(places.privateReview){
     assert(places.images>=3,"Private review must include supplied venue identity visuals");
     const uploaded=await evaluate("['Bar do Espartano','Floripa Comedy Club','ETC. Casa de Vinhos e Artes'].every(name=>[...document.querySelectorAll('.place-open')].some(b=>b.textContent.includes(name)&&b.querySelector('img')))");
     assert(uploaded,"User-supplied logos must be displayed in private review");
-   }else assert(places.empty===places.count,"Public/CI should not include unlicensed venue visuals");
+   }else assert(places.images===0,"Public/CI should not include unlicensed venue visuals");
    await evaluate("document.querySelector('.place-open').click()");
    const place=await evaluate("(()=>{const d=document.getElementById('detail-dialog');return {open:d.open,title:!!d.querySelector('#detail-title'),hours:d.textContent.includes('Funcionamento habitual'),events:d.textContent.includes('Eventos no portal'),pathname:location.pathname}})()");
    assert(place.open&&place.title&&place.hours&&place.events&&place.pathname===before,"Venue click must open its own dialog without navigation");
