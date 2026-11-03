@@ -13,7 +13,7 @@ function select(event,registries={}){
  const venueKey=norm(event.venue),id=event.id;
  if(registries.reviewOnly===true&&registries.reviewMedia?.scope==="private-preview"){
   const items=registries.reviewMedia;
-  const candidate=(id?(items.events||[]).find(a=>a.eventId===id&&a.sourceEventUrl===event.source):null)||
+  const candidate=id?(items.events||[]).find(a=>a.eventId===id&&a.sourceEventUrl===event.source):
     (items.venues||[]).find(a=>norm(a.venue)===venueKey);
   if(candidate&&previewPath(candidate.file)&&candidate.rightsStatus==="pending"){
    const isEvent=!!candidate.eventId;
