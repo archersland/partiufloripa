@@ -14,15 +14,18 @@ const c=document.querySelector('#agenda .event-search.event-vitrine'),m=c?.query
 const b=e=>{if(!e)return null;const r=e.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height,right:r.right,bottom:r.bottom}};
 const s=e=>e?getComputedStyle(e):null;
 const cards=[...document.querySelectorAll('#agenda .event-search.event-vitrine')];
-return {column:b(document.getElementById('agenda')),section:b(document.getElementById('agenda-section')),featuredCard:b(document.querySelector('#featured .event-featured')),width:innerWidth,overflow:document.documentElement.scrollWidth>innerWidth+2,cards:cards.length,card:b(c),media:b(m),info:b(i),title:b(h),place:b(p),footer:b(f),action:b(a),category:b(category),minWidth:s(m)?.minWidth,infoDisplay:s(i)?.display,infoDirection:s(i)?.flexDirection,titleAlign:s(h)?.alignSelf,footerAlign:s(f)?.alignSelf,pseudo:a?getComputedStyle(a,'::after').content:null,bg:s(c)?.backgroundColor,border:s(c)?.borderTopStyle,radius:s(c)?.borderTopLeftRadius,titleFont:s(h)?.fontFamily,imageKinds:[...new Set(cards.map(x=>x.querySelector('.event-media')?.dataset.mediaKind).filter(Boolean))],photoCount:cards.filter(x=>x.querySelector('img[data-kind="event-review"]')).length,featured:document.querySelectorAll('#featured .event-featured:not(.event-vitrine)').length,dates:document.querySelectorAll('#agenda .event-vitrine .event-when').length,fullBg:getComputedStyle(document.body,'::before').backgroundImage.includes('data:image/webp;base64,'),href:c?.getAttribute('href'),footerText:f?.innerText}
+return {body:b(document.querySelector('main.wrap')),header:b(document.querySelector('#agenda-section .section-head')),filters:b(document.querySelector('#agenda-section .filters')),months:b(document.getElementById('month-switcher')),column:b(document.getElementById('agenda')),section:b(document.getElementById('agenda-section')),featuredCard:b(document.querySelector('#featured .event-featured')),width:innerWidth,overflow:document.documentElement.scrollWidth>innerWidth+2,cards:cards.length,card:b(c),media:b(m),info:b(i),title:b(h),place:b(p),footer:b(f),action:b(a),category:b(category),minWidth:s(m)?.minWidth,infoDisplay:s(i)?.display,infoDirection:s(i)?.flexDirection,titleAlign:s(h)?.alignSelf,footerAlign:s(f)?.alignSelf,pseudo:a?getComputedStyle(a,'::after').content:null,bg:s(c)?.backgroundColor,border:s(c)?.borderTopStyle,radius:s(c)?.borderTopLeftRadius,titleFont:s(h)?.fontFamily,imageKinds:[...new Set(cards.map(x=>x.querySelector('.event-media')?.dataset.mediaKind).filter(Boolean))],photoCount:cards.filter(x=>x.querySelector('img[data-kind="event-review"]')).length,featured:document.querySelectorAll('#featured .event-featured:not(.event-vitrine)').length,dates:document.querySelectorAll('#agenda .event-vitrine .event-when').length,fullBg:getComputedStyle(document.body,'::before').backgroundImage.includes('data:image/webp;base64,'),href:c?.getAttribute('href'),footerText:f?.innerText}
 })()`;
 function verify(x,width){
 assert(x.cards>0,'Vitrine cards missing at '+width);
-const colRatio=x.column.w/x.section.w,expectedCol=width>=900?.7:1;
-assert(Math.abs(colRatio-expectedCol)<.012,'Home list width must be '+Math.round(expectedCol*100)+'% centered at '+width+': '+colRatio);
-assert(Math.abs((x.column.x-x.section.x)-(x.section.w-x.column.w)/2)<2,'Home list lost center alignment at '+width);
-assert(Math.abs(x.card.w-x.column.w)<2,'Vitrine cards no longer fill the centered column at '+width);
-assert(x.featuredCard.w>x.column.w*(width>=900?1.25:.99),'Day highlight must not shrink with the list');
+const colRatio=x.section.w/x.body.w,expectedCol=width>=900?.7:1;
+assert(Math.abs(colRatio-expectedCol)<.012,'Upcoming section (title, filters and cards) must be '+Math.round(expectedCol*100)+'% at '+width+': '+colRatio);
+assert(Math.abs((x.section.x-x.body.x)-(x.body.w-x.section.w)/2)<2,'Upcoming section lost center alignment at '+width);
+for(const [name,rect] of [['header',x.header],['filters',x.filters],['cards list',x.column],['first card',x.card]]){
+ assert(Math.abs(rect.x-x.section.x)<2&&Math.abs(rect.w-x.section.w)<2,'Upcoming '+name+' must align with centered section at '+width);
+}
+assert(x.months.x>=x.section.x-2&&x.months.right<=x.section.right+2,'Month controls escaped centered section at '+width);
+assert(x.featuredCard.w>x.section.w*(width>=900?1.25:.99),'Day highlight must not shrink with the upcoming section');
 assert.equal(x.featured,1,'Day highlight must remain distinct');
 assert.equal(x.dates,x.cards,'Every card needs date/time footer');
 assert(!x.overflow,'Page overflows horizontally at '+width);
@@ -78,10 +81,16 @@ const broken=await evaluate(METRICS);assert.throws(()=>verify(broken,1280),/Lega
 await evaluate("document.getElementById('simulated-regression').remove()");
 verify(await evaluate(METRICS),1280);
 // Negative regression: full-width desktop list must be rejected by the same verifier.
-await evaluate("(()=>{const el=document.createElement('style');el.id='simulated-width-regression';el.textContent='#agenda{width:100%!important;margin-inline:0!important}';document.head.append(el)})()");
+await evaluate("(()=>{const el=document.createElement('style');el.id='simulated-width-regression';el.textContent='#agenda-section{width:100%!important;margin-inline:0!important}';document.head.append(el)})()");
 const wrongWidth=await evaluate(METRICS);
-assert.throws(()=>verify(wrongWidth,1280),/Home list width must be|Home list lost center/,'Regression sentinel must reject full-width/left-aligned desktop list');
+assert.throws(()=>verify(wrongWidth,1280),/Upcoming section .* must be|Upcoming section lost center/,'Regression sentinel must reject full-width/left-aligned desktop section');
 await evaluate("document.getElementById('simulated-width-regression').remove()");
+verify(await evaluate(METRICS),1280);
+// Also catch the precise former failure: 70% cards, but full-width heading and filters.
+await evaluate("(()=>{const el=document.createElement('style');el.id='simulated-split-regression';el.textContent='#agenda-section{width:100%!important}#agenda{width:70%!important;margin-inline:auto!important}';document.head.append(el)})()");
+const splitWidth=await evaluate(METRICS);
+assert.throws(()=>verify(splitWidth,1280),/Upcoming section .* must be|Upcoming .*must align/,'Regression sentinel must reject full-width heading above narrowed cards');
+await evaluate("document.getElementById('simulated-split-regression').remove()");
 verify(await evaluate(METRICS),1280);
 await evaluate("document.getElementById('tab-places').click()");
 await waitFor('document.querySelectorAll(".place-card").length>0');

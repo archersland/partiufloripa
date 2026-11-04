@@ -692,11 +692,14 @@ body>.mast,body>.main,body>.foot{position:relative;z-index:1}
  #agenda .event-search.event-vitrine .event-action{font-size:9px}
 }
 
-/* Home Agenda: approved 70%-width centered list on web, full width on small screens.
-   Scope deliberately excludes featured card, toolbar, and places. */
+/* Home upcoming-events SECTION: the heading, month switcher, filters and cards
+   share one centered 70%-width column on web; no nested 70% shrink on the list.
+   The day highlight, date toolbar and Places keep their full-width layouts. */
 @media (min-width:900px){
- #agenda{width:70%;max-width:100%;margin-inline:auto}
+ #agenda-section{width:70%;max-width:100%;margin-inline:auto}
+ #agenda{width:100%;max-width:100%;margin-inline:0}
 }
 @media (max-width:899px){
- #agenda{width:100%;max-width:100%;margin-inline:auto}
+ #agenda-section{width:100%;max-width:100%;margin-inline:auto}
+ #agenda{width:100%;max-width:100%;margin-inline:0}
 }
