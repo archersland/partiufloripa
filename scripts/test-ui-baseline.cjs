@@ -61,4 +61,10 @@ assert(css.includes("#agenda .event-search.event-vitrine .event-action::after"),
 assert(/\.event-action::after\{\s*content:none;display:none;/.test(css),"Pseudo duplicate Details must be disabled");
 assert(css.includes("grid-template-columns:minmax(0,1fr)"),"Upcoming list must stay in one column");
 assert(css.includes("flex:0 0 28%")&&css.includes("flex:0 0 37%"),"Vitrine photo proportions changed");
+// The 70% modifier applies to the section, never to an inner list alone.
+assert(css.includes("#agenda-section{width:70%;max-width:100%;margin-inline:auto}"),"ADR-040: desktop heading/filter/card section must be 70% centered");
+assert(css.includes("#agenda-section{width:100%;max-width:100%;margin-inline:auto}"),"ADR-040: mobile entire section must be full width");
+assert(css.includes("#agenda{width:100%;max-width:100%;margin-inline:0}"),"ADR-040: nested cards must not shrink to 49%");
+assert(html.includes('<section id="agenda-section"><div class="section-head">'),"ADR-040: heading must be inside the same upcoming section as cards");
+assert(html.includes('<div class="filters">')&&html.includes('<div id="agenda">'),"ADR-040: filters and cards must remain in upcoming section");
 console.log("Approved Horizonte Noturno UI baseline passed: source markers, colors, editorial hierarchy, three tabs, data hooks, dates and heat separation");

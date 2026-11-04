@@ -74,6 +74,19 @@ async function main(){
    assert(listColumn.months.x>=listColumn.section.x-2&&listColumn.months.right<=listColumn.section.right+2,"Month controls must stay inside centered section: "+JSON.stringify(listColumn));
    assert(listColumn.featured.w>listColumn.section.w*(width>=900?1.25:.99),"Day highlight must remain full width: "+JSON.stringify(listColumn));
    assert(listColumn.scrollWidth<=listColumn.viewport+2,"Upcoming section introduces horizontal overflow: "+JSON.stringify(listColumn));
+   // Browser geometry regression: ALL dated groups, cards, heading, count, month switcher and
+   // every filter must fit the SAME centered container, not only the first card.
+   const upcomingSectionDiagnostics=await evaluate("(()=>{const el=document.getElementById('agenda-section'),box=el.getBoundingClientRect(),test=e=>{const r=e.getBoundingClientRect();return r.left>=box.left-2&&r.right<=box.right+2},full=e=>{const r=e.getBoundingClientRect();return Math.abs(r.left-box.left)<2&&Math.abs(r.width-box.width)<2};const controls=[...el.querySelectorAll('.filters select')],cards=[...el.querySelectorAll('#agenda .event-vitrine')],days=[...el.querySelectorAll('#agenda .day')],rows=[...el.querySelectorAll('#agenda .cards')];return {heading:full(el.querySelector('.section-head')),title:test(el.querySelector('.section-head h2')),count:test(el.querySelector('#count')),months:test(el.querySelector('#month-switcher')),filters:full(el.querySelector('.filters')),controls:controls.length===3&&controls.every(test),cards:cards.length>0&&cards.every(full),dayRows:days.length>0&&days.every(full)&&rows.every(full),groups:rows.length,cardCount:cards.length}})()");
+   assert(Object.entries(upcomingSectionDiagnostics).filter(([name])=>!["groups","cardCount"].includes(name)).every(([,ok])=>ok),"Upcoming heading/count/months/filters/day rows/cards must share the centered column: "+JSON.stringify(upcomingSectionDiagnostics));
+   // Negative control 1: the exact old regression, filters narrower than title and cards.
+   const injectFilter=await evaluate("(()=>{const s=document.createElement('style');s.id='pf-qa-broken-filter';s.textContent='#agenda-section .filters{width:80%!important}';document.head.append(s);const a=document.getElementById('agenda-section').getBoundingClientRect(),b=document.querySelector('#agenda-section .filters').getBoundingClientRect();const wrong=Math.abs(a.width-b.width)>10&&Math.abs(a.left-b.left)<2;s.remove();return wrong})()");
+   assert(injectFilter,"Regression sentinel must reject misaligned filters");
+   // Negative control 2: cards shrink while header remains 70%-centered.
+   const injectCards=await evaluate("(()=>{const s=document.createElement('style');s.id='pf-qa-broken-cards';s.textContent='#agenda .cards{width:70%!important}';document.head.append(s);const a=document.getElementById('agenda-section').getBoundingClientRect(),b=document.querySelector('#agenda .cards').getBoundingClientRect();const wrong=Math.abs(a.width-b.width)>10;s.remove();return wrong})()");
+   assert(injectCards,"Regression sentinel must reject a second nested 70% width");
+   // Preserve the shared layout when switching dates/filters: the rendered items change,
+   // but title/filters/months must remain in the same outer column.
+
    const hero=await evaluate("(()=>{const el=getComputedStyle(document.body,'::before');const s=el.backgroundImage;return {hasBridge:s.includes('data:image/webp;base64'),hasGradient:s.includes('linear-gradient'),fixed:el.position==='fixed',height:el.height,width:document.documentElement.scrollWidth,viewport:document.documentElement.clientWidth}})()");
    assert(hero.hasBridge&&hero.hasGradient&&hero.fixed,"Ponte must be fixed across the entire viewport");
    assert(hero.width<=hero.viewport+2,"Mobile/desktop page must not overflow horizontally: "+JSON.stringify(hero));
