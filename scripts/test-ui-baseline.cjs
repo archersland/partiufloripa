@@ -52,4 +52,13 @@ for(const id of ["date-row","date-search","date-picker-panel","toggle-search","t
 for(const key of ["function setDateBarMode(mode)","aria-expanded","showPicker?.()"]){
  assert(html.includes(key),"date toolbar interaction missing: "+key);
 }
+// ADR-038 from main is the chosen Vitrine Noturna. This preview branch has its own
+// earlier ADR-038 numbering; reconcile ADR IDs before merging branches.
+assert(html.includes("event-search event-vitrine"),"Vitrine card renderer must be selected for upcoming events");
+assert(html.includes('class="event-when"')&&html.includes("Detalhes →"),"Vitrine date + details footer missing");
+assert(css.includes("ADR-038 / regression 2026-11-03:"),"Vitrine selector isolation missing");
+assert(css.includes("#agenda .event-search.event-vitrine .event-action::after"),"Legacy duplicated CTA regression check missing");
+assert(/\.event-action::after\{\s*content:none;display:none;/.test(css),"Pseudo duplicate Details must be disabled");
+assert(css.includes("grid-template-columns:minmax(0,1fr)"),"Upcoming list must stay in one column");
+assert(css.includes("flex:0 0 28%")&&css.includes("flex:0 0 37%"),"Vitrine photo proportions changed");
 console.log("Approved Horizonte Noturno UI baseline passed: source markers, colors, editorial hierarchy, three tabs, data hooks, dates and heat separation");
