@@ -203,7 +203,12 @@ function placeCard(venue,opening){
  const sourceLink=source?'<a href="'+esc(source)+'"'+external+'>Fonte dos horários</a>':evidence?'<a href="'+esc(evidence)+'"'+external+'>Fonte do local</a>':"";
  const timeText=state!=="unknown"&&opening.hoursText?'<p class="place-hours">'+esc(opening.hoursText)+'</p>':"";
  const check=state!=="unknown"&&opening.reviewedAt?'<span class="place-region"> · Consultado em '+esc(opening.reviewedAt.split("-").reverse().join("/"))+'</span>':"";
- return '<article class="place-card is-'+state+'"><div class="place-art" aria-hidden="true">⌖</div><div class="place-main"><h4>'+esc(venue.name)+'</h4><div class="place-region">'+esc(venue.region||"Florianópolis")+'</div>'+
+ const venueVisual=PartiuMedia.selectVenue(venue,{categoryPhotos,venueMedia});
+ const initials=String(venue.name||"?").trim().split(/\s+/).slice(0,2).map(x=>x[0]||"").join("").toLocaleUpperCase("pt-BR");
+ const artwork=venueVisual
+  ?'<div class="place-art place-art-image"><img src="'+esc(venueVisual.file)+'" alt="Foto ilustrativa; não representa esta casa" loading="lazy" onerror="this.hidden=true;this.parentElement.classList.add(\'image-failed\')"><span class="place-art-caption">Ilustrativa</span></div>'
+  :'<div class="place-art place-art-initials" role="img" aria-label="Sem foto da casa">'+esc(initials)+'</div>';
+ return '<article class="place-card is-'+state+'">'+artwork+'<div class="place-main"><h4>'+esc(venue.name)+'</h4><div class="place-region">'+esc(venue.region||"Florianópolis")+'</div>'+
   '<div><span class="place-status '+(state==="open"?"":state)+'">'+esc(label)+'</span>'+check+'</div>'+
   '<p class="place-address">'+esc(address||"Endereço de entrada não registrado")+'</p>'+timeText+
   '<div class="place-links">'+sourceLink+addressLink+'</div></div></article>';

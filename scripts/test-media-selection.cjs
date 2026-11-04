@@ -33,4 +33,18 @@ const today=events.find(e=>e.title==='Daniel Duncan');
 const other=events.find(e=>e.title.startsWith('Luã Lima'));
 assert.equal(media.select(today,ctx).file,media.select(other,ctx).file);
 assert.equal(media.select(today,ctx).kind,'illustrative');
+const venueCatalog=load('venues').venues;
+const venueVisuals=venueCatalog.map(venue=>({name:venue.name,visual:media.selectVenue(venue,ctx)}));
+assert.equal(venueVisuals.length,39,'Venue catalog changed: review photo QA expectations');
+assert.equal(venueVisuals.filter(x=>x.visual).length,14,'All 14 licensed venue illustrations must be discoverable');
+assert.equal(venueVisuals.filter(x=>!x.visual).length,25,'Unlicensed / absent venue images must remain neutral');
+for(const {name,visual} of venueVisuals){
+ if(!visual)continue;
+ assert.equal(visual.kind,'illustrative','Venue image cannot be treated as real: '+name);
+ assert(visual.label.includes('não é a casa'),'Venue illustration needs truthful label');
+ assert(fs.existsSync(path.join(root,visual.file)),'Venue image missing: '+name);
+}
+const sample=venueCatalog.find(v=>media.selectVenue(v,ctx));
+assert.equal(media.selectVenue(sample,{...ctx,categoryPhotos:{items:[]}}),null,'No permission means no venue image');
+assert.equal(media.selectVenue(sample,{...ctx,venueMedia:{items:[]}}),null,'No mapping means no venue image');
 console.log('Media priority and invariants passed: '+groups.size+' venues, '+differentMedia.length+' artist-archive events');

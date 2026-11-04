@@ -18,6 +18,10 @@ async function verify(){
  assert(html.includes('src="./scripts/home-layout.js"'),"published editorial module missing");
  const css=await (await get("./styles/horizonte-noturno.css")).text();
  for(const t of ["--pf-bg:#041b21","--pf-mint:#8fe5cc","--pf-peach:#ffaf78","data:image/webp;base64,"])assert(css.includes(t),"published design token missing "+t);
+ assert(css.includes("background-color:#08252d;background-image:linear-gradient("),"published mast background shorthand malformed");
+ assert(css.includes("background-position:center,center 44%;background-size:cover,cover"),"published mast photo cannot use approved crop");
+ assert(css.includes(".place-card .place-art-image img"),"published venue image styles missing");
+ assert(html.includes("PartiuMedia.selectVenue(venue"),"published venue image renderer missing");
  const [events,venues,hours]=await Promise.all([
  get("./events.json").then(x=>x.json()),
  get("./data/venues.json").then(x=>x.json()),
@@ -26,6 +30,18 @@ async function verify(){
  assert(events.events.length>=56,"published events lost");
  assert(venues.venues.length>=39,"published venues lost");
  assert(hours.venues.length>=5,"published reviewed schedules lost");
+ const [venueMapping,licensedImages,selector]=await Promise.all([
+  get("./data/venue-media.json").then(x=>x.json()),
+  get("./data/licensed-category-photos.json").then(x=>x.json()),
+  get("./scripts/media-selection.js").then(x=>x.text())
+ ]);
+ assert(selector.includes("function selectVenue("),"published media resolver missing venue support");
+ const sample=venueMapping.items.find(v=>licensedImages.items.some(p=>p.file===v.imageFile&&p.rightsStatus==="approved"));
+ assert(sample,"published venue illustration approval missing");
+ const photo=await (await get(sample.imageFile)).arrayBuffer(),bytes=Buffer.from(photo);
+ assert.equal(bytes.toString("ascii",0,4),"RIFF","published licensed venue illustration corrupted");
+ assert.equal(bytes.toString("ascii",8,12),"WEBP","published venue illustration is not valid WebP");
+ assert(bytes.length>1000,"published venue illustration unexpectedly empty");
  const details=await (await get("./evento/"+events.events[0].slug+"/")).text();
  assert(details.includes('data-ui-baseline="horizonte-noturno-v0.2"'),"published detail is using legacy design");
  assert(details.includes('<base href="../../">'),"published detail has broken relative asset base");

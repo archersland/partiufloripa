@@ -38,4 +38,12 @@ assert(html.includes('class="event-when"'),"Vitrine footer needs original date/t
 assert(html.includes("Detalhes →"),"Vitrine CTA label missing");
 assert(css.includes("#agenda .event-vitrine .event-media"),"Vitrine thumbnail layout missing");
 assert(css.includes("flex:0 0 37%"),"Vitrine mobile thumbnail rule missing");
+// Prevent CSS background shorthand regression: a color before multiple layers invalidates the entire background.
+assert(css.includes(".mast{position:relative;background-color:#08252d;background-image:linear-gradient(90deg,#041b216b,#041b2155),url(data:image/webp;base64,"),"Mast background must use valid CSS properties");
+assert(css.includes("background-position:center,center 44%;background-size:cover,cover;background-repeat:no-repeat"),"Mast crop and sizing must be valid");
+assert(!css.includes("background:#08252d linear-gradient("),"Malformed mast shorthand restored");
+assert(html.includes("PartiuMedia.selectVenue(venue,{categoryPhotos,venueMedia})"),"Venue card must use licensed photo resolver");
+assert(html.includes("place-art-image")&&html.includes("place-art-initials"),"Venue photos and neutral fallbacks must both be rendered");
+assert(html.includes("Foto ilustrativa; não representa esta casa"),"Venue illustrations must disclose they are not actual venue photos");
+assert(css.includes(".place-card .place-art-image img"),"Venue picture needs a visible image rule");
 console.log("Approved Horizonte Noturno UI baseline passed: source markers, colors, editorial hierarchy, three tabs, data hooks, dates and heat separation");
