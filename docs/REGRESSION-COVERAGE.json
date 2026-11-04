@@ -279,6 +279,11 @@
         "scripts/test-vitrine-preview.cjs"
       ],
       "note": "Client homologated Vitrine preview provisionally; CI checks geometry and local CDP verifies photos, no public rollout."
+    },
+    "041": {
+      "status": "deferred",
+      "tests": [],
+      "note": "Card 01 Clássico Refinado visual explicitly homologated for future featured carousel; no carousel implementation or runtime tests yet. Implement after approval of content selection, gestures, indicators, idle autoplay and a11y behavior, then upgrade coverage."
     }
   },
   "requirements": {
