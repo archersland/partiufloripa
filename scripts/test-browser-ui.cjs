@@ -62,6 +62,12 @@ async function main(){
    await send("Page.navigate",{url:site+"?qa="+width});
    await until(()=>evaluate("Boolean(document.querySelector('#featured a.event-card')&&document.querySelector('#agenda .event-search'))"));
    if(width===1280){const layout=await evaluate("(()=>({wrap:document.querySelector('.main.wrap').getBoundingClientRect().width,cols:getComputedStyle(document.querySelector('#agenda .cards')).gridTemplateColumns.split(' ').length}))()");assert(layout.wrap>1000&&layout.cols===1,"Desktop agenda must be one continuous list: "+JSON.stringify(layout));}
+   // Home list only: desktop is 70% of content and centered; mobile/tablet 100%.
+   // Do not narrow the day highlight or the controls.
+   const listColumn=await evaluate("(()=>{const s=document.getElementById('agenda-section').getBoundingClientRect(),l=document.getElementById('agenda').getBoundingClientRect(),f=document.querySelector('#featured .event-featured').getBoundingClientRect();return {ratio:l.width/s.width,centerError:Math.abs((l.left-s.left)-(s.width-l.width)/2),featuredWidth:f.width,sectionWidth:s.width,cardWidth:document.querySelector('#agenda .event-vitrine').getBoundingClientRect().width,agendaWidth:l.width}})()");
+   assert(Math.abs(listColumn.ratio-(width>=900?.7:1))<.012&&listColumn.centerError<2,"Home list must be centered at 70% desktop, full width mobile: "+JSON.stringify(listColumn));
+   assert(Math.abs(listColumn.cardWidth-listColumn.agendaWidth)<2,"Cards must fill their centered list column: "+JSON.stringify(listColumn));
+   assert(listColumn.featuredWidth>listColumn.agendaWidth*(width>=900?1.25:.99),"Day highlight must remain full width: "+JSON.stringify(listColumn));
    const hero=await evaluate("(()=>{const el=getComputedStyle(document.body,'::before');const s=el.backgroundImage;return {hasBridge:s.includes('data:image/webp;base64'),hasGradient:s.includes('linear-gradient'),fixed:el.position==='fixed',height:el.height,width:document.documentElement.scrollWidth,viewport:document.documentElement.clientWidth}})()");
    assert(hero.hasBridge&&hero.hasGradient&&hero.fixed,"Ponte must be fixed across the entire viewport");
    assert(hero.width<=hero.viewport+2,"Mobile/desktop page must not overflow horizontally: "+JSON.stringify(hero));
