@@ -41,6 +41,12 @@ async function run(){
    assert.equal(await page.locator(".place-art-image img").count(),14,"Licensed venue illustrations not rendered at "+width);
    assert.equal(await page.locator(".place-art-initials").count(),25,"Unlicensed venues need neutral profile art at "+width);
    await page.waitForFunction(()=>Array.from(document.querySelectorAll(".place-art-image img")).some(img=>img.complete&&img.naturalWidth>0),{timeout:12000});
+   // Lazy-loaded images below the fold are not loaded until they enter the viewport.
+   // Visit each thumbnail and wait for decode before asserting all 14 are healthy.
+   for(const thumb of await page.locator(".place-art-image img").all()){
+    await thumb.scrollIntoViewIfNeeded();
+    await thumb.evaluate(async img=>{await img.decode()});
+   }
    const imgs=await page.locator(".place-art-image img").evaluateAll(items=>items.map(img=>({src:img.getAttribute("src"),loaded:img.complete&&img.naturalWidth>0})));
    assert(imgs.every(img=>img.loaded),"Broken venue thumbnail at "+width+": "+JSON.stringify(imgs.filter(img=>!img.loaded)));
    assert.equal(await page.locator(".place-art-caption").count(),14,"Illustration disclosures missing at "+width);
