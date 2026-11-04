@@ -30,6 +30,12 @@ jobs:
       - run: node scripts/test-home-layout.cjs
       - run: node scripts/test-ui-baseline.cjs
       - run: node scripts/test-browser-ui.cjs
+      - run: node scripts/test-approved-business-rules.cjs
+      - run: node scripts/test-regression-inventory.cjs
+      - run: node scripts/test-approved-feed.cjs
+      - run: node scripts/test-reconcile-candidates.cjs
+      - run: node scripts/test-review-queue.cjs
+      - run: node scripts/test-audit-catalogue.cjs
       - run: node scripts/test-product-regressions.cjs
       - run: node scripts/test-image-rights.cjs
       - run: node scripts/test-licensed-photos.cjs

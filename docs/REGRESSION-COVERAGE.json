@@ -1,0 +1,553 @@
+{
+  "schemaVersion": 1,
+  "destination": "preview-branch-no-public-deploy",
+  "decisionSource": "docs/DECISIONS.md",
+  "requirementSource": "docs/REQUIREMENTS.md",
+  "legend": {
+    "automated": "Running behavior checks in CI for automatable acceptance part; never implies editorial or physical-device approval",
+    "partial": "There is test evidence but at least one substantive rule or verification gate remains",
+    "manual": "Requires human/real-world investigation; must not be faked by a code test",
+    "deferred": "Explicitly outside current scope pending a new decision",
+    "superseded": "Later approved decision replaces the earlier contract"
+  },
+  "adrs": {
+    "001": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-approved-business-rules.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "002": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-approved-business-rules.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "003": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-approved-business-rules.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "004": {
+      "status": "partial",
+      "tests": [
+        "scripts/test-audience-heat.cjs",
+        "scripts/test-venue-location.cjs"
+      ],
+      "note": "Map semantics covered by numeric tests; real map provider and contextual visual require browser QA."
+    },
+    "005": {
+      "status": "deferred",
+      "tests": [],
+      "note": "Advertising, sales and affiliate relationships remain explicitly postponed."
+    },
+    "006": {
+      "status": "partial",
+      "tests": [
+        "scripts/test-media-selection.cjs"
+      ],
+      "note": "Technical deny-by-default check covered, but third-party licenses require human validation."
+    },
+    "007": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-regression-inventory.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "008": {
+      "status": "superseded",
+      "tests": [],
+      "note": "Superseded by ADR-010/029 for single-night heat semantics."
+    },
+    "009": {
+      "status": "superseded",
+      "tests": [],
+      "note": "Superseded by ADR-017 and authentic-only private image direction ADR-037."
+    },
+    "010": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-audience-heat.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "011": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-event-ux.cjs",
+        "scripts/test-browser-ui.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "012": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-approved-business-rules.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "013": {
+      "status": "superseded",
+      "tests": [],
+      "note": "Superseded first by ADR-017, later by ADR-037 for private preview."
+    },
+    "014": {
+      "status": "partial",
+      "tests": [
+        "scripts/test-approved-feed.cjs",
+        "scripts/test-review-queue.cjs"
+      ],
+      "note": "Source allowlist and review queue tested; actual recurring collection not authorized."
+    },
+    "015": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-generated-details.cjs",
+        "scripts/check-site.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "016": {
+      "status": "partial",
+      "tests": [
+        "scripts/test-approved-business-rules.cjs"
+      ],
+      "note": "Automated beta gate exists; individual source fact-checking cannot be automated from local data alone."
+    },
+    "017": {
+      "status": "superseded",
+      "tests": [],
+      "note": "Superseded in private review by authentic-only ADR-037; public rights gate remains separate."
+    },
+    "018": {
+      "status": "superseded",
+      "tests": [],
+      "note": "Superseded by user-selected Esri in ADR-025."
+    },
+    "019": {
+      "status": "superseded",
+      "tests": [],
+      "note": "Card-to-internal-page preference superseded by event dialog ADR-035; deep URLs preserved."
+    },
+    "020": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-approved-business-rules.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "021": {
+      "status": "partial",
+      "tests": [],
+      "note": "Limited-access beta is not launched; invite link is not access control."
+    },
+    "022": {
+      "status": "superseded",
+      "tests": [],
+      "note": "Superseded by ADR-025; other basemap evaluations remain optional experiments."
+    },
+    "023": {
+      "status": "partial",
+      "tests": [
+        "scripts/test-approved-business-rules.cjs"
+      ],
+      "note": "No universal exception; strict beta gate tests presence of evidence, not truth of human review."
+    },
+    "024": {
+      "status": "partial",
+      "tests": [],
+      "note": "Invitation links are not private access; actual beta access design and consent remain manual."
+    },
+    "025": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-approved-business-rules.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "026": {
+      "status": "partial",
+      "tests": [
+        "scripts/test-ui-baseline.cjs"
+      ],
+      "note": "Typography, palette and internal detail regression tested; visual Android acceptance remains manual."
+    },
+    "027": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-event-ux.cjs",
+        "scripts/test-browser-ui.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "028": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-approved-business-rules.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "029": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-audience-heat.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "030": {
+      "status": "partial",
+      "tests": [
+        "scripts/test-audience-heat.cjs"
+      ],
+      "note": "Numeric weighting and qualitative halo size tested, but current map renderer does not fully implement qualitative aura."
+    },
+    "031": {
+      "status": "partial",
+      "tests": [
+        "scripts/test-audience-heat.cjs"
+      ],
+      "note": "Halo sizing helper tested; current map rendering cannot be claimed visually validated across dates."
+    },
+    "032": {
+      "status": "partial",
+      "tests": [
+        "scripts/test-browser-ui.cjs"
+      ],
+      "note": "Night-map contrast was experimental; no approved final Android visual acceptance."
+    },
+    "033": {
+      "status": "partial",
+      "tests": [
+        "scripts/test-venue-hours.cjs",
+        "scripts/test-browser-ui.cjs"
+      ],
+      "note": "Dates and domain hours tested; published copy/groups reflect later ADR-039 and require review."
+    },
+    "034": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-ui-baseline.cjs",
+        "scripts/test-browser-ui.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "035": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-browser-ui.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "036": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-browser-ui.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "037": {
+      "status": "partial",
+      "tests": [
+        "scripts/test-media-selection.cjs",
+        "scripts/test-vitrine-preview.cjs"
+      ],
+      "note": "Private preview source guards covered; actual review media only tested locally, not in public CI."
+    },
+    "038": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-browser-ui.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "039": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-browser-ui.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "040": {
+      "status": "partial",
+      "tests": [
+        "scripts/test-browser-ui.cjs",
+        "scripts/test-vitrine-preview.cjs"
+      ],
+      "note": "Client homologated Vitrine preview provisionally; CI checks geometry and local CDP verifies photos, no public rollout."
+    }
+  },
+  "requirements": {
+    "10": {
+      "status": "partial",
+      "tests": [],
+      "note": "Rights/license claims require document-level human evidence review; local privacy gate tested."
+    },
+    "11": {
+      "status": "partial",
+      "tests": [
+        "scripts/test-generated-details.cjs"
+      ],
+      "note": "Generated SEO metadata tested, but actual indexing/search engines require external audit."
+    },
+    "12": {
+      "status": "partial",
+      "tests": [],
+      "note": "Analytics and privacy not yet deployed; user data treatment must be reviewed before activation."
+    },
+    "13": {
+      "status": "partial",
+      "tests": [],
+      "note": "Contact and legal-policy publication pending human-approved content."
+    },
+    "14": {
+      "status": "deferred",
+      "tests": [],
+      "note": "AdSense is post-MVP and requires new approval."
+    },
+    "15": {
+      "status": "deferred",
+      "tests": [],
+      "note": "Affiliate program and outreach deliberately postponed."
+    },
+    "16": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-approved-business-rules.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "17": {
+      "status": "superseded",
+      "tests": [],
+      "note": "Historical generic fallback superseded in the private preview by authentic images only."
+    },
+    "18": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-event-ux.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "19": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-event-ux.cjs",
+        "scripts/test-browser-ui.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "20": {
+      "status": "partial",
+      "tests": [
+        "scripts/test-browser-ui.cjs"
+      ],
+      "note": "Share button exists; native device share and clipboard permission not reproducible in headless Chrome."
+    },
+    "21": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-event-ux.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "22": {
+      "status": "partial",
+      "tests": [
+        "scripts/test-approved-business-rules.cjs"
+      ],
+      "note": "Status and source surface tested; claims of editorial verification require human source comparison."
+    },
+    "23": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-venue-location.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "24": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-product-regressions.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "25": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-browser-ui.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "26": {
+      "status": "partial",
+      "tests": [
+        "scripts/test-approved-feed.cjs",
+        "scripts/test-review-queue.cjs"
+      ],
+      "note": "Source permission and queue controls tested; assisted ingestion activation remains separately authorized."
+    },
+    "27": {
+      "status": "partial",
+      "tests": [
+        "scripts/test-browser-ui.cjs"
+      ],
+      "note": "Headless desktop/mobile regressions covered; physical keyboard/Android/network matrix incomplete."
+    },
+    "28": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-approved-business-rules.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "29": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-product-regressions.cjs",
+        "scripts/test-browser-ui.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "30": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-event-ux.cjs",
+        "scripts/test-browser-ui.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "31": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-venue-hours.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "32": {
+      "status": "superseded",
+      "tests": [],
+      "note": "Three-state UI filtering replaced by ADR-039: unknown is grouped visually but remains unknown internally."
+    },
+    "33": {
+      "status": "partial",
+      "tests": [
+        "scripts/test-venue-hours.cjs",
+        "scripts/test-venue-location.cjs"
+      ],
+      "note": "Source links and status checked; 39 venues' genuine imagery/rights and schedules need individual review."
+    },
+    "34": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-browser-ui.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "35": {
+      "status": "partial",
+      "tests": [
+        "scripts/test-venue-hours.cjs"
+      ],
+      "note": "90-day expiration is tested; operational periodic rechecking is not automated."
+    },
+    "36": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-ui-baseline.cjs",
+        "scripts/test-browser-ui.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "37": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-home-layout.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "38": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-product-regressions.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "39": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-generated-details.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "40": {
+      "status": "partial",
+      "tests": [
+        "scripts/verify-deployed-site.cjs"
+      ],
+      "note": "Post-deploy contract exists on main, but this private branch cannot claim public deployment/visual acceptance."
+    },
+    "01": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-browser-ui.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "02": {
+      "status": "partial",
+      "tests": [
+        "scripts/test-browser-ui.cjs"
+      ],
+      "note": "Search/date interactions covered but all combinations and reset across all views still need exhaustive browser cases."
+    },
+    "03": {
+      "status": "superseded",
+      "tests": [],
+      "note": "Old touch carousel displaced by approved single featured item and linear agenda."
+    },
+    "04": {
+      "status": "partial",
+      "tests": [
+        "scripts/test-ui-baseline.cjs",
+        "scripts/test-browser-ui.cjs"
+      ],
+      "note": "Visual identity has headless browser checks; Android physical acceptance remains pending."
+    },
+    "05": {
+      "status": "superseded",
+      "tests": [],
+      "note": "Old venue-first card contract displaced by approved editorial hierarchy."
+    },
+    "06": {
+      "status": "partial",
+      "tests": [
+        "scripts/test-browser-ui.cjs"
+      ],
+      "note": "Map source/attribution and retry covered; real tile rendering/provider terms require live inspection."
+    },
+    "07": {
+      "status": "partial",
+      "tests": [
+        "scripts/test-audience-heat.cjs"
+      ],
+      "note": "Audience calculations covered; standalone qualitative aura not fully wired to current map renderer."
+    },
+    "08": {
+      "status": "automated",
+      "tests": [
+        "scripts/test-browser-ui.cjs"
+      ],
+      "note": "Runtime invariant checked by active CI; final editorial and user acceptance are separate."
+    },
+    "09": {
+      "status": "partial",
+      "tests": [],
+      "note": "All event sources need individual editorial validation before beta."
+    }
+  }
+}

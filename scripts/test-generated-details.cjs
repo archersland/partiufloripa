@@ -2,7 +2,7 @@ const assert=require("node:assert/strict");
 const fs=require("node:fs"),path=require("node:path");
 const root=path.resolve(__dirname,"..");
 const events=JSON.parse(fs.readFileSync(path.join(root,"events.json"),"utf8")).events;
-const sample=[events[0],events.at(-1),...events.filter(e=>e.sourceReview==="quarantined").slice(0,1)].filter(Boolean);
+const sample=events;
 assert(events.length>=56,"event catalog unexpectedly shrank");
 for(const e of sample){
  const html=fs.readFileSync(path.join(root,"evento",e.slug,"index.html"),"utf8");
@@ -14,5 +14,8 @@ for(const e of sample){
  const url='https://archersland.github.io/partiufloripa/evento/'+e.slug+'/';
  assert(html.includes('<link rel="canonical" href="'+url+'">'),"canonical mismatch: "+e.slug);
  if(e.status!=="verified")assert(html.includes('content="noindex,follow"'),"unverified details must not be indexed: "+e.slug);
+ else assert(html.includes('content="index,follow"'),"verified details must be indexable: "+e.slug);
+ assert(html.includes('<meta property="og:url" content="'+url+'">'),"social preview URL must match canonical: "+e.slug);
+ assert(html.includes('<meta property="og:title"'),"social preview title missing: "+e.slug);
 }
 console.log("Generated event-page regression tests passed: "+sample.length+" pages, nested paths, style, links, canonical, status");
