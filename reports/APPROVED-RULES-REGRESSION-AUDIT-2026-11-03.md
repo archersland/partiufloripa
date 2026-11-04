@@ -23,3 +23,6 @@ Confrontados `docs/DECISIONS.md` (ADR-001 a ADR-040, incluindo homologação pro
 
 ## Limites de validação
 As classificações `automated` e `partial` **não** significam que todos os fatos do mundo estejam corretos; medem somente contratos locais observáveis. CI, deploy, inspeção do browser e homologação do Cliente são portas diferentes. O resultado exato do workflow será registrado após sua execução.
+
+## Ampliação funcional de navegador (03/11/2026)
+O E2E de Chrome também combina **busca, categoria, região e horário**, compara os eventos realmente renderizados com a projeção editorial calculada, filtra novamente por texto e restaura os quatro controles. O fluxo de **compartilhamento** é exercitado com mock da API `navigator.share` em aba isolada (verifica título e URL interna), sem compartilhar conteúdo real nem exigir permissão. Persistem os limites físicos de Android e clipboard.

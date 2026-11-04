@@ -346,7 +346,7 @@
       "tests": [
         "scripts/test-browser-ui.cjs"
       ],
-      "note": "Share button exists; native device share and clipboard permission not reproducible in headless Chrome."
+      "note": "Compartilhamento nativo simulado com deep link real e título verificado; comportamento de permissões/clipboard no aparelho permanece manual."
     },
     "21": {
       "status": "automated",
@@ -503,7 +503,7 @@
       "tests": [
         "scripts/test-browser-ui.cjs"
       ],
-      "note": "Search/date interactions covered but all combinations and reset across all views still need exhaustive browser cases."
+      "note": "Busca/categoria/região/período combinados e restauração são verificados no Chrome; testes reais de Android continuam pendentes."
     },
     "03": {
       "status": "superseded",
