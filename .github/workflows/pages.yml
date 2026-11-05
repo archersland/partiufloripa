@@ -1,15 +1,14 @@
-name: Deploy PartiuFloripa
+# H-AUTO-001: validar PR automaticamente; publicar apenas por workflow_dispatch autorizado.
+name: Validate PartiuFloripa / controlled Pages deploy
 on:
-  push:
+  pull_request:
     branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
-  pages: write
-  id-token: write
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: ${{ github.event_name == 'workflow_dispatch' && 'pages-release' || format('pages-pr-{0}', github.event.pull_request.number) }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -35,8 +34,13 @@ jobs:
       - run: node scripts/test-media-selection.cjs
       - run: node scripts/test-map-popup.cjs
   deploy:
+    if: github.event_name == 'workflow_dispatch'
     needs: validate
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
