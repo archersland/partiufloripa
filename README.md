@@ -43,3 +43,10 @@ Validação técnica usa `node scripts/test-venue-hours.cjs` no pipeline já exi
 
 ## Baseline de interface — 03/11/2026
 **Visual de referência da web:** [Horizonte Noturno v0.2](docs/UI-BASELINE-HORIZONTE-NOTURNO.md), escolhido pelo Cliente em 02/11. A prévia privada era um demo isolado, não a publicação; a correção porta seu visual à `main` sem descartar os contratos e dados do portal. [Incidente RCA](reports/UI-REGRESSION-RCA-2026-11-03.md). Em toda alteração, conferir **visual aprovado + casos de domínio + páginas profundas + dados + URL implantada**; GitHub Actions executa verificações antes e depois do deploy. O aceite visual/Android segue reservado ao Cliente.
+
+
+## Kanban operacional
+
+[**Abrir Kanban — PartiuFloripa**](https://github.com/orgs/archersland/projects/9/views/1)
+
+Quadro GitHub Projects v2 associado a este repositório, com as visualizações **Kanban** e **Acompanhamento**, conforme [GITHUB-KANBAN-001 v1.0](https://github.com/archersland/archersland-governance/blob/main/GOVERNANCE/GITHUB-KANBAN-001.md). A movimentação de cartões não substitui as evidências, os gates de execução/QA nem o aceite do Cliente quando exigido.
