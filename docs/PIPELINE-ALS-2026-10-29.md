@@ -2,7 +2,7 @@
 Atualizado: 2026-10-29 | Estado: documentação operacional; **nenhum aceite inferido**
 
 ## Fontes
-- Canônica: https://github.com/wagarcdev/partiufloripa
+- Canônica: https://github.com/archersland/partiufloripa
 - Decisão A1.10: [UI-CARDS-A1.10.md](UI-CARDS-A1.10.md)
 - Implementação A1.11: [CARD-NAVIGATION-AND-IMAGES.md](CARD-NAVIGATION-AND-IMAGES.md)
 - Protocolo transversal: AI-Workspace/ALS/approval-center-contract.md (v0.1-candidate), ALS/acceptance-contract.md e ALS/dashboard-contract.md (v0.2-draft). O caminho remoto anterior APPPROVAL-CENTER.md não foi confirmado; não tratá-lo como link operacional.
