@@ -53,7 +53,7 @@ async function run(){
    const dialog=page.locator("#atlas-event-dialog");
    await dialog.waitFor({state:"visible"});
    assert(await dialog.locator("#atlas-event-title").innerText(),"Dialog is missing event title");
-   assert((await dialog.locator(".atlas-dialog-permalink").getAttribute("href")).includes(originalHref),"Deep link was lost");
+   assert(new URL(await dialog.locator(".atlas-dialog-permalink").getAttribute("href"),page.url()).pathname.endsWith(new URL(originalHref,page.url()).pathname),"Deep link was lost");
    assert.equal(await dialog.locator(".atlas-dialog-primary").count(),1,"Source CTA missing in dialog");
    await page.keyboard.press("Escape");
    await dialog.waitFor({state:"hidden"});
