@@ -1,0 +1,96 @@
+/* ATLAS A3 v0.3 — reconciliation layer, for QA only (not visual acceptance). */
+@media(min-width:800px){
+  .wrap{max-width:1160px}
+  .main.wrap{padding-left:24px;padding-right:24px}
+  .mast .intro{padding-bottom:20px}
+  .mast .hero-title{font-size:clamp(28px,3vw,42px)}
+  #featured .feature.event-featured{
+    display:flex;flex-direction:row;min-height:280px;align-items:stretch
+  }
+  #featured .event-featured .event-media{
+    flex:0 0 42%;width:42%;min-height:280px;height:auto;aspect-ratio:auto;align-self:stretch
+  }
+  #featured .event-featured .event-info{
+    flex:1;min-width:0;padding:23px 24px 16px;justify-content:center
+  }
+  #featured .event-featured .event-info h3{
+    font-size:clamp(28px,3.1vw,37px);line-height:1.1
+  }
+  #featured .event-featured .event-bottom{
+    margin-top:12px
+  }
+  #agenda .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  #agenda .event-vitrine .event-media{
+    flex-basis:32%;width:32%;min-height:164px
+  }
+  #agenda .event-vitrine .event-info h3{font-size:20px}
+  .places-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+}
+.places-header{margin-bottom:9px}
+.places-group-heading{margin-bottom:9px}
+.place-card{min-height:128px;padding:11px;gap:12px;align-items:flex-start}
+.place-card .place-main h4{font-size:18px;line-height:1.17;margin-bottom:5px}
+.place-card .place-region{font-size:11px}
+.place-card .place-status{font-size:10px;line-height:1.2;margin:5px 0;padding:4px 7px}
+.place-card .place-address{font-size:11px;line-height:1.35;margin:4px 0}
+.place-card .place-hours{font-size:10px;line-height:1.35;margin:4px 0}
+.place-card .place-links{font-size:10px;line-height:1.4;gap:7px 12px}
+.place-card .place-art.place-art-image{flex:0 0 95px;width:95px;height:106px}
+.place-card .place-art.place-art-initials{flex:0 0 64px;width:64px;height:64px}
+@media(max-width:799px){
+  .wrap{max-width:100%}
+  #featured .feature.event-featured{flex-direction:column}
+  .places-grid{grid-template-columns:1fr}
+  .place-card{gap:10px;padding:10px}
+  .place-card .place-main h4{font-size:18px}
+  .place-card .place-art.place-art-image{flex-basis:88px;width:88px;height:100px}
+  .place-card .place-art.place-art-initials{flex-basis:56px;width:56px;height:56px}
+}
+.atlas-event-dialog{
+  box-sizing:border-box;width:min(530px,calc(100vw - 28px));
+  max-height:min(790px,calc(100dvh - 32px));padding:0;margin:auto;
+  overflow:auto;overscroll-behavior:contain;border-radius:15px;
+  background:#0a252c;color:#f8f3e8;border:1px solid #437270;
+  box-shadow:0 25px 80px #000b;font-family:"DM Sans",ui-sans-serif,system-ui,sans-serif;
+}
+.atlas-event-dialog::backdrop{background:#001016ca;backdrop-filter:blur(5px)}
+.atlas-dialog-close{
+  position:sticky;float:right;top:10px;right:12px;z-index:6;
+  display:grid;place-items:center;width:35px;height:35px;margin:10px 11px -45px 0;
+  border:1px solid #628784;border-radius:50%;background:#082831de;color:#f8f3e8;
+  font-size:26px;line-height:1;cursor:pointer;
+}
+.atlas-dialog-media{position:relative;width:100%;aspect-ratio:16/8.3;background:#143941;overflow:hidden}
+.atlas-dialog-media img{display:block;width:100%;height:100%;object-fit:contain;background:#07191e}
+.atlas-dialog-media>span{
+  position:absolute;bottom:9px;left:10px;max-width:calc(100% - 20px);
+  padding:4px 7px;border-radius:5px;background:#061e24dd;color:#e2eee9;
+  font-size:10px;line-height:1.3
+}
+.atlas-dialog-fallback{display:grid;place-items:center;color:#c3d1d1}
+.atlas-dialog-content{padding:17px 19px 22px}
+.atlas-dialog-kicker{margin:0 0 7px;color:#ffaf78;font-size:10px;font-weight:800;letter-spacing:1.1px;text-transform:uppercase}
+.atlas-dialog-content h2{font:400 clamp(25px,3vw,34px)/1.1 "DM Serif Display",Georgia,serif;margin:0 0 15px;color:#fffdf5}
+.atlas-dialog-section{border-top:1px solid #315b60;padding:13px 0 5px}
+.atlas-dialog-section h3{font:400 19px/1.25 "DM Serif Display",Georgia,serif;margin:0 0 8px}
+.atlas-dialog-section p{font-size:12px;line-height:1.5;margin:6px 0;color:#c6d6d7}
+.atlas-dialog-section p strong{color:#f8f3e8;font-weight:650}
+.atlas-dialog-section .atlas-dialog-note{white-space:pre-line}
+.atlas-dialog-section .atlas-dialog-warning{font-size:11px;color:#b0c6c5}
+.atlas-dialog-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:14px}
+.atlas-dialog-actions a,.atlas-dialog-actions button{
+  min-height:36px;padding:9px 11px;border-radius:8px;border:1px solid #386561;
+  background:#12423f;color:#d9f2e9;text-decoration:none;font-size:11px;font-weight:700;
+  cursor:pointer;display:inline-flex;align-items:center
+}
+.atlas-dialog-actions .atlas-dialog-primary{background:#ffaf78;border-color:#ffaf78;color:#10252b}
+.atlas-dialog-permalink{display:inline-block;margin-top:10px;font-size:11px;color:#8fe5cc;text-underline-offset:3px}
+.atlas-dialog-feedback{min-height:14px}
+.atlas-event-dialog :is(a,button):focus-visible{outline:3px solid #ffaf78;outline-offset:2px}
+@media(max-width:570px){
+  .atlas-event-dialog{max-height:calc(100dvh - 20px)}
+  .atlas-dialog-media{aspect-ratio:16/8}
+  .atlas-dialog-content{padding:14px 13px 18px}
+  .atlas-dialog-content h2{font-size:27px}
+}
+@media(prefers-reduced-motion:reduce){.atlas-event-dialog{scroll-behavior:auto}}
