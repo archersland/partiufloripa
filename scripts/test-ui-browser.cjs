@@ -35,6 +35,28 @@ async function run(){
    }));
    assert(mast.image.includes("data:image/webp;base64,"),"Hero background not rendered at "+width);
    assert(mast.height>100,"Hero missing at "+width);
+   // ATLAS A3: desktop must not collapse into the legacy narrow/vertical composition.
+   await page.locator("#featured .event-featured").first().waitFor({timeout:12000});
+   const composition=await page.locator("#featured .event-featured").first().evaluate(el=>({
+    direction:getComputedStyle(el).flexDirection,
+    width:el.getBoundingClientRect().width,
+    mediaWidth:el.querySelector(".event-media").getBoundingClientRect().width
+   }));
+   assert.equal(composition.direction,width>=800?"row":"column","Featured layout regression at "+width);
+   if(width>=800){
+    assert(composition.width>900,"Desktop content still restricted to legacy 780px");
+    assert(composition.mediaWidth<composition.width*.6,"Featured image still dominates horizontal space");
+   }
+   const eventCard=page.locator("#featured a.event-card").first();
+   const originalHref=await eventCard.getAttribute("href");
+   await eventCard.click();
+   const dialog=page.locator("#atlas-event-dialog");
+   await dialog.waitFor({state:"visible"});
+   assert(await dialog.locator("#atlas-event-title").innerText(),"Dialog is missing event title");
+   assert(new URL(await dialog.locator(".atlas-dialog-permalink").getAttribute("href"),page.url()).pathname.endsWith(new URL(originalHref,page.url()).pathname),"Deep link was lost");
+   assert.equal(await dialog.locator(".atlas-dialog-primary").count(),1,"Source CTA missing in dialog");
+   await page.keyboard.press("Escape");
+   await dialog.waitFor({state:"hidden"});
    await page.locator("#tab-places").click();
    await page.locator(".place-card").first().waitFor({timeout:12000});
    assert.equal(await page.locator(".place-card").count(),39,"Venue cards missing at "+width);
@@ -50,6 +72,14 @@ async function run(){
    const imgs=await page.locator(".place-art-image img").evaluateAll(items=>items.map(img=>({src:img.getAttribute("src"),loaded:img.complete&&img.naturalWidth>0})));
    assert(imgs.every(img=>img.loaded),"Broken venue thumbnail at "+width+": "+JSON.stringify(imgs.filter(img=>!img.loaded)));
    assert.equal(await page.locator(".place-art-caption").count(),14,"Illustration disclosures missing at "+width);
+   const venueWidth=await page.locator(".place-card").first().evaluate(el=>el.getBoundingClientRect().width);
+   assert(width>=800?venueWidth>400:venueWidth<390,"Venue grid lost the ATLAS responsive layout at "+width);
+   const actualCSS=await page.locator(".place-card").first().evaluate(el=>({
+    titleSize:parseFloat(getComputedStyle(el.querySelector("h4")).fontSize),
+    padding:parseFloat(getComputedStyle(el).paddingLeft)
+   }));
+   assert(actualCSS.titleSize<=19&&actualCSS.padding<=11,"Venue card density regressed at "+width);
+
    const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+2);
    assert(!overflow,"Horizontal overflow at "+width);
    await page.close();
